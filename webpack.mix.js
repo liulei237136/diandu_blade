@@ -15,3 +15,5 @@ mix.js('resources/js/app.js', 'public/js')
     .vue()
     .sass('resources/sass/app.scss', 'public/css')
     .version();
+
+mix.postCss('resources/css/font.css', 'public/css')

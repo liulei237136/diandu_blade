@@ -26,7 +26,7 @@
     <div id="app" class="{{ route_class() }}-page">
         @include('layouts._header')
 
-        <div class="container">
+        <div class="container  py-4">
             @include('shared._messages')
         </div>
         {{-- <main class="py-4">

@@ -12,10 +12,10 @@
                     alt="{{ $user->name }}">
                 <div class="card-body">
                     <h5><strong>个人简介</strong></h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                    <p>{{ $user->introduction }}</p>
                     <hr>
                     <h5><strong>注册于</strong></h5>
-                    <p>January 01 1901</p>
+                    <p>{{ $user->created_at->diffForHumans() }}</p>
                 </div>
             </div>
         </div>
@@ -23,18 +23,11 @@
             <div class="card ">
                 <div class="card-body">
                     <h1 class="mb-0" style="font-size:22px;">{{ $user->name }}
-                        <small>{{ $user->email }}</small></h1>
+                        <small>{{ $user->email }}</small>
+                    </h1>
                 </div>
             </div>
             <hr>
-
-            {{-- 用户发布的内容 --}}
-            <div class="card ">
-                <div class="card-body">
-                    暂无数据 ~_~
-                </div>
-            </div>
-
         </div>
     </div>
 @stop

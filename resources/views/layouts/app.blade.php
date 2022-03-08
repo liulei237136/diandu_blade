@@ -26,13 +26,14 @@
     <div id="app" class="{{ route_class() }}-page">
         @include('layouts._header')
 
-        <div class="container  py-4">
+        <div class="container">
+
             @include('shared._messages')
-        </div>
-        {{-- <main class="py-4">
+
             @yield('content')
-        </main> --}}
-        @yield('content')
+
+        </div>
+
 
         @include('layouts._footer')
     </div>

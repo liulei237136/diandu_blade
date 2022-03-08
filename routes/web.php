@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function(){
+    dd(\Auth::user()->hasVerifiedEmail());
     return view('test');
 });
 

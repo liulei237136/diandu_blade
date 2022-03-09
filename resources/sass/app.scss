@@ -45,6 +45,10 @@ body {
     }
 }
 
+/* Add container and footer space */
+#app>div.container {
+    margin-bottom: 100px;
+}
 
 /* User register page */
 .register-page {
@@ -53,5 +57,39 @@ body {
         border: 1px solid #ced4da;
         border-radius: 4px;
         padding: 3px;
+    }
+}
+
+/* Topic Index Page */
+.repositories-index-page {
+    .repository-list {
+        // .nav>li>a {
+        //     position: relative;
+        //     display: block;
+        //     padding: 5px 14px;
+        //     font-size: 0.9em;
+        // }
+
+        .repository_name {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .repository_meta {
+            color: #666666;
+            font-size: 0.9em;
+
+            a {
+                text-decoration: none;
+                color: #666666;
+            }
+        }
+
+        hr {
+            margin-top: 12px;
+            margin-bottom: 12px;
+            border: 0;
+            border-top: 1px solid #979da0;
+        }
     }
 }

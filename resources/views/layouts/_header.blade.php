@@ -44,7 +44,7 @@
                             <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">个人中心</a>
                             <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">编辑资料</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item " href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <a class="dropdown-item "  href="{{ route('logout') }}" onclick="event.preventDefault();
                                                              document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
@@ -52,12 +52,6 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
-                            {{-- <a class="dropdown-item d-grid" id="logout" href="#">
-                                <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button class="btn btn-danger " type="submit" name="button">退出</button>
-                                </form>
-                            </a> --}}
                         </div>
                     </li>
                 @endguest

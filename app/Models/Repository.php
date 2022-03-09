@@ -9,7 +9,7 @@ class Repository extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'decription', 'user_id', 'excerpt', 'slug'];
+    protected $fillable = ['name', 'description', 'excerpt', 'slug'];
 
     public function scopeWithOrder($query, $order)
     {

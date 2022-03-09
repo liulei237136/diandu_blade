@@ -11,7 +11,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                <li class="nav-item "><a class="nav-link {{active_class(if_route('repositories.index'))}}" href="{{route('repositories.index')}}?order=default">仓库</a></li>
+                <li class="nav-item "><a class="nav-link {{ active_class(if_route('repositories.index')) }}"
+                        href="{{ route('repositories.index') }}?order=default">仓库</a></li>
                 <li class="nav-item"><a class="nav-link" href="">分享</a>
                 </li>
             </ul>
@@ -32,6 +33,11 @@
                         </li>
                     @endif
                 @else
+                    <li class="nav-item">
+                        <a class="nav-link mt-1 mr-3 " href="{{ route('repositories.create') }}">
+                            <i class="fa-solid fa-plus "></i>
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -44,8 +50,8 @@
                             <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">个人中心</a>
                             <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">编辑资料</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item "  href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item " href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                 document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
 

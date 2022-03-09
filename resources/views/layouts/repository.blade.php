@@ -25,14 +25,11 @@
     <div id="app" class="{{ route_class() }}-page">
         @include('layouts._header')
 
-        <div class="container" style="margin-top: 40px">
+        @include('shared._messages')
 
-            @include('shared._messages')
+        @include('layouts._repository_header')
 
-            @yield('content')
-
-        </div>
-
+        @yield('content')
 
         @include('layouts._footer')
 

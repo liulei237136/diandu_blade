@@ -65,3 +65,5 @@ Route::resource('users', UsersController::class, ['only' => ['show', 'update', '
 Route::resource('repositories', RepositoriesController::class, ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 Route::get('repositories/{repository}/{slug?}',[ RepositoriesController::class,'show'])->name('repositories.show');
+
+Route::post('upload_image', [RepositoriesController::class,'uploadImage'])->name('repositories.upload_image');

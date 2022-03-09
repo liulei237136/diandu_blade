@@ -11,7 +11,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-
+                <li class="nav-item "><a class="nav-link {{active_class(if_route('repositories.index'))}}" href="{{route('repositories.index')}}?order=default">仓库</a></li>
+                <li class="nav-item"><a class="nav-link" href="">分享</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -33,8 +35,8 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <img src="{{Auth::user()->avatar}}"
-                                class="img-fluid rounded-circle" style="width:30px;height:30px;">
+                            <img src="{{ Auth::user()->avatar }}" class="img-fluid rounded-circle"
+                                style="width:30px;height:30px;">
                             {{ Auth::user()->name }}
                         </a>
 
@@ -43,7 +45,7 @@
                             <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">编辑资料</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item " href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                             document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
 

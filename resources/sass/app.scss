@@ -63,12 +63,12 @@ body {
 /* Topic Index Page */
 .repositories-index-page {
     .repository-list {
-        // .nav>li>a {
-        //     position: relative;
-        //     display: block;
-        //     padding: 5px 14px;
-        //     font-size: 0.9em;
-        // }
+        .nav>li>a {
+            position: relative;
+            display: block;
+            padding: 5px 14px;
+            font-size: 0.9em;
+        }
 
         .repository_name {
             color: #000000;

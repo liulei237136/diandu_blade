@@ -11335,6 +11335,12 @@ body {
 }
 
 /* Topic Index Page */
+.repositories-index-page .repository-list .nav > li > a {
+  position: relative;
+  display: block;
+  padding: 5px 14px;
+  font-size: 0.9em;
+}
 .repositories-index-page .repository-list .repository_name {
   color: #000000;
   text-decoration: none;

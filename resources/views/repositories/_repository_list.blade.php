@@ -1,6 +1,5 @@
 @if (count($repositories))
     <ul class="list-unstyled">
-
         @foreach ($repositories as $repository)
             <li>
                 <a class="repository_name" href="{{ $repository->link() }}" title="{{ $repository->name }}">

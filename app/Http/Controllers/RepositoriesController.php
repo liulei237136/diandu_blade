@@ -19,7 +19,12 @@ class RepositoriesController extends Controller
 
     public function index(Request $request)
     {
-        $repositories = Repository::with('user')  // 预加载防止 N+1 问题
+        // if(is_null($request->order)){
+        //     return redirect()->to($request->getUri() . '&order=recent');
+        //     // $request->order = 'recent';
+        // }
+        $repositories = Repository::withOrder($request->order)
+            ->with('user')  // 预加载防止 N+1 问题
             ->paginate(20);
 
         return view('repositories.index', compact('repositories'));

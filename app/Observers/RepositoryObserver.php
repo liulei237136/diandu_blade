@@ -16,7 +16,7 @@ class RepositoryObserver
         $repository->excerpt = make_excerpt($repository->description);
 
         // 如 slug 字段无内容，即使用翻译器对 title 进行翻译
-        if (!$repository->slug) {
+        if (!$repository->slug || $repository->isDirty('name')) {
             $repository->slug = app(SlugTranslateHandler::class)->translate($repository->name);
         }
     }

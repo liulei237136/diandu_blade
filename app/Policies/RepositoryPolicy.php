@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Repositories;
+use App\Models\Repository;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RepositoriesPolicy
+class RepositoryPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class RepositoriesPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Repositories  $repositories
+     * @param  \App\Models\repository  $repository
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Repositories $repositories)
+    public function view(User $user, Repository $repository)
     {
         //
     }
@@ -48,34 +48,34 @@ class RepositoriesPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Repositories  $repositories
+     * @param  \App\Models\repository  $repository
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Repositories $repositories)
+    public function update(User $user, repository $repository)
     {
-        //
+        return $user->isAuthorOf($repository);
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Repositories  $repositories
+     * @param  \App\Models\repository  $repository
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Repositories $repositories)
+    public function delete(User $user, repository $repository)
     {
-        //
+        return $user->isAuthorOf($repository);
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Repositories  $repositories
+     * @param  \App\Models\repository  $repository
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Repositories $repositories)
+    public function restore(User $user, repository $repository)
     {
         //
     }
@@ -84,10 +84,10 @@ class RepositoriesPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Repositories  $repositories
+     * @param  \App\Models\repository  $repository
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Repositories $repositories)
+    public function forceDelete(User $user, repository $repository)
     {
         //
     }

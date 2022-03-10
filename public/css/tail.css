@@ -424,6 +424,59 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.tw-container {
+  width: 100%;
+}
+@media (min-width: 640px) {
+
+  .tw-container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+
+  .tw-container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+
+  .tw-container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+
+  .tw-container {
+    max-width: 1280px;
+  }
+}
+@media (min-width: 1536px) {
+
+  .tw-container {
+    max-width: 1536px;
+  }
+}
+.tw-mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.tw-mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.tw-mx-6 {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+.tw-my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.tw-my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
 .tw-mt-4 {
   margin-top: 1rem;
 }
@@ -445,6 +498,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-mb-4 {
   margin-bottom: 1rem;
 }
+.tw-mt-16 {
+  margin-top: 4rem;
+}
+.tw-mt-2 {
+  margin-top: 0.5rem;
+}
+.tw-mt-\[10\] {
+  margin-top: 10;
+}
+.tw-mt-6 {
+  margin-top: 1.5rem;
+}
 .tw-flex {
   display: flex;
 }
@@ -463,11 +528,17 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-w-4 {
   width: 1rem;
 }
+.tw-max-w-3xl {
+  max-width: 48rem;
+}
 .tw-flex-wrap {
   flex-wrap: wrap;
 }
 .tw-items-center {
   align-items: center;
+}
+.tw-justify-end {
+  justify-content: flex-end;
 }
 .tw-justify-between {
   justify-content: space-between;
@@ -536,6 +607,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+.tw-py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
 .tw-pt-4 {
   padding-top: 1rem;
 }
@@ -561,6 +636,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.tw-text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 .tw-no-underline {
   -webkit-text-decoration-line: none;

@@ -3,7 +3,7 @@
   <ul class="list-group mt-4 border-0">
     @foreach ($repositories as $repository)
       <li class="list-group-item pl-2 pr-2 border-right-0 border-left-0 @if($loop->first) border-top-0 @endif">
-        <a class="text-decoration-none" href="{{ route('repositories.show', $repository->id) }}">
+        <a class="text-decoration-none" href="{{$repository->link()}}">
           {{ $repository->name }}
         </a>
         <span class="meta float-end text-secondary">

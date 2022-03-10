@@ -1,11 +1,11 @@
 <div class="px-3 pt-2 tw-b-bottom-gray-200 tw-border-b">
     <div class="tw-flex tw-flex-wrap  tw-items-center tw-justify-between">
         <div class="tw-flex tw-flex-wrap tw-items-center tw-space-x-1 tw-text-blue-500 tw-text-xl ">
-            <a href="#" class=" tw-no-underline hover:tw-underline">
+            <a href="{{route('users.show', auth()->user()->id)}}" class=" tw-no-underline hover:tw-underline">
                 {{ $repository->user->name }}
             </a>
             <span class="tw-text-black">/</span>
-            <a href="#" class="tw-no-underline hover:tw-underline">
+            <a href="{{$repository->link()}}" class="tw-no-underline hover:tw-underline">
                 {{ $repository->name }}
         </div>
         </a>
@@ -27,22 +27,31 @@
     </div>
 
 
-    <div class="tw-flex tw-items-center tw-mt-4 tw-text-lg" >
-      <a href="#" class="tw-no-underline tw-px-4 tw-py-2 tw-flex tw-items-center tw-text-black {{ if_route('repositories.show') ? 'tw-border-b tw-border-b-red-500':''}} hover:tw-text-black hover:tw-border-b hover:tw-border-b-gray-200">
-          <x-icon name="info" class="tw-hidden md:tw-block tw-w-4 tw-h-4 tw-mr-1" />
-          <span class="">基本信息</span>
-      </a>
+    <div class="tw-flex tw-items-center tw-mt-4 tw-text-lg">
+        <a href="{{$repository->link()}}"
+            class="tw-no-underline tw-px-4 tw-py-2 tw-flex tw-items-center tw-text-black {{ if_route('repositories.show') ? 'tw-border-b tw-border-b-red-500' : '' }} hover:tw-text-black hover:tw-border-b hover:tw-border-b-gray-200">
+            <x-icon name="info" class="tw-hidden md:tw-block tw-w-4 tw-h-4 tw-mr-1" />
+            <span class="">基本信息</span>
+        </a>
 
-      <a href="#" class="tw-no-underline tw-px-4 tw-py-2 tw-flex tw-items-center tw-text-black hover:tw-text-black  hover:tw-border-b hover:tw-border-b-gray-200">
-          <x-icon name="audio" class="tw-hidden md:tw-block tw-w-4 tw-h-4 tw-mr-1" />
-          <span>包含音频</span>
-      </a>
-      <a href="#" class="tw-no-underline  tw-px-4 tw-py-2 tw-flex tw-items-center tw-text-black hover:tw-text-black  hover:tw-border-b hover:tw-border-b-gray-200">
-          <x-icon name="pull" class="tw-hidden md:tw-block tw-w-4 tw-h-4 tw-mr-1" />
-          <span >拉取<span class="tw-text-sm tw-font-thin tw-rounded-3xl tw-px-2 tw-bg-gray-200 tw-ml-2">0</span></span>
-
-      </a>
-  </div>
+        <a href="#"
+            class="tw-no-underline tw-px-4 tw-py-2 tw-flex tw-items-center tw-text-black hover:tw-text-black  hover:tw-border-b hover:tw-border-b-gray-200">
+            <x-icon name="audio" class="tw-hidden md:tw-block tw-w-4 tw-h-4 tw-mr-1" />
+            <span>包含音频</span>
+        </a>
+        <a href="#"
+            class="tw-no-underline  tw-px-4 tw-py-2 tw-flex tw-items-center tw-text-black hover:tw-text-black  hover:tw-border-b hover:tw-border-b-gray-200">
+            <x-icon name="pull" class="tw-hidden md:tw-block tw-w-4 tw-h-4 tw-mr-1" />
+            <span>拉取<span class="tw-text-sm tw-font-thin tw-rounded-3xl tw-px-2 tw-bg-gray-200 tw-ml-2">0</span></span>
+        </a>
+        @can('update', $repository)
+        <a href="{{$repository->link('repository_setting.show')}}"
+            class="{{ if_route('repository_setting.show') ? 'tw-border-b tw-border-b-red-500' : '' }} tw-no-underline  tw-px-4 tw-py-2 tw-flex tw-items-center tw-text-black hover:tw-text-black  hover:tw-border-b hover:tw-border-b-gray-200">
+            <x-icon name="setting" class="tw-hidden md:tw-block tw-w-4 tw-h-4 tw-mr-1" />
+            <span>设置</span>
+        </a>
+        @endcan
+    </div>
 
 
 

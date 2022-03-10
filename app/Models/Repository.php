@@ -43,9 +43,9 @@ class Repository extends Model
         return $query->orderBy('created_at', 'desc');
     }
 
-    public function link($params = [])
+    public function link($route = 'repositories.show', $params = [])
     {
-        return route('repositories.show', array_merge([$this->id, $this->slug], $params));
+        return route($route, array_merge([$this->id, $this->slug], $params));
     }
 
     public function user()

@@ -21,12 +21,17 @@ class RepositoryRequest extends FormRequest
         switch ($this->method()) {
                 // CREATE
             case 'POST':
+                return [
+                    'name'       => 'required|min:2',
+                    'description'        => 'required|min:3',
+                    // 'category_id' => 'required|numeric',
+                ];
                 // UPDATE
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'name'       => 'required|min:2',
-                        'description'        => 'required|min:3',
+                        'name'       => 'min:2',
+                        'description'        => 'min:3',
                         // 'category_id' => 'required|numeric',
                     ];
                 }

@@ -22,7 +22,7 @@
     @yield('styles')
 </head>
 
-<body>
+<body class="tw-bg-white">
     <div id="app" class="{{ route_class() }}-page">
         @include('layouts._header')
 

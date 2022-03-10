@@ -27,7 +27,7 @@ Route::get('/test', function(){
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->to(route('repositories.index',['order' => 'default']));
 });
 
 // Auth::routes();
@@ -66,4 +66,15 @@ Route::resource('repositories', RepositoriesController::class, ['only' => ['inde
 
 Route::get('repositories/{repository}/{slug?}',[ RepositoriesController::class,'show'])->name('repositories.show');
 
+Route::get('repository_setting/{repository}/{slug?}',[RepositoriesController::class, 'showSetting'])->name('repository_setting.show');
+
+Route::get('edit_description/{repository}/{slug?}', [RepositoriesController::class,'editDescription'])->name('repositories.edit_description');
+
+Route::put('repositories/{repository}/update_descritpion', [RepositoriesController::class,'updateDescription'])->name('repositories.update_description');
+
+Route::put('repositories/{repository}/update_name', [RepositoriesController::class,'updateName'])->name('repositories.update_name');
+
+Route::delete('repositories/{repository}',[RepositoriesController::class, 'destroy'])->name('repositories.destroy');
+
 Route::post('upload_image', [RepositoriesController::class,'uploadImage'])->name('repositories.upload_image');
+

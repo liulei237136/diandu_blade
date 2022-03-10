@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Handlers\ImageUploadHandler;
+use App\Http\Requests\RepositoryDescriptionRequest;
 use App\Http\Requests\RepositoryRequest;
 use App\Models\Repository;
 use App\Models\User;
@@ -28,7 +29,7 @@ class RepositoriesController extends Controller
 
     public function create(Repository $repository)
     {
-        return view('repositories.create_and_edit', compact('repository'));
+        return view('repositories.create', compact('repository'));
     }
 
     public function store(RepositoryRequest $request, Repository $repository)
@@ -37,11 +38,16 @@ class RepositoriesController extends Controller
         $repository->user_id = auth()->id();
         $repository->save();
 
-        return redirect()->route('repositories.show', $repository->id)->with('success', '仓库创建成功！');
+        return redirect($repository->link())->with('success', '仓库创建成功！');
     }
 
-    public function show(Repository $repository)
+    public function show(Repository $repository, Request $request)
     {
+        // URL 矫正
+        if (!empty($repository->slug) && $repository->slug != $request->slug) {
+            return redirect($repository->link(), 301);
+        }
+
         return view('repositories.show', compact('repository'));
     }
 
@@ -53,12 +59,15 @@ class RepositoriesController extends Controller
 
     public function update(RepositoryRequest $request, Repository $repository)
     {
-        //
     }
 
     public function destroy(Repository $repository)
     {
-        //
+        $this->authorize('delete', $repository);
+
+        $repository->delete();
+
+        return redirect()->route('repositories.index')->with('success', '成功删除！');
     }
 
     public function uploadImage(Request $request, ImageUploadHandler $uploader)
@@ -81,5 +90,38 @@ class RepositoriesController extends Controller
             }
         }
         return $data;
+    }
+
+    public function editDescription(Repository $repository)
+    {
+        $this->authorize('update', $repository);
+
+        return view('repositories.edit_description', compact('repository'));
+    }
+
+    public function updateDescription(RepositoryRequest $request, Repository $repository)
+    {
+        $this->authorize('update', $repository);
+
+        $repository->update($request->all());
+
+        return redirect()->to($repository->link())->with('success', '更新成功！');
+    }
+
+    public function updateName(RepositoryRequest $request, Repository $repository)
+    {
+        $this->authorize('update', $repository);
+
+        $repository->update($request->all());
+
+        return back()->with('success', '仓库名更新成功！');
+    }
+
+
+    public function showSetting(Repository $repository)
+    {
+        $this->authorize('update', $repository);
+
+        return view('repositories.setting', compact('repository'));
     }
 }

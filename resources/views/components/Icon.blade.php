@@ -23,7 +23,7 @@
     @endif
 
     @if ($name === 'fork')
-        <svg {{ $attributes }} aria-hidden="true" viewBox="0 0 16 16" version="1.1">
+        <svg {{ $attributes }} aria-hidden="true" viewBox="0 0 16 16" version="1.1" fill="currentColor">
             <path fill-rule="evenodd"
                 d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z">
             </path>
@@ -39,18 +39,20 @@
     @endif
 
     @if ($name === 'audio')
-        <svg {{ $attributes }} aria-hidden="true"  fill="currentColor" viewBox="0 0 18 18">
+        <svg {{ $attributes }} aria-hidden="true" fill="currentColor" viewBox="0 0 18 18">
             <path
                 d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z" />
         </svg>
     @endif
 
-    {{-- <svg v-if="name === 'pull'" aria-hidden="true" :class="$attrs.class" fill="currentColor" viewBox="0 0 18 18">
-        <path fill-rule="evenodd"
-            d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z">
-        </path>
-    </svg>
-    <svg v-if="name === 'open-pull'" aria-hidden="true" class="text-green-500" :class="$attrs.class" fill="currentColor"
+    @if ($name === 'pull')
+        <svg {{ $attributes }} aria-hidden="true" fill="currentColor" viewBox="0 0 18 18">
+            <path fill-rule="evenodd"
+                d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z">
+            </path>
+        </svg>
+    @endif
+    {{-- <svg v-if="name === 'open-pull'" aria-hidden="true" class="text-green-500" :class="$attrs.class" fill="currentColor"
         viewBox="0 0 18 18">
         <path fill-rule="evenodd"
             d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z">

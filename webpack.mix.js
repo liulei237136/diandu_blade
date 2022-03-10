@@ -19,3 +19,6 @@ mix.js('resources/js/app.js', 'public/js')
     .copyDirectory('resources/editor/css', 'public/css');
 
 mix.postCss('resources/css/font.css', 'public/css')
+    .postCss("resources/css/tail.css", "public/css", [
+        require("tailwindcss"),
+    ]);

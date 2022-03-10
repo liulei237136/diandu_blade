@@ -17,6 +17,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/font.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/tail.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('styles')
 </head>

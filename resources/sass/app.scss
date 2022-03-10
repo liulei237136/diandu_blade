@@ -93,3 +93,11 @@ body {
         }
     }
 }
+//simditor 编辑器内图片防止过大
+.simditor-body img {
+    max-width:100%;
+  }
+
+  /* Repository Show Page */
+
+@import "repository_description";

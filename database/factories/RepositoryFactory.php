@@ -21,7 +21,7 @@ class RepositoryFactory extends Factory
 
         return [
             'name' => $sentence,
-            'description' => $this->faker->text(),
+            'description' =>'&nbsp;&nbsp;' . implode('<br>&nbsp;&nbsp;', $this->faker->paragraphs(100)),
             'excerpt' => $sentence,
             'user_id' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
         ];

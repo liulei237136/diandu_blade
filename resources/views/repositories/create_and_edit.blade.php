@@ -43,7 +43,7 @@
                     </div> --}}
 
                     <div class="mb-3">
-                        <textarea name="description" class="form-control d-none" id="editor" rows="6" placeholder="请填入至少三个字符的描述。"
+                        <textarea name="description" class="form-control " id="editor" rows="6" placeholder="请填入至少三个字符的描述。"
                             required>{{ old('description', $repository->description) }}</textarea>
                         {{-- <textarea name="description" id="editor"
                             required>{{ old('description', $repository->description) }}</textarea> --}}
@@ -61,7 +61,7 @@
 @endsection
 
 
-@section('styles')
+{{-- @section('styles')
   <link rel="stylesheet" type="text/css" href="{{ asset('css/simditor.css') }}">
 @stop
 
@@ -88,4 +88,4 @@
       });
     });
   </script>
-@stop
+@stop --}}

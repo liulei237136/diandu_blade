@@ -11355,3 +11355,347 @@ body {
   border: 0;
   border-top: 1px solid #979da0;
 }
+
+.simditor-body img {
+  max-width: 100%;
+}
+
+/* Repository Show Page */
+.simditor-body, .repository-descritption {
+  font-size: 15px;
+  line-height: 1.3;
+  overflow: hidden;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+.simditor-body a, .repository-descritption a {
+  background: transparent;
+}
+.simditor-body a:active,
+.simditor-body a:hover, .repository-descritption a:active,
+.repository-descritption a:hover {
+  outline: 0;
+}
+.simditor-body ol li, .repository-descritption ol li {
+  margin: 8px 0;
+}
+.simditor-body pre[class*=language-], .repository-descritption pre[class*=language-] {
+  margin: 1.2em 0 !important;
+}
+.simditor-body strong, .repository-descritption strong {
+  font-weight: bold;
+}
+.simditor-body h1, .simditor-body .h1, .repository-descritption h1, .repository-descritption .h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+.simditor-body img, .repository-descritption img {
+  border: 0;
+}
+.simditor-body hr, .repository-descritption hr {
+  box-sizing: content-box;
+  height: 0;
+}
+.simditor-body table, .repository-descritption table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.simditor-body td,
+.simditor-body th, .repository-descritption td,
+.repository-descritption th {
+  padding: 0;
+}
+.simditor-body *, .repository-descritption * {
+  box-sizing: border-box;
+}
+.simditor-body a, .repository-descritption a {
+  text-decoration: none;
+}
+.simditor-body a:hover,
+.simditor-body a:focus,
+.simditor-body a:active, .repository-descritption a:hover,
+.repository-descritption a:focus,
+.repository-descritption a:active {
+  text-decoration: none;
+}
+.simditor-body hr, .repository-descritption hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+.simditor-body hr:before,
+.simditor-body hr:after, .repository-descritption hr:before,
+.repository-descritption hr:after {
+  display: table;
+  content: " ";
+}
+.simditor-body hr:after, .repository-descritption hr:after {
+  clear: both;
+}
+.simditor-body blockquote, .repository-descritption blockquote {
+  margin: 0;
+}
+.simditor-body ul,
+.simditor-body ol, .repository-descritption ul,
+.repository-descritption ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.simditor-body ol ol, .repository-descritption ol ol {
+  list-style-type: lower-roman;
+}
+.simditor-body dd, .repository-descritption dd {
+  margin-left: 0;
+}
+.simditor-body code,
+.simditor-body pre, .repository-descritption code,
+.repository-descritption pre {
+  font-family: monaco, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 1em;
+}
+.simditor-body pre, .repository-descritption pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow: auto;
+}
+.simditor-body .repository-descritption > *:first-child, .repository-descritption .repository-descritption > *:first-child {
+  margin-top: 0 !important;
+}
+.simditor-body .topic-body > *:last-child, .repository-descritption .topic-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+.simditor-body .anchor, .repository-descritption .anchor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+.simditor-body .anchor:focus, .repository-descritption .anchor:focus {
+  outline: none;
+}
+.simditor-body h1, .simditor-body .h1,
+.simditor-body h2,
+.simditor-body .h2,
+.simditor-body h3,
+.simditor-body .h3,
+.simditor-body h4,
+.simditor-body .h4,
+.simditor-body h5,
+.simditor-body .h5,
+.simditor-body h6,
+.simditor-body .h6, .repository-descritption h1, .repository-descritption .h1,
+.repository-descritption h2,
+.repository-descritption .h2,
+.repository-descritption h3,
+.repository-descritption .h3,
+.repository-descritption h4,
+.repository-descritption .h4,
+.repository-descritption h5,
+.repository-descritption .h5,
+.repository-descritption h6,
+.repository-descritption .h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+.simditor-body h1, .simditor-body .h1, .repository-descritption h1, .repository-descritption .h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+.simditor-body h2, .simditor-body .h2, .repository-descritption h2, .repository-descritption .h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.3em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+.simditor-body h3, .simditor-body .h3, .repository-descritption h3, .repository-descritption .h3 {
+  font-size: 1.2em;
+  line-height: 1.43;
+}
+.simditor-body h4, .simditor-body .h4, .repository-descritption h4, .repository-descritption .h4 {
+  font-size: 1.1em;
+}
+.simditor-body h5, .simditor-body .h5, .repository-descritption h5, .repository-descritption .h5 {
+  font-size: 1em;
+}
+.simditor-body h6, .simditor-body .h6, .repository-descritption h6, .repository-descritption .h6 {
+  font-size: 0.9em;
+  color: #777;
+}
+.simditor-body p,
+.simditor-body blockquote,
+.simditor-body ul,
+.simditor-body ol,
+.simditor-body dl,
+.simditor-body table,
+.simditor-body pre, .repository-descritption p,
+.repository-descritption blockquote,
+.repository-descritption ul,
+.repository-descritption ol,
+.repository-descritption dl,
+.repository-descritption table,
+.repository-descritption pre {
+  margin-top: 0;
+  margin-bottom: 0px;
+  line-height: 30px;
+}
+.simditor-body hr, .repository-descritption hr {
+  border: 2px dashed #F0F4F6;
+  border-bottom: 0px;
+  margin: 18px auto;
+  width: 50%;
+}
+.simditor-body ul,
+.simditor-body ol, .repository-descritption ul,
+.repository-descritption ol {
+  padding-left: 2em;
+  padding: 10px 20px 10px 30px;
+  color: #7d8688;
+}
+.simditor-body ol ol,
+.simditor-body ol ul, .repository-descritption ol ol,
+.repository-descritption ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.simditor-body li > p, .repository-descritption li > p {
+  margin-top: 6px;
+}
+.simditor-body dl, .repository-descritption dl {
+  padding: 0;
+}
+.simditor-body dl dt, .repository-descritption dl dt {
+  padding: 0;
+  margin-top: 6px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+.simditor-body dl dd, .repository-descritption dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+.simditor-body blockquote, .repository-descritption blockquote {
+  font-size: inherit;
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+.simditor-body blockquote > :first-child, .repository-descritption blockquote > :first-child {
+  margin-top: 20px;
+}
+.simditor-body blockquote > :last-child, .repository-descritption blockquote > :last-child {
+  margin-bottom: 20px;
+}
+.simditor-body blockquote, .repository-descritption blockquote {
+  margin: 20px 0 !important;
+  background-color: #f5f8fc;
+  padding: 1rem;
+  color: #8796A8;
+  border-left: none;
+}
+.simditor-body table, .repository-descritption table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  margin: 25px 0;
+}
+.simditor-body table th, .repository-descritption table th {
+  font-weight: bold;
+}
+.simditor-body table th,
+.simditor-body table td, .repository-descritption table th,
+.repository-descritption table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+.simditor-body table tr, .repository-descritption table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+.simditor-body table tr:nth-child(2n), .repository-descritption table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+.simditor-body img, .repository-descritption img {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.simditor-body img, .repository-descritption img {
+  border: 1px solid #ddd;
+  box-shadow: 0 0 30px #ccc;
+  -moz-box-shadow: 0 0 30px #ccc;
+  -webkit-box-shadow: 0 0 30px #ccc;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+.simditor-body code, .repository-descritption code {
+  background: rgba(90, 87, 87, 0);
+  margin: 5px;
+  color: #858080;
+  border-radius: 4px;
+  background-color: #f9fafa;
+  border: 1px solid #e4e4e4;
+  max-width: 740px;
+  overflow-x: auto;
+  font-size: 0.9em;
+  padding: 1px 2px 1px;
+}
+.simditor-body code:before,
+.simditor-body code:after, .repository-descritption code:before,
+.repository-descritption code:after {
+  letter-spacing: -0.2em;
+  content: " ";
+}
+.simditor-body pre > code, .repository-descritption pre > code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+.simditor-body .highlight, .repository-descritption .highlight {
+  margin-bottom: 16px;
+}
+.simditor-body .highlight pre,
+.simditor-body pre, .repository-descritption .highlight pre,
+.repository-descritption pre {
+  padding: 14px;
+  overflow: auto;
+  line-height: 1.45;
+  border-radius: 3px;
+  color: inherit;
+  border: none;
+}
+.simditor-body .highlight pre, .repository-descritption .highlight pre {
+  margin-bottom: 0;
+}
+.simditor-body pre, .repository-descritption pre {
+  word-wrap: normal;
+}
+.simditor-body pre code, .repository-descritption pre code {
+  display: block;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+.simditor-body pre code:before,
+.simditor-body pre code:after, .repository-descritption pre code:before,
+.repository-descritption pre code:after {
+  content: normal;
+}

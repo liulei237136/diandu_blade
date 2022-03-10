@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Repository;
+use App\Observers\RepositoryObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         \Illuminate\Pagination\Paginator::useBootstrap();
+        Repository::observe(RepositoryObserver::class);
     }
 }

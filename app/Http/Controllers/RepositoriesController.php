@@ -92,9 +92,13 @@ class RepositoriesController extends Controller
         return $data;
     }
 
-    public function editDescription(Repository $repository)
+    public function editDescription(Repository $repository, $request)
     {
         $this->authorize('update', $repository);
+        // URL 矫正
+        if (!empty($repository->slug) && $repository->slug != $request->slug) {
+            return redirect($repository->link('repositories.edit_description'), 301);
+        }
 
         return view('repositories.edit_description', compact('repository'));
     }
@@ -118,9 +122,15 @@ class RepositoriesController extends Controller
     }
 
 
-    public function showSetting(Repository $repository)
+    public function showSetting(Repository $repository, Request $request)
     {
         $this->authorize('update', $repository);
+
+        // URL 矫正
+        if (!empty($repository->slug) && $repository->slug != $request->slug) {
+            return redirect($repository->link('repository_setting.show'), 301);
+        }
+
 
         return view('repositories.setting', compact('repository'));
     }

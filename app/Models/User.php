@@ -59,4 +59,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->id == $model->user_id;
     }
+
+    public function commentNotify($instance)
+    {
+        // 如果要通知的人是当前用户，就不必通知了！
+        if ($this->id == auth()->id()) {
+            return;
+        }
+        $this->increment('notification_count');
+        $this->notify($instance);
+    }
 }

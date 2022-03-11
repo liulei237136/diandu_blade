@@ -16,14 +16,15 @@ class RepositoryFactory extends Factory
      */
     public function definition()
     {
-
         $sentence = $this->faker->sentence();
 
-        return [
+        $data =  [
             'name' => $sentence,
             'description' =>'&nbsp;&nbsp;' . implode('<br>&nbsp;&nbsp;', $this->faker->paragraphs(100)),
             'excerpt' => $sentence,
             'user_id' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
         ];
+
+        return $data;
     }
 }

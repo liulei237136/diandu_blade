@@ -92,10 +92,11 @@ class RepositoriesController extends Controller
         return $data;
     }
 
-    public function editDescription(Repository $repository, $request)
+    public function editDescription(Repository $repository, Request $request)
     {
         $this->authorize('update', $repository);
         // URL 矫正
+        // dump($repository->slug);
         if (!empty($repository->slug) && $repository->slug != $request->slug) {
             return redirect($repository->link('repositories.edit_description'), 301);
         }

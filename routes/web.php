@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RepositoriesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -83,3 +84,4 @@ Route::post('upload_image', [RepositoriesController::class,'uploadImage'])->name
 
 Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
 
+Route::resource('notifications', NotificationsController::class, ['only' => ['index']]);

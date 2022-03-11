@@ -33,9 +33,17 @@
                         </li>
                     @endif
                 @else
+                    {{-- new repo --}}
                     <li class="nav-item">
-                        <a class="nav-link mt-1 mr-3 " href="{{ route('repositories.create') }}">
+                        <a class="nav-link mt-1 " href="{{ route('repositories.create') }}">
                             <i class="fa-solid fa-plus "></i>
+                        </a>
+                    </li>
+                    {{-- notification count --}}
+                    <li class="nav-item notification-badge">
+                        <a class="nav-link ms-3 me-3 badge bg-secondary rounded-pill badge-{{ auth()->user()->notification_count > 0 ? 'hint' : 'secondary' }} text-white"
+                            href="{{ route('notifications.index') }}">
+                            {{auth()->user()->notification_count }}
                         </a>
                     </li>
                     <li class="nav-item dropdown">

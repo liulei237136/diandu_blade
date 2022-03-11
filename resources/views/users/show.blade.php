@@ -32,12 +32,25 @@
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="nav-link active bg-transparent {{ active_class(if_query('tab', null))" href="#">Ta 的仓库</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Ta 的评论</a></li>
+                        <li class="nav-item"><a
+                                class="nav-link bg-transparent {{ active_class(if_query('tab', null)) }}"
+                                href="{{ route('users.show', $user->id) }}">Ta 的仓库</a></li>
+                        <li class="nav-item "><a
+                                class="nav-link bg-transparent {{ active_class(if_query('tab', 'comments')) }}"
+                                href="{{ route('users.show', [$user->id, 'tab' => 'comments']) }}">Ta的评论</a></li>
                     </ul>
-                    @include('users._repositories', [
+                    @if (if_query('tab', 'comments'))
+                        @include('users._comments', [
+                            'comments' => $user->comments()->with('repository')->recent()->paginate(5),
+                        ])
+                    @else
+                        @include('users._repositories', [
+                            'repositories' => $user->repositories()->recent()->paginate(5),
+                        ])
+                    @endif
+                    {{-- @include('users._repositories', [
                         'repositories' => $user->repositories()->recent()->paginate(5),
-                    ])
+                    ]) --}}
                 </div>
             </div>
         </div>

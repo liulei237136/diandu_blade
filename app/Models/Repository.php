@@ -57,4 +57,5 @@ class Repository extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
 }

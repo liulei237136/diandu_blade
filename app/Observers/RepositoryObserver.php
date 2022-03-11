@@ -10,7 +10,7 @@ class RepositoryObserver
     public function saving(Repository $repository)
     {
         // XSS 过滤
-        $repository->description = clean($repository->description);
+        $repository->description = clean($repository->description,'repository_description');
 
         // 生成仓库摘录
         $repository->excerpt = make_excerpt($repository->description);

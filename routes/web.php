@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RepositoriesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +69,8 @@ Route::get('repositories/{repository}/{slug?}',[ RepositoriesController::class,'
 
 Route::get('repository_setting/{repository}/{slug?}',[RepositoriesController::class, 'showSetting'])->name('repository_setting.show');
 
+Route::get('repository_comments/{repository}/{slug?}',[RepositoriesController::class, 'showComments'])->name('repository_comments.show');
+
 Route::get('edit_description/{repository}/{slug?}', [RepositoriesController::class,'editDescription'])->name('repositories.edit_description');
 
 Route::put('repositories/{repository}/update_descritpion', [RepositoriesController::class,'updateDescription'])->name('repositories.update_description');
@@ -77,4 +80,6 @@ Route::put('repositories/{repository}/update_name', [RepositoriesController::cla
 Route::delete('repositories/{repository}',[RepositoriesController::class, 'destroy'])->name('repositories.destroy');
 
 Route::post('upload_image', [RepositoriesController::class,'uploadImage'])->name('repositories.upload_image');
+
+Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
 

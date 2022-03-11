@@ -101,3 +101,17 @@ body {
   /* Repository Show Page */
 
 @import "repository_description";
+
+
+/* 评论列表 */
+
+.repository-comment {
+    a {
+        color: inherit;
+    }
+
+    .meta {
+        font-size: .9em;
+        color: #b3b3b3;
+    }
+}

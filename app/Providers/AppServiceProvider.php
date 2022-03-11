@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
 use App\Models\Repository;
+use App\Observers\CommentObserver;
 use App\Observers\RepositoryObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
         //
         \Illuminate\Pagination\Paginator::useBootstrap();
         Repository::observe(RepositoryObserver::class);
+        Comment::observe(CommentObserver::class);
     }
 }

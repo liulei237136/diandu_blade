@@ -14,7 +14,7 @@ class RepositoriesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'showComments']]);
     }
 
 
@@ -49,16 +49,6 @@ class RepositoriesController extends Controller
         }
 
         return view('repositories.show', compact('repository'));
-    }
-
-
-    public function edit(Repository $repository)
-    {
-        //
-    }
-
-    public function update(RepositoryRequest $request, Repository $repository)
-    {
     }
 
     public function destroy(Repository $repository)
@@ -135,4 +125,17 @@ class RepositoriesController extends Controller
 
         return view('repositories.setting', compact('repository'));
     }
+
+    public function showComments(Repository $repository)
+    {
+        $comments = $repository->comments()->with('user')->latest()->paginate(7);
+
+        return view('repositories.comments', compact('repository','comments'));
+    }
+
+    // protected function loadCommon(Repository $repository){
+    //     $repository->load('user')
+    //     return $repository;
+    // }
+
 }

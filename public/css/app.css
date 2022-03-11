@@ -11699,3 +11699,12 @@ body {
 .repository-descritption pre code:after {
   content: normal;
 }
+
+/* 评论列表 */
+.repository-comment a {
+  color: inherit;
+}
+.repository-comment .meta {
+  font-size: 0.9em;
+  color: #b3b3b3;
+}

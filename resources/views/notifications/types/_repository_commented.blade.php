@@ -1,4 +1,4 @@
-<li class="d-flex @if (!$loop->last) border-bottom @endif">
+<li class="d-flex @if (!$loop->last) border-bottom @endif mt-3">
     <div class="flex-shrink-0">
         <a href="{{ route('users.show', $notification->data['user_id']) }}">
             <img class="img-thumbnail me-3" alt="{{ $notification->data['user_name'] }}"

@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class RepositoryCommented extends Notification
+class RepositoryCommented extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -21,7 +21,7 @@ class RepositoryCommented extends Notification
 
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','mail'];
     }
 
     /**
@@ -54,5 +54,14 @@ class RepositoryCommented extends Notification
             'repository_id' => $repository->id,
             'repository_name' => $repository->name,
         ];
+    }
+
+    public function toMail($notifiable)
+    {
+        $url = $this->comment->repository->link('repository_comments.show',['#comment' . $this->comment->id]);
+
+        return (new MailMessage)
+                    ->line('你的仓库有新评论！')
+                    ->action('查看评论', $url);
     }
 }

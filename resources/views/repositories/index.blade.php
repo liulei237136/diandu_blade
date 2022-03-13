@@ -29,7 +29,7 @@
         </div>
 
         <div class="col-lg-3 col-md-3 sidebar">
-            {{-- @include('repositories._sidebar') --}}
+            @include('repositories._sidebar')
         </div>
     </div>
 

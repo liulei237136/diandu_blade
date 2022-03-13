@@ -523,6 +523,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-ml-1 {
   margin-left: 0.25rem;
 }
+.tw-block {
+  display: block;
+}
 .tw-flex {
   display: flex;
 }
@@ -541,6 +544,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-w-4 {
   width: 1rem;
 }
+.tw-w-full {
+  width: 100%;
+}
 .tw-max-w-3xl {
   max-width: 48rem;
 }
@@ -549,6 +555,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .tw-max-w-5xl {
   max-width: 64rem;
+}
+.tw-shrink-0 {
+  flex-shrink: 0;
 }
 .tw-flex-wrap {
   flex-wrap: wrap;
@@ -605,6 +614,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.tw-object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .tw-px-4 {
   padding-left: 1rem;

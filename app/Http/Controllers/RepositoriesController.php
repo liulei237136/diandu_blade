@@ -18,13 +18,14 @@ class RepositoriesController extends Controller
     }
 
 
-    public function index(Request $request)
+    public function index(Request $request, User $user)
     {
         $repositories = Repository::withOrder($request->order)
             ->with('user')  // 预加载防止 N+1 问题
             ->paginate(20);
+        $active_users = $user->getActiveUsers();
 
-        return view('repositories.index', compact('repositories'));
+        return view('repositories.index', compact('repositories', 'active_users'));
     }
 
     public function create(Repository $repository)

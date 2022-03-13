@@ -25,6 +25,8 @@ return new class extends Migration
             $table->text('excerpt')->nullable();
             $table->string('slug')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

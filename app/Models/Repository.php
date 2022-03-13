@@ -58,4 +58,9 @@ class Repository extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function updateCommentCount()
+    {
+        $this->comment_count = $this->comments()->count();
+        $this->save();
+    }
 }

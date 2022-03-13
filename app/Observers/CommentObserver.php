@@ -17,12 +17,18 @@ class CommentObserver
 
     public function created(Comment $comment)
     {
-        //    $comment->repository->increment('comment_count', 1);
-        $comment->repository->comment_count = $comment->repository->comments()->count();
+        // $comment->repository->comment_count = $comment->repository->comments()->count();
 
-        $comment->repository->save();
+        // $comment->repository->save();
+        $comment->repository->updateCommentCount();
 
         // 通知话题作者有新的评论
         $comment->repository->user->commentNotify(new RepositoryCommented($comment));
+    }
+
+
+    public function deleted(Comment $comment)
+    {
+        $comment->repository->updateCommentCount();
     }
 }

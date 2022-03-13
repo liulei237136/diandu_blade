@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Jobs\TranslateSlug;
 use App\Models\Repository;
+use Illuminate\Support\Facades\DB;
 
 class RepositoryObserver
 {
@@ -31,5 +32,10 @@ class RepositoryObserver
             // 推送任务到队列
             dispatch(new TranslateSlug($repository));
         }
+    }
+
+    public function deleted(Repository $repository)
+    {
+        DB::table('comments')->where('repository_id', $repository->id)->delete();
     }
 }

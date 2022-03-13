@@ -128,7 +128,7 @@ class RepositoriesController extends Controller
 
     public function showComments(Repository $repository)
     {
-        $comments = $repository->comments()->with('user')->latest()->paginate(7);
+        $comments = $repository->comments()->with('user','repository')->latest()->paginate(7);
 
         return view('repositories.comments', compact('repository','comments'));
     }

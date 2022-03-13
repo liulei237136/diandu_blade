@@ -84,4 +84,6 @@ Route::post('upload_image', [RepositoriesController::class,'uploadImage'])->name
 
 Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
 
+Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
 Route::resource('notifications', NotificationsController::class, ['only' => ['index']]);

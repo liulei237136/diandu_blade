@@ -460,6 +460,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-flex {
   display: flex;
 }
+.tw-table {
+  display: table;
+}
 .tw-grid {
   display: grid;
 }

@@ -19,13 +19,14 @@
             >
               <a
                 :href="
-                  route('repository.audio', {
-                    repository: repository.id,
-                    commit: repository.commit.id,
+                  route('repository_audio.show', {
+                    repository: commit.repository_id,
+                    commit: commit.id,
                   })
                 "
-                :title="repository.commit.title"
-                >{{ repository.commit.title }}</a>
+                :title="commit.title"
+                >{{commit.title }}</a
+              >
             </div>
           </div>
         </template>
@@ -67,7 +68,7 @@
 
 <script>
 import { defineComponent, reactive, ref } from "vue";
-import { getCommitAudio, filterStringMethod, nameSortBy } from "@/helper.js";
+import { getCommitAudio, filterStringMethod, nameSortBy } from "../helper.js";
 
 export default defineComponent({
   props: {

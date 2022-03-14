@@ -40,22 +40,9 @@
                   multiple
                   @change="onChange"
                 />
-                <!-- <div class="tw-hidden md:tw-block">|</div>
-          <vxe-button icon="fa fa-copy" status="perfect" @click="copy"
-            >复制其他点读包音频</vxe-button
-          > -->
                 <div class="tw-hidden md:tw-block">|</div>
-                <vxe-button
-                  icon="fa fa-edit"
-                  status="perfect"
-                  @click="
-                    $inertia.get(
-                      route('package.show', { package: p.id, tab: 'audio' }),
-                      {},
-                      { replace: true }
-                    )
-                  "
-                  >直接编辑</vxe-button
+                <a :href="route('repository_audio.edit', repository.id)"
+                  ><i class="fa fa-edit"></i> 直接编辑</a
                 >
               </div>
             </div>
@@ -71,7 +58,7 @@ export default {
   mounted() {
     console.log("Component mounted.");
   },
-  props: ["repository","user"],
+  props: ["repository", "user"],
   data() {
     return {
       processing: false,

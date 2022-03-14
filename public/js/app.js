@@ -22786,8 +22786,17 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("直接编辑");
+var _hoisted_14 = ["href"];
 
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fa fa-edit"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 直接编辑");
+
+var _hoisted_17 = [_hoisted_15, _hoisted_16];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_vxe_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("vxe-button");
 
@@ -22826,25 +22835,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 544
   /* HYDRATE_EVENTS, NEED_PATCH */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"tw-hidden md:tw-block\">|</div>\n          <vxe-button icon=\"fa fa-copy\" status=\"perfect\" @click=\"copy\"\n            >复制其他点读包音频</vxe-button\n          > "), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vxe_button, {
-    icon: "fa fa-edit",
-    status: "perfect",
-    onClick: _cache[2] || (_cache[2] = function ($event) {
-      return _ctx.$inertia.get(_ctx.route('package.show', {
-        "package": _ctx.p.id,
-        tab: 'audio'
-      }), {}, {
-        replace: true
-      });
-    })
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_14];
-    }),
-    _: 1
-    /* STABLE */
-
-  })], 512
+  ), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    href: _ctx.route('repository_audio.edit', $props.repository.id)
+  }, _hoisted_17, 8
+  /* PROPS */
+  , _hoisted_14)], 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, !$data.processing]])])])])])])]);
 }

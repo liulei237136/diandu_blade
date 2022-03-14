@@ -53,6 +53,11 @@ class Repository extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function commits()
+    {
+        return $this->hasMany(Commit::class);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

@@ -62,6 +62,11 @@
 
 // });
 import "./bootstrap";
-// import { createApp } from 'vue';
+import { createApp } from 'vue';
 // import App from './components/App.vue'
-// createApp({}).mount("#app")
+import InitRepository from './components/InitRepository.vue'
+createApp({
+    components:{
+        InitRepository,
+    }
+}).mount("#app")

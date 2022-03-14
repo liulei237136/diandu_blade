@@ -17,6 +17,9 @@ mix.js('resources/js/app.js', 'public/js')
     .version()
     .copyDirectory('resources/editor/js', 'public/js')
     .copyDirectory('resources/editor/css', 'public/css');
+mix.js('resources/js/showAudio.js', 'public/js')
+    .vue()
+    .version();
 
 mix.postCss('resources/css/font.css', 'public/css')
     .postCss("resources/css/tail.css", "public/css", [

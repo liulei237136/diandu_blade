@@ -436,6 +436,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 1rem;
   margin-right: 1rem;
 }
+.tw-mr-4 {
+  margin-right: 1rem;
+}
 .tw-mt-4 {
   margin-top: 1rem;
 }
@@ -454,9 +457,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-ml-1 {
   margin-left: 0.25rem;
 }
-.tw-mr-4 {
-  margin-right: 1rem;
-}
 .tw-flex {
   display: flex;
 }
@@ -472,17 +472,17 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-h-4 {
   height: 1rem;
 }
-.tw-w-full {
-  width: 100%;
-}
 .tw-w-4 {
   width: 1rem;
 }
-.tw-max-w-7xl {
-  max-width: 80rem;
+.tw-w-full {
+  width: 100%;
 }
 .tw-max-w-3xl {
   max-width: 48rem;
+}
+.tw-max-w-7xl {
+  max-width: 80rem;
 }
 .tw-shrink-0 {
   flex-shrink: 0;
@@ -502,15 +502,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-justify-between {
   justify-content: space-between;
 }
-.tw-space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
 .tw-space-x-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.25rem * var(--tw-space-x-reverse));
   margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
+}
+.tw-space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 .tw-rounded-3xl {
   border-radius: 1.5rem;
@@ -534,13 +534,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   -o-object-fit: cover;
      object-fit: cover;
 }
-.tw-py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-.tw-py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+.tw-p-6 {
+  padding: 1.5rem;
 }
 .tw-px-4 {
   padding-left: 1rem;
@@ -554,9 +549,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+.tw-py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
 .tw-py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+.tw-py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .tw-text-left {
   text-align: left;
@@ -573,18 +576,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
-.tw-font-semibold {
-  font-weight: 600;
-}
 .tw-font-thin {
   font-weight: 100;
 }
+.tw-font-semibold {
+  font-weight: 600;
+}
 .tw-leading-tight {
   line-height: 1.25;
-}
-.tw-text-gray-800 {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 .tw-text-blue-500 {
   --tw-text-opacity: 1;
@@ -593,6 +592,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.tw-text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+.tw-text-gray-900 {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 .tw-no-underline {
   -webkit-text-decoration-line: none;
@@ -609,11 +616,27 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
+.hover\:tw-text-blue-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
 .hover\:tw-underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
 }
 @media (min-width: 640px) {
+
+  .sm\:tw-ml-2 {
+    margin-left: 0.5rem;
+  }
+
+  .sm\:tw-flex {
+    display: flex;
+  }
+
+  .sm\:tw-hidden {
+    display: none;
+  }
 
   .sm\:tw-px-6 {
     padding-left: 1.5rem;

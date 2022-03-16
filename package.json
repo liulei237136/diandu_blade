@@ -30,6 +30,7 @@
         "jquery": "^3.6.0",
         "simplemde": "^1.11.2",
         "vxe-table": "^4.2.2-beta.0",
-        "xe-utils": "^3.5.4"
+        "xe-utils": "^3.5.4",
+        "recorder-core": "^1.1.21080800"
     }
 }

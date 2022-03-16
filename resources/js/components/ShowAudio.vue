@@ -25,12 +25,24 @@
                   })
                 "
                 :title="commit.title"
-                >{{commit.title }}</a
+                >{{ commit.title }}</a
               >
             </div>
           </div>
         </template>
       </vxe-pulldown>
+      <!-- 编辑 -->
+      <!-- <vxe-button content="编辑" @click="onSave"></vxe-button> -->
+      <a
+        v-if="can_edit"
+        class="btn btn-primary btn-sm"
+        :href="
+          route('repository_audio.edit', {
+            repository: repository.id,
+          })
+        "
+        >编辑</a
+      >
     </template>
 
     <template #source_audio="{ row }">
@@ -74,6 +86,7 @@ export default defineComponent({
   props: {
     repository: Object,
     commit: Object,
+    can_edit: Boolean,
   },
   setup(props, context) {
     const xGrid = ref({});
@@ -104,13 +117,14 @@ export default defineComponent({
 
     const commitKeyupEvent = () => {
       demo.filteredCommitsList = demo.filterCommitTitle
-        ? props.repository.commits.filter(
+        ? props.commits.filter(
             (commit) => commit.title.indexOf(demo.filterCommitTitle) > -1
           )
-        : props.repository.commits;
+        : props.commits;
     };
 
     const gridOptions = reactive({
+      // loading:false,
       border: true,
       resizable: true,
       showHeaderOverflow: true,
@@ -173,7 +187,7 @@ export default defineComponent({
         ajax: {
           // 当点击工具栏查询按钮或者手动提交指令 query或reload 时会被触发
           query: async ({ page, sorts, filters, form }) => {
-            demo.audioList = await getCommitAudio(props.repository.commit);
+            demo.audioList = await getCommitAudio(props.commit);
             resetAll();
             return demo.audioList;
           },

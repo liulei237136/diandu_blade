@@ -45,7 +45,7 @@ class RepositoriesController extends Controller
         return redirect(route('repositories.init', $repository->fresh()->id));
     }
 
-    public function show(Repository $repository)
+    public function show(Repository $repository, Request $request)
     {
         // URL 矫正
         if (!empty($repository->slug) && $repository->slug != $request->slug) {
@@ -55,16 +55,61 @@ class RepositoriesController extends Controller
         return view('repositories.show', compact('repository'));
     }
 
-    public function showAudio(Repository $repository, Commit $commit)
+    public function showAudio(Repository $repository, Request $request)
+    {
+        //todo commit->link()
+        // // URL 矫正
+        // if (!empty($repository->slug) && $repository->slug != $request->slug) {
+        //     return redirect($repository->link(), 301);
+
+        // }
+        $repository->load(['commits' => function($query){
+            $query->latest();
+        }]);
+
+        $commit_id = $request->commit;
+
+        if ($commit_id) {
+            $commit = Commit::findOrFail($commit_id);
+        } else if ($repository->commits->isNotEmpty()) {
+            $commit = $repository->commits->first();
+        }else{
+            $commit = null;
+        }
+
+        return view('repositories.showAudio ', compact('repository', 'commit'));
+    }
+
+    public function editAudio(Repository $repository, Request $request)
     {
         //todo commit->link()
         // // URL 矫正
         // if (!empty($repository->slug) && $repository->slug != $request->slug) {
         //     return redirect($repository->link(), 301);
         // }
+        $this->authorize('update', $repository);
 
-        return view('repositories.showAudio ', compact('repository','commit'));
+        $repository->load(['commits' => function($query){
+            $query->with('user')->latest();
+        }]);
+
+        $commit_id = $request->commit;
+
+        if ($commit_id) {
+            $commit = Commit::findOrFail($commit_id);
+            $commit->load('user');
+        } else if ($repository->commits->isNotEmpty()) {
+            $commit = $repository->commits->first();
+        }else{
+            $commit = null;
+        }
+
+
+        return view('repositories.editAudio ', compact('repository', 'commit'));
     }
+
+
+
 
     public function destroy(Repository $repository)
     {
@@ -167,9 +212,9 @@ class RepositoriesController extends Controller
 
     public function showComments(Repository $repository)
     {
-        $comments = $repository->comments()->with('user','repository')->latest()->paginate(7);
+        $comments = $repository->comments()->with('user', 'repository')->latest()->paginate(7);
 
-        return view('repositories.comments', compact('repository','comments'));
+        return view('repositories.comments', compact('repository', 'comments'));
     }
 
     // protected function loadCommon(Repository $repository){
@@ -182,11 +227,10 @@ class RepositoriesController extends Controller
         $this->authorize('update', $repository);
 
         //如果已经有commit了，就返回其页面
-        if($repository->commits->count() > 0) {
+        if ($repository->commits->count() > 0) {
             return redirect($repository->link());
         }
 
-        return view('repositories.init',compact('repository'));
+        return view('repositories.init', compact('repository'));
     }
-
 }

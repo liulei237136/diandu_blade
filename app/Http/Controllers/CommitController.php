@@ -27,13 +27,21 @@ class CommitController extends Controller
         }
 
         $commit->title = $request->title;
-        $commit->description = $request->description;
+        if ($request->description) {
+            $commit->description = $request->description;
+        }
         $commit->repository_id = $repository->id;
         $commit->user_id = auth()->id();
         $commit->file_path = url("storage/" . $folder_name . '/' . $filename);
         $commit->save();
+        // dd('ok');
 
-        return Redirect::route('repository.audio', ['repository' => $repository->id, 'commit' => $commit->id])->with('success', '保存成功');
+        // return Redirect::route('repository_audio.edit', ['repository' => $repository->id, 'commit' => $commit->id])->with('success', '保存成功');
+        // session()->flash('success', '保存成功');
+        return [
+            'success' => true,
+            'commit_id' => $commit->fresh()->id,
+        ];
     }
     public function destroy(Commit $commit)
     {

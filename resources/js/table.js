@@ -1,12 +1,13 @@
 import ShowAudio from "./components/ShowAudio";
-
+import EditAudio from "./components/EditAudio";
 
 import { createApp } from 'vue';
 
 import 'xe-utils';
 import VXETable from 'vxe-table';
 import 'vxe-table/lib/style.css';
-
+import { ZiggyVue } from 'ziggy';
+import { Ziggy } from './ziggy';
 
 VXETable.setup({
     icon: {
@@ -99,7 +100,9 @@ function useTable(app) {
 createApp({
     components: {
         ShowAudio,
+        EditAudio,
     }
 })
     .use(useTable)
+    .use(ZiggyVue,Ziggy)
     .mount("#app")

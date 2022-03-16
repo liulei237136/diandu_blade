@@ -12,10 +12,14 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item "><a class="nav-link {{ active_class(if_route('repositories.index')) }}"
-                        href="{{ route('repositories.index') }}?order=default">仓库</a></li>
+                        href="{{ route('repositories.index') }}">仓库</a></li>
                 <li class="nav-item"><a class="nav-link" href="">分享</a>
                 </li>
             </ul>
+
+            <form class="d-flex" action="/search" method="GET">
+                <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
+              </form>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
@@ -41,7 +45,8 @@
                     </li>
                     {{-- notification count --}}
                     <li class="nav-item notification-badge">
-                        <a class="nav-link ms-3 me-3 badge bg-secondary rounded-pill badge-{{ auth()->user()->notification_count > 0 ? 'hint' : 'secondary' }} text-white"
+                        {{-- <a class="nav-link ms-3 me-3 badge bg-secondary rounded-pill badge-{{ auth()->user()->notification_count > 0 ? 'hint' : 'secondary' }} text-white" --}}
+                        <a class="tw-no-underline sm:tw-ml-2 me-2 badge bg-secondary rounded-pill badge-{{ auth()->user()->notification_count > 0 ? 'hint' : 'secondary' }} text-white"
                             href="{{ route('notifications.index') }}">
                             {{auth()->user()->notification_count }}
                         </a>

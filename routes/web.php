@@ -8,8 +8,10 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommitController;
+use App\Http\Controllers\DownloadCommitAudioController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RepositoriesController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -73,7 +75,9 @@ Route::get('repository_setting/{repository}/{slug?}',[RepositoriesController::cl
 
 Route::get('repository_comments/{repository}/{slug?}',[RepositoriesController::class, 'showComments'])->name('repository_comments.show');
 
-Route::get('repository_audio/{repository}/{slug?}/commits/{commit}',[RepositoriesController::class, 'showAudio'])->name('repository_audio.show');
+Route::get('show_audio/{repository}/{slug?}/',[RepositoriesController::class, 'showAudio'])->name('repository_audio.show');
+
+Route::get('edit_audio/{repository}/{slug?}',[RepositoriesController::class, 'editAudio'])->name('repository_audio.edit');
 
 Route::get('edit_description/{repository}/{slug?}', [RepositoriesController::class,'editDescription'])->name('repositories.edit_description');
 
@@ -99,3 +103,7 @@ Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name
 Route::resource('notifications', NotificationsController::class, ['only' => ['index']]);
 
 Route::post('repositories/{repository}/commits', [CommitController::class, 'store'])->name('commits.store');
+
+Route::get('commits/{commit}/download-all-audio', [DownloadCommitAudioController::class, 'all'])->name('commit-download-all-audio');
+
+Route::get('search', [SearchController::class, 'index'])->name('search');

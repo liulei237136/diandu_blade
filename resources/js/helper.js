@@ -1,6 +1,7 @@
 import XEUtils from "xe-utils";
 
 export const getCommitAudio = async (commit) => {
+    console.log(commit);
     if (!commit || !commit.file_path) {
         return [];
     } else {

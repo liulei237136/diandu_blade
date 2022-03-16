@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="tw-bg-white tw-py-8">
-        <div class=" tw-max-w-3xl tw-mx-auto">
+        <div class=" tw-max-w-3xl tw-mx-auto tw-p-6">
             {{-- <div class="operate">
                 <a href="{{ route('repositories.edit_description', $repository->id) }}" class="btn btn-outline-secondary btn-sm"
                     role="button">

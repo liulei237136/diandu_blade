@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('commits', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->text('description')->default('');
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('repository_id')->index();
             $table->string('file_path')->default('');

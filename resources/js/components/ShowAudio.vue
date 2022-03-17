@@ -11,7 +11,7 @@
           ></vxe-input>
         </template>
         <template #dropdown>
-          <div class="my-dropdown">
+          <div class="my-dropdown" v-if="commit">
             <div
               class="list-item"
               v-for="commit in demo.filteredCommitsList"
@@ -34,15 +34,9 @@
       <!-- 编辑 -->
       <!-- <vxe-button content="编辑" @click="onSave"></vxe-button> -->
       <a
-        v-if="can_edit"
+        v-if="canEdit"
         class="btn btn-primary btn-sm"
-        :href="
-          route('repository_audio.edit', {
-            repository: repository.id,
-          })
-        "
-        >编辑</a
-      >
+        >编辑</a>
     </template>
 
     <template #source_audio="{ row }">
@@ -86,7 +80,12 @@ export default defineComponent({
   props: {
     repository: Object,
     commit: Object,
-    can_edit: Boolean,
+    canEdit: Boolean,
+  },
+  mounted() {
+    console.log("this.repository");
+    console.log(this.repository);
+    console.log('canEdit', this.canEdit);
   },
   setup(props, context) {
     const xGrid = ref({});

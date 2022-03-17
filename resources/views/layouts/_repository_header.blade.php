@@ -9,21 +9,43 @@
                 {{ $repository->name }}
         </div>
         </a>
-        <div class="d-flex align-items-center ">
-            <div class="btn-group me-3 " style="height:2.3em;font-size:0.8em" role="group" aria-label="收藏">
-                <button type="button" class="d-flex align-items-center btn btn-outline-secondary btn-sm ">
-                    <x-icon name="empty-star" class="me-1" style="width:1em" /><span>收藏</span>
+        {{-- 收藏 --}}
+        <repository-affect :repository="{{$repository->toJson()}}" :user="{{auth()->user() ? auth()->user()->toJson() : null }}">
+        </repository-affect>
+        {{-- <div v-scope="{
+            loggedIn: @json(auth()->check()),
+            isStared: @json($repository->isStaredBy(auth()->user())),
+            stars_count: @json($repository->stars_count),
+            toggleStar(){
+                if(this.isStared){
+                    axios.delete(" {{ route('repository-stars.destroy', $repository->id) }}"); this.stars_count--;
+                    this.isStared=false; }else{ axios.post("{{ route('repository-stars.store', $repository->id) }}");
+                    this.stars_count++; this.isStared=true;
+                } } }"
+             class="d-flex align-items-center ">
+            <div class="btn-group me-3" style="height:2.3em;font-size:0.8em" role="group" aria-label="收藏">
+                <button type="button" v-if="loggedIn"
+                    class="tw-inline-flex tw-items-center tw-text-gray-700 tw-px-2 tw-py-1 tw-border tw-border-gray-300 tw-rounded-lg hover:tw-bg-gray-100">
+                    <x-icon v-bind:name=".isStared ? 'solid-star': 'empty-star' " class="me-1" style="width:1em" />
+                    <span> @{{ isStared ? '已收藏' : '取消收藏' }}</span>
+                    <span
+                        class="tw-text-sm tw-font-thin tw-rounded-3xl tw-px-2 tw-bg-gray-200 tw-ml-2">@{{ stars_count }}</span>
                 </button>
-                <button type="button" class="btn btn-outline-secondary btn-sm">0</button>
+                <button type="button" v-else
+                    class="tw-inline-flex tw-items-center tw-text-gray-700 tw-px-2 tw-py-1 tw-border tw-border-gray-300 tw-rounded-lg hover:tw-bg-gray-100">
+                    <x-icon name="empty-star" class="me-1" style="width:1em" /><span>收藏</span>
+                    <span
+                        class="tw-text-sm tw-font-thin tw-rounded-3xl tw-px-2 tw-bg-gray-200 tw-ml-2">@{{ stars_count }}</span>
+                </button>
             </div>
             <div class="btn-group" role="group" style="height:2.3em;font-size:0.8em" aria-label="克隆">
-                {{-- <button type="button" class="btn btn-outline-secondary  btn-sm"><i class="far fa-code-fork me-2"></i>克隆</button> --}}
+                <button type="button" class="btn btn-outline-secondary  btn-sm"><i class="far fa-code-fork me-2"></i>克隆</button>
                 <button type="button" class="d-flex align-items-center btn btn-outline-secondary  btn-sm">
                     <x-icon name="fork" class="me-1" style=" width:1em" /><span>克隆</span>
                 </button>
                 <button type="button" class="btn btn-outline-secondary  btn-sm">0</button>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 

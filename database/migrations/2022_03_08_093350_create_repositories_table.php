@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->index();
             $table->text('description');
             $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedInteger('favorite_count')->default(0);
+            $table->unsignedInteger('star_count')->default(0);
             $table->unsignedInteger('comment_count')->default(0);
             // $table->integer('last_reply_user_id')->unsigned()->default(0);
             // $table->integer('order')->unsigned()->default(0);

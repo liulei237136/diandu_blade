@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,8 @@ class Repository extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description', 'excerpt', 'slug'];
+
+    protected $appends = ['is_stared'];
 
     public function scopeWithOrder($query, $order)
     {
@@ -67,5 +70,53 @@ class Repository extends Model
     {
         $this->comment_count = $this->comments()->count();
         $this->save();
+    }
+
+    public function stars()
+    {
+        return $this->hasMany(Star::class);
+    }
+
+    public function updateStarCount()
+    {
+        $this->star_count = $this->stars()->count();
+
+        $this->save();
+    }
+
+    public function star($userId)
+    {
+        $this->stars()->create([
+            'user_id' => $userId
+        ]);
+
+        return $this;
+    }
+
+    public function unstar($userId)
+    {
+        $this->stars()
+            ->where('user_id', $userId)
+            ->delete();
+
+        return $this;
+    }
+
+    public function isStaredBy($user)
+    {
+        if (!$user) {
+            return false;
+        }
+
+        return $this->stars()
+            ->where('user_id', $user->id)
+            ->exists();
+    }
+
+    protected function isStared(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->isStaredBy(auth()->user()),
+        );
     }
 }

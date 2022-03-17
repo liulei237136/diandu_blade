@@ -20466,7 +20466,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: {
     repository: Object,
     commit: Object,
-    can_edit: Boolean
+    canEdit: Boolean
+  },
+  mounted: function mounted() {
+    console.log("this.repository");
+    console.log(this.repository);
+    console.log('canEdit', this.canEdit);
   },
   setup: function setup(props, context) {
     var xGrid = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)({});
@@ -21081,10 +21086,14 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
+  key: 0,
   "class": "my-dropdown"
 };
 var _hoisted_2 = ["href", "title"];
-var _hoisted_3 = ["href"];
+var _hoisted_3 = {
+  key: 0,
+  "class": "btn btn-primary btn-sm"
+};
 var _hoisted_4 = ["src", "onPlay"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_vxe_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("vxe-input");
@@ -21115,7 +21124,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           , ["modelValue", "placeholder", "onFocus", "onKeyup"])];
         }),
         dropdown: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.demo.filteredCommitsList, function (commit) {
+          return [_ctx.commit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.demo.filteredCommitsList, function (commit) {
             return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
               "class": "list-item",
               key: commit.id
@@ -21130,22 +21139,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             , _hoisted_2)]);
           }), 128
           /* KEYED_FRAGMENT */
-          ))])];
+          ))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
         }),
         _: 1
         /* STABLE */
 
       }, 512
       /* NEED_PATCH */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 编辑 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <vxe-button content=\"编辑\" @click=\"onSave\"></vxe-button> "), _ctx.can_edit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
-        key: 0,
-        "class": "btn btn-primary btn-sm",
-        href: _ctx.route('repository_audio.edit', {
-          repository: _ctx.repository.id
-        })
-      }, "编辑", 8
-      /* PROPS */
-      , _hoisted_3)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" 编辑 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <vxe-button content=\"编辑\" @click=\"onSave\"></vxe-button> "), _ctx.canEdit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", _hoisted_3, "编辑")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     source_audio: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (_ref) {
       var row = _ref.row;
@@ -21676,6 +21677,31 @@ var Ziggy = {
     "commits.store": {
       "uri": "repositories\/{repository}\/commits",
       "methods": ["POST"],
+      "bindings": {
+        "repository": "id"
+      }
+    },
+    "commit-download-all-audio": {
+      "uri": "commits\/{commit}\/download-all-audio",
+      "methods": ["GET", "HEAD"],
+      "bindings": {
+        "commit": "id"
+      }
+    },
+    "search": {
+      "uri": "search",
+      "methods": ["GET", "HEAD"]
+    },
+    "repository-stars.store": {
+      "uri": "repository-stars\/{repository}",
+      "methods": ["POST"],
+      "bindings": {
+        "repository": "id"
+      }
+    },
+    "repository-stars.destroy": {
+      "uri": "repository-stars\/{repository}",
+      "methods": ["DELETE"],
       "bindings": {
         "repository": "id"
       }

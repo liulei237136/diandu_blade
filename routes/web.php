@@ -12,6 +12,7 @@ use App\Http\Controllers\DownloadCommitAudioController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RepositoriesController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\StarController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function(){
-    dd(\Auth::user()->hasVerifiedEmail());
+    // dd(\Auth::user()->hasVerifiedEmail());
     return view('test');
 });
 
@@ -107,3 +108,7 @@ Route::post('repositories/{repository}/commits', [CommitController::class, 'stor
 Route::get('commits/{commit}/download-all-audio', [DownloadCommitAudioController::class, 'all'])->name('commit-download-all-audio');
 
 Route::get('search', [SearchController::class, 'index'])->name('search');
+
+Route::post('repository-stars/{repository}', [StarController::class, 'store'])->name('repository-stars.store');
+
+Route::delete('repository-stars/{repository}', [StarController::class, 'destroy'])->name('repository-stars.destroy');

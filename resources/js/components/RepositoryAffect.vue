@@ -1,18 +1,29 @@
 <template>
-  <div class="inline-flex items-center space-x-4">
-    <div class="inline-flex shadow-sm rounded-md" role="group">
-      <button @click="toggleStar" class="buttonGroupLeftButton">
+  <div class="tw-inline-flex tw-items-center tw-space-x-4">
+    <div class="tw-inline-flex tw-shadow-sm tw-rounded-md" role="group">
+      <button
+        @click="toggleStar"
+        type="button"
+        class="tw-rounded-l-lg tw-border tw-border-gray-200 tw-bg-white tw-text-sm tw-font-medium tw-px-4 tw-py-1 tw-text-gray-900 hover:tw-bg-gray-100 focus:tw-z-10 tw-inline-flex tw-items-center"
+      >
         <Icon
-          :name="props.user && isStared ? 'solid-star' : 'empty-star'"
-          class="w-4 h-4 mr-1"
+          :name="user && isStared ? 'solid-star' : 'empty-star'"
+          class="tw-w-4 tw-h-4 tw-mr-1"
         ></Icon>
-        <span>{{ props.user && isStared ? "取消收藏" : "收藏" }}</span>
+        <span>{{ user && isStared ? "取消收藏" : "收藏" }}</span>
+        <span
+          class="tw-rounded-lg tw-border tw-border-gray-200 tw-bg-gray-100 tw-text-sm tw-font-medium tw-px-1 tw-ml-2 tw-text-gray-900 focus:tw-z-10"
+        >
+          {{ starCount }}
+        </span>
       </button>
-      <span class="buttonGroupRightSpan">
-        {{ starsCount }}
-      </span>
+      <!-- <span
+        class="tw-cursor-not-allowed tw-rounded-l-lg tw-border tw-border-gray-200 tw-bg-gray-100 tw-text-sm tw-font-medium tw-px-4 tw-py-2 tw-text-gray-900 focus:tw-z-10 tw-inline-flex tw-items-center"
+      >
+        {{ starCount }}
+      </span> -->
     </div>
-    <div class="inline-flex shadow-sm rounded-md" role="group">
+    <!-- <div class="inline-flex shadow-sm rounded-md" role="group">
       <button
         @click="onClone"
         :class="{
@@ -28,7 +39,7 @@
       <span class="buttonGroupRightSpan">
         {{ clonesCount }}
       </span>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -37,61 +48,64 @@ import Icon from "./Icon.vue";
 
 export default {
   props: {
-      repository: Object,
-
+    repository: Object,
+    user: Object,
   },
 
   components: {
     Icon,
   },
 
+  mounted() {
+    console.log(this.repository);
+    console.log(this.user);
+  },
   data() {
     return {
-      starsCount: this.props.repository.favorites_count,
-      isStared: this.props.repository.stared,
-      clonesCount: this.props.repository.clones_count,
-      hasCloned: this.props.repository.hasCloned,
-      hasClonedRepository: this.props.repository.hasClonedRepository,
-      componentName: this.component,
+      starCount: this.repository.star_count,
+      isStared: this.repository.is_stared,
+      //   clonesCount: this.repository.clones_count,
+      //   hasCloned: this.repository.hasCloned,
+      //   hasClonedRepository: this.repository.hasClonedRepository,
     };
   },
   computed: {
     myRepository() {
-      return this.props.user && this.props.user.id === this.repository.user.id;
+      return this.user && this.user.id === this.repository.user.id;
     },
-    pullCountString() {
-      if (this.props.repository?.openPullsCount)
-        return this.props.repository.openPullsCount;
-      return "";
-    },
+    // pullCountString() {
+    //   if (this.repository?.openPullsCount)
+    //     return this.repository.openPullsCount;
+    //   return "";
+    // },
   },
   methods: {
     toggleStar() {
       //如果用户已经登录，用axios比较好
-      if (this.props.user) {
+      if (this.user) {
         if (this.isStared) {
-          axios.delete(route("star-repositorys.destroy", { repository: this.repository.id }));
-          this.starsCount--;
+          axios.delete(route("repository-stars.destroy", this.repository.id));
+          this.starCount--;
           this.isStared = false;
         } else {
-          axios.post(route("star-repositorys.store", { repository: this.repository.id }));
-          this.starsCount++;
+          axios.post(route("repository-stars.store", this.repository.id));
+          this.starCount++;
           this.isStared = true;
         }
-      } else {
-        //如果没登录，才用inertia实现登录后跳转
-        this.$inertia.post(route("star-repositorys.store", { repository: this.repository.id }));
+      }else{
+          window.location.href=`${route('login')}?returnTo=${encodeURI(location.href)}`;
+        //   window.location.href=route('users.edit',0);
       }
     },
-    onClone() {
-      if (this.hasCloned) {
-        this.$inertia.get(
-          route("repository.show", { repository: this.repository.hasClonedRepository.id })
-        );
-      } else {
-        this.$inertia.post(route("clone-repositorys.store", { repository: this.repository.id }));
-      }
-    },
+    // onClone() {
+    //   if (this.hasCloned) {
+    //     this.$inertia.get(
+    //       route("repository.show", { repository: this.repository.hasClonedRepository.id })
+    //     );
+    //   } else {
+    //     this.$inertia.post(route("clone-repositorys.store", { repository: this.repository.id }));
+    //   }
+    // },
   },
 };
 </script>

@@ -16,7 +16,7 @@ class RepositoriesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'showComments']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'showAudio', 'showComments']]);
     }
 
 
@@ -52,6 +52,10 @@ class RepositoriesController extends Controller
             return redirect($repository->link(), 301);
         }
 
+        $repository->loadCount('stars');
+
+        //$isStared = $repository->isStaredBy(auth()->id());
+
         return view('repositories.show', compact('repository'));
     }
 
@@ -65,7 +69,7 @@ class RepositoriesController extends Controller
         // }
         $repository->load(['commits' => function($query){
             $query->latest();
-        }]);
+        }, 'stars']);
 
         $commit_id = $request->commit;
 
@@ -76,7 +80,9 @@ class RepositoriesController extends Controller
         }else{
             $commit = null;
         }
+        //$isStared = $repository->isStaredBy(auth()->id());
 
+        // dd($repository);
         return view('repositories.showAudio ', compact('repository', 'commit'));
     }
 
@@ -91,7 +97,7 @@ class RepositoriesController extends Controller
 
         $repository->load(['commits' => function($query){
             $query->with('user')->latest();
-        }]);
+        }, 'stars']);
 
         $commit_id = $request->commit;
 
@@ -103,6 +109,8 @@ class RepositoriesController extends Controller
         }else{
             $commit = null;
         }
+        //$isStared = $repository->isStaredBy(auth()->id());
+
 
 
         return view('repositories.editAudio ', compact('repository', 'commit'));
@@ -175,7 +183,10 @@ class RepositoriesController extends Controller
             return redirect($repository->link('repositories.edit_description'), 301);
         }
 
-        return view('repositories.edit_description', compact('repository'));
+        //$isStared = $repository->isStaredBy(auth()->id());
+
+
+        return view('repositories.edit_description', compact('repository', 'isStared'));
     }
 
     public function updateDescription(RepositoryRequest $request, Repository $repository)
@@ -201,6 +212,8 @@ class RepositoriesController extends Controller
     {
         $this->authorize('update', $repository);
 
+        $repository->loadCount('stars');
+
         // URL 矫正
         if (!empty($repository->slug) && $repository->slug != $request->slug) {
             return redirect($repository->link('repository_setting.show'), 301);
@@ -213,6 +226,8 @@ class RepositoriesController extends Controller
     public function showComments(Repository $repository)
     {
         $comments = $repository->comments()->with('user', 'repository')->latest()->paginate(7);
+
+        $repository->loadCount('stars');
 
         return view('repositories.comments', compact('repository', 'comments'));
     }

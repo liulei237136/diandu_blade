@@ -22601,67 +22601,61 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    repository: Object
+    repository: Object,
+    user: Object
   },
   components: {
     Icon: _Icon_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  mounted: function mounted() {
+    console.log(this.repository);
+    console.log(this.user);
+  },
   data: function data() {
     return {
-      starsCount: this.props.repository.favorites_count,
-      isStared: this.props.repository.stared,
-      clonesCount: this.props.repository.clones_count,
-      hasCloned: this.props.repository.hasCloned,
-      hasClonedRepository: this.props.repository.hasClonedRepository,
-      componentName: this.component
+      starCount: this.repository.star_count,
+      isStared: this.repository.is_stared //   clonesCount: this.repository.clones_count,
+      //   hasCloned: this.repository.hasCloned,
+      //   hasClonedRepository: this.repository.hasClonedRepository,
+
     };
   },
   computed: {
     myRepository: function myRepository() {
-      return this.props.user && this.props.user.id === this.repository.user.id;
-    },
-    pullCountString: function pullCountString() {
-      var _this$props$repositor;
+      return this.user && this.user.id === this.repository.user.id;
+    } // pullCountString() {
+    //   if (this.repository?.openPullsCount)
+    //     return this.repository.openPullsCount;
+    //   return "";
+    // },
 
-      if ((_this$props$repositor = this.props.repository) !== null && _this$props$repositor !== void 0 && _this$props$repositor.openPullsCount) return this.props.repository.openPullsCount;
-      return "";
-    }
   },
   methods: {
     toggleStar: function toggleStar() {
       //如果用户已经登录，用axios比较好
-      if (this.props.user) {
+      if (this.user) {
         if (this.isStared) {
-          axios["delete"](route("star-repositorys.destroy", {
-            repository: this.repository.id
-          }));
-          this.starsCount--;
+          axios["delete"](route("repository-stars.destroy", this.repository.id));
+          this.starCount--;
           this.isStared = false;
         } else {
-          axios.post(route("star-repositorys.store", {
-            repository: this.repository.id
-          }));
-          this.starsCount++;
+          axios.post(route("repository-stars.store", this.repository.id));
+          this.starCount++;
           this.isStared = true;
         }
       } else {
-        //如果没登录，才用inertia实现登录后跳转
-        this.$inertia.post(route("star-repositorys.store", {
-          repository: this.repository.id
-        }));
+        window.location.href = "".concat(route('login'), "?returnTo=").concat(encodeURI(location.href)); //   window.location.href=route('users.edit',0);
       }
-    },
-    onClone: function onClone() {
-      if (this.hasCloned) {
-        this.$inertia.get(route("repository.show", {
-          repository: this.repository.hasClonedRepository.id
-        }));
-      } else {
-        this.$inertia.post(route("clone-repositorys.store", {
-          repository: this.repository.id
-        }));
-      }
-    }
+    } // onClone() {
+    //   if (this.hasCloned) {
+    //     this.$inertia.get(
+    //       route("repository.show", { repository: this.repository.hasClonedRepository.id })
+    //     );
+    //   } else {
+    //     this.$inertia.post(route("clone-repositorys.store", { repository: this.repository.id }));
+    //   }
+    // },
+
   }
 });
 
@@ -22926,27 +22920,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "inline-flex items-center space-x-4"
+  "class": "tw-inline-flex tw-items-center tw-space-x-4"
 };
 var _hoisted_2 = {
-  "class": "inline-flex shadow-sm rounded-md",
+  "class": "tw-inline-flex tw-shadow-sm tw-rounded-md",
   role: "group"
 };
 var _hoisted_3 = {
-  "class": "buttonGroupRightSpan"
-};
-var _hoisted_4 = {
-  "class": "inline-flex shadow-sm rounded-md",
-  role: "group"
-};
-var _hoisted_5 = ["title", "disabled"];
-
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "克隆", -1
-/* HOISTED */
-);
-
-var _hoisted_7 = {
-  "class": "buttonGroupRightSpan"
+  "class": "tw-rounded-lg tw-border tw-border-gray-200 tw-bg-gray-100 tw-text-sm tw-font-medium tw-px-1 tw-ml-2 tw-text-gray-900 focus:tw-z-10"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Icon");
@@ -22955,34 +22936,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleStar && $options.toggleStar.apply($options, arguments);
     }),
-    "class": "buttonGroupLeftButton"
+    type: "button",
+    "class": "tw-rounded-l-lg tw-border tw-border-gray-200 tw-bg-white tw-text-sm tw-font-medium tw-px-4 tw-py-1 tw-text-gray-900 hover:tw-bg-gray-100 focus:tw-z-10 tw-inline-flex tw-items-center"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Icon, {
-    name: _ctx.props.user && $data.isStared ? 'solid-star' : 'empty-star',
-    "class": "w-4 h-4 mr-1"
+    name: $props.user && $data.isStared ? 'solid-star' : 'empty-star',
+    "class": "tw-w-4 tw-h-4 tw-mr-1"
   }, null, 8
   /* PROPS */
-  , ["name"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.props.user && $data.isStared ? "取消收藏" : "收藏"), 1
+  , ["name"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.user && $data.isStared ? "取消收藏" : "收藏"), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.starsCount), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.starCount), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[1] || (_cache[1] = function () {
-      return $options.onClone && $options.onClone.apply($options, arguments);
-    }),
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-      buttonGroupLeftButton: !$options.myRepository,
-      buttonGroupLeftButtonDisabled: $options.myRepository
-    }),
-    title: $options.myRepository ? '不能克隆自己的项目' : '',
-    disabled: $options.myRepository
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Icon, {
-    "class": "w-4 h-4 mr-1",
-    name: "clone"
-  }), _hoisted_6], 10
-  /* CLASS, PROPS */
-  , _hoisted_5), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.clonesCount), 1
-  /* TEXT */
-  )])]);
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <span\n        class=\"tw-cursor-not-allowed tw-rounded-l-lg tw-border tw-border-gray-200 tw-bg-gray-100 tw-text-sm tw-font-medium tw-px-4 tw-py-2 tw-text-gray-900 focus:tw-z-10 tw-inline-flex tw-items-center\"\n      >\n        {{ starCount }}\n      </span> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"inline-flex shadow-sm rounded-md\" role=\"group\">\n      <button\n        @click=\"onClone\"\n        :class=\"{\n          buttonGroupLeftButton: !myRepository,\n          buttonGroupLeftButtonDisabled: myRepository,\n        }\"\n        :title=\"myRepository ? '不能克隆自己的项目' : ''\"\n        :disabled=\"myRepository\"\n      >\n        <Icon class=\"w-4 h-4 mr-1\" name=\"clone\"></Icon>\n        <span>克隆</span>\n      </button>\n      <span class=\"buttonGroupRightSpan\">\n        {{ clonesCount }}\n      </span>\n    </div> ")]);
 }
 
 /***/ }),

@@ -18,12 +18,16 @@ class StarController extends Controller
     {
         $repository->star(auth()->id());
 
+        $repository->updateStarCount();
+
         return response([], 201);
     }
 
     public function destroy(Repository $repository)
     {
         $repository->unstar(auth()->id());
+
+        $repository->updateStarCount();
 
         return response([], 201);
     }

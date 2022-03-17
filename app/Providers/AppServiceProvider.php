@@ -33,6 +33,6 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Pagination\Paginator::useBootstrap();
         Repository::observe(RepositoryObserver::class);
         Comment::observe(CommentObserver::class);
-        Star::observe(StarObserver::class);
+        // Star::observe(StarObserver::class);
     }
 }

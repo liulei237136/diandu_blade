@@ -18,9 +18,6 @@ mix.js('resources/js/app.js', 'public/js')
     .copyDirectory('resources/editor/js', 'public/js')
     .copyDirectory('resources/editor/css', 'public/css');
 
-mix.js('resources/js/table.js', 'public/js')
-    .vue()
-    .version();
 
 // Mix v6
 const path = require('path');

@@ -61,7 +61,7 @@ body {
 }
 
 /* Topic Index Page */
-.repositories-index-page {
+.repositories-index-page, .search-page {
     .repository-list {
         .nav>li>a {
             position: relative;
@@ -73,6 +73,7 @@ body {
         .repository_name {
             color: #000000;
             text-decoration: none;
+            font-size: 1.2em;
         }
 
         .repository_meta {
@@ -130,4 +131,9 @@ body {
     .badge-hint {
       background-color: #d15b47 !important;
     }
+  }
+
+
+  [v-cloak]{
+      display: none;
   }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\CloneRepositoreisController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommitController;
 use App\Http\Controllers\DownloadCommitAudioController;
@@ -112,3 +113,5 @@ Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::post('repository-stars/{repository}', [StarController::class, 'store'])->name('repository-stars.store');
 
 Route::delete('repository-stars/{repository}', [StarController::class, 'destroy'])->name('repository-stars.destroy');
+
+Route::post('/repositories/{repository}/clones', [CloneRepositoreisController::class, 'store'])->name('clone-repositories.store');

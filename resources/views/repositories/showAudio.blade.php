@@ -5,16 +5,22 @@
 
 
 @section('content')
-
+<div class="tw-p-4">
+    <div class="operate">
+        @can('update', $repository)
+            <a href="{{ $repository->link('repository_audio.edit', [$repository->id]) }}" class="btn btn-outline-secondary btn-sm"
+                role="button">
+                <i class="far fa-edit"></i> 编辑
+            </a>
+            <hr>
+        @endauth
+    </div>
     <div class="tw-bg-white tw-py-4">
-        <show-audio :repository='@json($repository->toJson())' @if ($commit)
-            :commit='@json($commit->toJson())'
-            @endif :can_edit='@json(auth()->check() &&
-            auth()->user()->isAuthorOf($repository))'>
+        <show-audio :repository="{{ $repository->toJson() }}" :commit="{{ isset($commit) ? $commit->toJson() : null }}"
+            :can_edit="{{ auth()->check() &&
+                auth()->user()->isAuthorOf($repository) }}">
         </show-audio>
     </div>
-@stop
 
-@section('scripts')
-    <script src="{{ mix('js/table.js') }}"></script>
-@endsection
+</div>
+@stop

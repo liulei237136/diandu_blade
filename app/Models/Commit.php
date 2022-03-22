@@ -9,9 +9,13 @@ class Commit extends Model
 {
     use HasFactory;
 
-    public function user()
+    public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function creator(){
+        return $this->belongsTo(User::class, 'creator_id');
     }
 
     public function repository()

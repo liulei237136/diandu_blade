@@ -17,13 +17,9 @@
           {{ starCount }}
         </span>
       </button>
-      <!-- <span
-        class="tw-cursor-not-allowed tw-rounded-l-lg tw-border tw-border-gray-200 tw-bg-gray-100 tw-text-sm tw-font-medium tw-px-4 tw-py-2 tw-text-gray-900 focus:tw-z-10 tw-inline-flex tw-items-center"
-      >
-        {{ starCount }}
-      </span> -->
     </div>
-    <!-- <div class="inline-flex shadow-sm rounded-md" role="group">
+
+    <div class="tw-inline-flex tw-shadow-sm tw-rounded-md" role="group">
       <button
         @click="onClone"
         :class="{
@@ -33,13 +29,13 @@
         :title="myRepository ? '不能克隆自己的项目' : ''"
         :disabled="myRepository"
       >
-        <Icon class="w-4 h-4 mr-1" name="clone"></Icon>
+        <Icon class="tw-w-4 tw-h-4 tw-mr-1" name="clone"></Icon>
         <span>克隆</span>
       </button>
       <span class="buttonGroupRightSpan">
-        {{ clonesCount }}
+        {{ cloneCount }}
       </span>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -64,9 +60,9 @@ export default {
     return {
       starCount: this.repository.star_count,
       isStared: this.repository.is_stared,
-      //   clonesCount: this.repository.clones_count,
-      //   hasCloned: this.repository.hasCloned,
-      //   hasClonedRepository: this.repository.hasClonedRepository,
+      cloneCount: this.repository.clone_count,
+      hasCloned: this.repository.hasCloned,
+      hasClonedRepository: this.repository.hasClonedRepository,
     };
   },
   computed: {
@@ -92,20 +88,33 @@ export default {
           this.starCount++;
           this.isStared = true;
         }
-      }else{
-          window.location.href=`${route('login')}?returnTo=${encodeURI(location.href)}`;
-        //   window.location.href=route('users.edit',0);
+      } else {
+        window.location.href = `${route("login")}?returnTo=${encodeURI(location.href)}`;
       }
     },
-    // onClone() {
-    //   if (this.hasCloned) {
-    //     this.$inertia.get(
-    //       route("repository.show", { repository: this.repository.hasClonedRepository.id })
-    //     );
-    //   } else {
-    //     this.$inertia.post(route("clone-repositorys.store", { repository: this.repository.id }));
-    //   }
-    // },
+    onClone() {
+      if (this.hasCloned) {
+        window.location.href = route(
+          "repositories.show",
+          this.repository.hasClonedRepository.id
+        );
+      } else {
+        axios
+          .post(route("clone-repositories.store", { repository: this.repository.id }))
+          .then(function (res) {
+            console.log(res.data);
+            if (res.data.success) {
+              window.location.href = route(
+                "repositories.show",
+                res.data.data,
+              );
+            }
+          })
+          .catch(function (e) {
+            console.log(e.message);
+          });
+      }
+    },
   },
 };
 </script>

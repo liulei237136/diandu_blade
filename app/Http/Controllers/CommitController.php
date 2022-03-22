@@ -31,7 +31,8 @@ class CommitController extends Controller
             $commit->description = $request->description;
         }
         $commit->repository_id = $repository->id;
-        $commit->user_id = auth()->id();
+        $commit->creator_id = auth()->id();
+        $commit->owner_id = auth()->id();
         $commit->file_path = url("storage/" . $folder_name . '/' . $filename);
         $commit->save();
         // dd('ok');

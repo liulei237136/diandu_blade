@@ -52,7 +52,8 @@ class RepositoriesController extends Controller
             return redirect($repository->link(), 301);
         }
 
-        $repository->loadCount('stars');
+        // $repository->loadCount('stars');
+        appendRepository($repository);
 
         //$isStared = $repository->isStaredBy(auth()->id());
 
@@ -81,7 +82,7 @@ class RepositoriesController extends Controller
             $commit = null;
         }
         //$isStared = $repository->isStaredBy(auth()->id());
-
+        appendRepository($repository);
         // dd($repository);
         return view('repositories.showAudio ', compact('repository', 'commit'));
     }
@@ -103,14 +104,13 @@ class RepositoriesController extends Controller
 
         if ($commit_id) {
             $commit = Commit::findOrFail($commit_id);
-            $commit->load('user');
         } else if ($repository->commits->isNotEmpty()) {
             $commit = $repository->commits->first();
         }else{
             $commit = null;
         }
         //$isStared = $repository->isStaredBy(auth()->id());
-
+        appendRepository($repository);
 
 
         return view('repositories.editAudio ', compact('repository', 'commit'));
@@ -185,7 +185,7 @@ class RepositoriesController extends Controller
 
         //$isStared = $repository->isStaredBy(auth()->id());
 
-
+        appendRepository($repository);
         return view('repositories.edit_description', compact('repository', 'isStared'));
     }
 
@@ -212,14 +212,14 @@ class RepositoriesController extends Controller
     {
         $this->authorize('update', $repository);
 
-        $repository->loadCount('stars');
-
+        // $repository->loadCount('stars');
         // URL 矫正
         if (!empty($repository->slug) && $repository->slug != $request->slug) {
             return redirect($repository->link('repository_setting.show'), 301);
         }
 
 
+        appendRepository($repository);
         return view('repositories.setting', compact('repository'));
     }
 
@@ -227,7 +227,8 @@ class RepositoriesController extends Controller
     {
         $comments = $repository->comments()->with('user', 'repository')->latest()->paginate(7);
 
-        $repository->loadCount('stars');
+        // $repository->loadCount('stars');
+        appendRepository($repository);
 
         return view('repositories.comments', compact('repository', 'comments'));
     }

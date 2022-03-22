@@ -11331,25 +11331,26 @@ body {
 }
 
 /* Topic Index Page */
-.repositories-index-page .repository-list .nav > li > a {
+.repositories-index-page .repository-list .nav > li > a, .search-page .repository-list .nav > li > a {
   position: relative;
   display: block;
   padding: 5px 14px;
   font-size: 0.9em;
 }
-.repositories-index-page .repository-list .repository_name {
+.repositories-index-page .repository-list .repository_name, .search-page .repository-list .repository_name {
   color: #000000;
   text-decoration: none;
+  font-size: 1.2em;
 }
-.repositories-index-page .repository-list .repository_meta {
+.repositories-index-page .repository-list .repository_meta, .search-page .repository-list .repository_meta {
   color: #666666;
   font-size: 0.9em;
 }
-.repositories-index-page .repository-list .repository_meta a {
+.repositories-index-page .repository-list .repository_meta a, .search-page .repository-list .repository_meta a {
   text-decoration: none;
   color: #666666;
 }
-.repositories-index-page .repository-list hr {
+.repositories-index-page .repository-list hr, .search-page .repository-list hr {
   margin-top: 12px;
   margin-bottom: 12px;
   border: 0;
@@ -11719,4 +11720,8 @@ body {
 }
 .notification-badge .badge-hint {
   background-color: #d15b47 !important;
+}
+
+[v-cloak] {
+  display: none;
 }

@@ -1,86 +1,84 @@
 <template>
-    <vxe-modal
-      v-model="demo.showSaveModal"
-      id="saveModal"
-      width="800"
-      height="360"
-      min-width="460"
-      min-height="320"
-      show-zoom
-      resize
-      storage
-      transfer
-    >
-      <template #title>
-        <span>给本次保存起个名字</span>
-      </template>
-      <template #default>
-        <vxe-form
-          title-colon
-          ref="saveForm"
-          title-align="right"
-          title-width="100"
-          :data="demo.saveFormData"
-          :rules="demo.saveFormRules"
-          :loading="demo.saveFormloading"
-          @submit="saveModalFormSubmitEvent"
-        >
-          <vxe-form-item title="名字" field="title" span="18" :item-render="{}">
-            <template #default="{ data }">
-              <vxe-input
-                @change="saveForm.clearValidate('title')"
-                v-model="data.title"
-                placeholder=""
-                clearable
-              ></vxe-input>
-            </template>
-          </vxe-form-item>
-          <vxe-form-item title="描述" field="description" span="24" :item-render="{}">
-            <template #default="{ data }">
-              <vxe-textarea
-                v-model="data.description"
-                @change="saveForm.clearValidate('description')"
-                placeholder=""
-                :autosize="{ minRows: 6, maxRows: 10 }"
-                clearable
-              ></vxe-textarea>
-            </template>
-          </vxe-form-item>
-          <vxe-form-item align="center" span="24">
-            <template #default>
-              <vxe-button
-                :disabled="demo.saveFormLoading"
-                type="submit"
-                status="primary"
-                content="提交"
-              ></vxe-button>
-            </template>
-          </vxe-form-item>
-        </vxe-form>
-      </template>
-    </vxe-modal>
-
-    <vxe-grid ref="xGrid" v-bind="gridOptions">
-      <template #toolbar_buttons>
-        <vxe-pulldown ref="xDown" class="mr-4">
-          <template #default>
+  <vxe-modal
+    v-model="demo.showSaveModal"
+    id="saveModal"
+    width="800"
+    height="360"
+    min-width="460"
+    min-height="320"
+    show-zoom
+    resize
+    storage
+    transfer
+  >
+    <template #title>
+      <span>给本次保存起个名字</span>
+    </template>
+    <template #default>
+      <vxe-form
+        title-colon
+        ref="saveForm"
+        title-align="right"
+        title-width="100"
+        :data="demo.saveFormData"
+        :rules="demo.saveFormRules"
+        :loading="demo.saveFormloading"
+        @submit="saveModalFormSubmitEvent"
+      >
+        <vxe-form-item title="名字" field="title" span="18" :item-render="{}">
+          <template #default="{ data }">
             <vxe-input
-              v-model="demo.filterCommitTitle"
-              :placeholder="
-                commit ? commit.title : '还没有保存过'
-              "
-              @focus="commitFocusEvent"
-              @keyup="commitKeyupEvent"
+              @change="saveForm.clearValidate('title')"
+              v-model="data.title"
+              placeholder=""
+              clearable
             ></vxe-input>
           </template>
-          <template #dropdown>
-            <div class="my-dropdown">
-              <div
-                class="list-item"
-                v-for="commit in demo.filteredCommitsList"
-                :key="commit.id"
-              >
-        <a
+        </vxe-form-item>
+        <vxe-form-item title="描述" field="description" span="24" :item-render="{}">
+          <template #default="{ data }">
+            <vxe-textarea
+              v-model="data.description"
+              @change="saveForm.clearValidate('description')"
+              placeholder=""
+              :autosize="{ minRows: 6, maxRows: 10 }"
+              clearable
+            ></vxe-textarea>
+          </template>
+        </vxe-form-item>
+        <vxe-form-item align="center" span="24">
+          <template #default>
+            <vxe-button
+              :disabled="demo.saveFormLoading"
+              type="submit"
+              status="primary"
+              content="提交"
+            ></vxe-button>
+          </template>
+        </vxe-form-item>
+      </vxe-form>
+    </template>
+  </vxe-modal>
+
+  <vxe-grid ref="xGrid" v-bind="gridOptions">
+    <template #toolbar_buttons>
+      <vxe-pulldown ref="xDown" class="mr-4">
+        <template #default>
+          <vxe-input
+            v-model="demo.filterCommitTitle"
+            :placeholder="commit ? commit.title : '还没有保存过'"
+            @focus="commitFocusEvent"
+            @keyup="commitKeyupEvent"
+          ></vxe-input>
+        </template>
+        <template #dropdown>
+          <div class="my-dropdown">
+            <div
+              class="list-item"
+              v-for="commit in demo.filteredCommitsList"
+              :key="commit.id"
+            >
+              <a
                 :href="
                   route('repository_audio.show', {
                     repository: commit.repository_id,
@@ -90,108 +88,104 @@
                 :title="commit.title"
                 >{{ commit.title }}</a
               >
-              </div>
             </div>
-          </template>
-        </vxe-pulldown>
-        <!-- 保存 -->
-        <vxe-button content="保存改动" @click="onSave"></vxe-button>
-        <!-- 插入 -->
-        <vxe-button content="插入空白行">
-          <template #dropdowns>
-            <vxe-button
-              type="text"
-              @click="insertEmptyAt(0)"
-              content="在第一行插入"
-            ></vxe-button>
-            <vxe-button
-              type="text"
-              @click="insertEmptyAt(-1)"
-              content="在最后一行插入"
-            ></vxe-button>
-            <vxe-button
-              type="text"
-              @click="insertEmptyBeforeSelected()"
-              content="选中行前插入"
-            ></vxe-button>
-          </template>
-        </vxe-button>
-        <vxe-button content="插入音频">
-          <template #dropdowns>
-            <vxe-button
-              type="text"
-              @click="insertAudioAt(0)"
-              content="在第一行插入"
-            ></vxe-button>
-            <vxe-button
-              type="text"
-              @click="insertAudioAt(-1)"
-              content="在最后一行插入"
-            ></vxe-button>
-            <vxe-button
-              type="text"
-              @click="insertAudioBeforeSelected()"
-              content="选中行前插入"
-            ></vxe-button>
-          </template>
-        </vxe-button>
-        <!-- 删除 -->
-        <vxe-button content="删除选中行" @click="xGrid.removeCheckboxRow"></vxe-button>
-        <vxe-button content="下载音频">
-          <template #dropdowns>
-            <vxe-button
-              title="本次插入音频和本次录音不会被下载"
-              content="下载全部音频  (不受当前更改的影响，下载为一个压缩文件)"
-              @click="onDownloadAllAudio"
-            ></vxe-button>
-            <vxe-button
-              @click="onDownloadCheckedAudio"
-              content='下载选中的音频  (优先级 "本次录音">"本次插入音频">"前次已保存音频")'
-            ></vxe-button>
-          </template>
-        </vxe-button>
-        <!-- <form action="/testform" method="POST">
+          </div>
+        </template>
+      </vxe-pulldown>
+      <!-- 保存 -->
+      <vxe-button content="保存" @click="onSave"></vxe-button>
+      <!-- 插入 -->
+      <vxe-button content="插入">
+        <template #dropdowns>
+          <vxe-button
+            type="text"
+            @click="insertEmptyAt(0)"
+            content="在第一行插入空行"
+          ></vxe-button>
+          <vxe-button
+            type="text"
+            @click="insertEmptyAt(-1)"
+            content="在最后一行插入空行"
+          ></vxe-button>
+          <vxe-button
+            type="text"
+            @click="insertEmptyBeforeSelected()"
+            content="选中行前插入空行"
+          ></vxe-button>
+          <vxe-button
+            type="text"
+            @click="insertAudioAt(0)"
+            content="在第一行插入音频"
+          ></vxe-button>
+          <vxe-button
+            type="text"
+            @click="insertAudioAt(-1)"
+            content="在最后一行插入音频"
+          ></vxe-button>
+          <vxe-button
+            type="text"
+            @click="insertAudioBeforeSelected()"
+            content="选中行前插入音频"
+          ></vxe-button>
+        </template>
+      </vxe-button>
+      <!-- 删除 -->
+      <vxe-button content="删除选中" @click="xGrid.removeCheckboxRow"></vxe-button>
+      <vxe-button content="下载">
+        <template #dropdowns>
+          <vxe-button
+            title="本次插入音频和本次录音不会被下载"
+            content="下载本次保存的所有音频为一个压缩文件"
+            @click="onDownloadAllAudio"
+          ></vxe-button>
+          <vxe-button
+            @click="onDownloadCheckedAudio"
+            content='下载选中的音频  (优先级 "本次录音">"本次插入音频">"前次已保存音频")'
+          ></vxe-button>
+        </template>
+      </vxe-button>
+      <!-- <form action="/testform" method="POST">
           <input type="hidden" name="_csrf" :value="csrf" />
           <input type="hidden" name="content" :value="demo.audioToLoad" /> -->
-        <!-- </form> -->
-      </template>
+      <!-- </form> -->
+    </template>
 
-      <template #source_audio="{ row }">
-        <audio
-          class="h-6"
-          v-if="row.file_path"
-          :src="row.file_path"
-          @play="onAudioPlayEvent($event, row)"
-          controls
-          preload="auto"
-        ></audio>
-      </template>
-      <template #local_audio="{ row }">
-        <audio
-          class="h-6"
-          v-if="row.localUrl"
-          :src="row.localUrl"
-          @play="onAudioPlayEvent($event, row)"
-          controls
-        ></audio>
-      </template>
-      <template #record_audio="{ row }">
-        <div class="flex items-center">
-          <div>
-            <audio-recorder :row="row" :demo="demo" class="mr-1"></audio-recorder>
-          </div>
-          <div>
-            <audio
-              class="h-6"
-              v-if="row.recordUrl"
-              :src="row.recordUrl"
-              @play="onAudioPlayEvent($event, row)"
-              controls
-            ></audio>
-          </div>
+    <template #source_audio="{ row }">
+      <audio
+        class="h-6"
+        v-if="row.file_path"
+        :src="row.file_path"
+        @play="onAudioPlayEvent($event, row)"
+        controls
+        preload="auto"
+      ></audio>
+    </template>
+    <template #local_audio="{ row }">
+      <audio
+        class="h-6"
+        v-if="row.localUrl"
+        :src="row.localUrl"
+        @play="onAudioPlayEvent($event, row)"
+        controls
+      ></audio>
+    </template>
+    <template #record_audio="{ row }">
+      <div class="flex items-center">
+        <div>
+          <audio-recorder :row="row" :demo="demo" class="mr-1"></audio-recorder>
         </div>
-      </template>
-    </vxe-grid>
+        <div>
+          <audio
+            class="h-6"
+            v-if="row.recordUrl"
+            :src="row.recordUrl"
+            @play="onAudioPlayEvent($event, row)"
+            controls
+          ></audio>
+        </div>
+      </div>
+    </template>
+  </vxe-grid>
 </template>
 
 <style scoped>
@@ -321,8 +315,8 @@ export default defineComponent({
           //   console.log("$filePath", result.data);
           record.file_path = result.data.file_path;
           //这里的repository audio 是当前用户
-          record.user_name = props.commit.user.name;
-          record.user_id = props.commit.user.id;
+          record.user_name = props.user.name;
+          record.user_id = props.user.id;
           record.created_at = Date.now();
         } else {
           console.log("upload fail");
@@ -338,9 +332,9 @@ export default defineComponent({
         content += ",";
         content += record.comment ? record.comment : "";
         content += ",";
-        content += props.commit.user.name;
+        content += props.user.name;
         content += ",";
-        content += props.commit.user.id;
+        content += props.user.id;
         content += ",";
         content += Date.now();
         content += "\n";
@@ -361,7 +355,7 @@ export default defineComponent({
       //   );
       try {
         const result = await window.axios.post(
-           route('commits.store', props.repository.id) ,
+          route("commits.store", props.repository.id),
           {
             title: demo.saveFormData.title,
             description: demo.saveFormData.description,
@@ -384,7 +378,7 @@ export default defineComponent({
     };
 
     const gridOptions = reactive({
-        // loading:false,
+      // loading:false,
       border: true,
       resizable: true,
       showHeaderOverflow: true,
@@ -572,15 +566,13 @@ export default defineComponent({
       //   console.log("reset all");
     };
     const onDownloadAllAudio = async () => {
-      // location.href =  route("commit-packs", { commit: props.commit });
-      //   const re = commitHasChanged();
-      //   console.log(re);
-      //   if (await commitHasChanged()) {
-      //     return await VXETable.modal.message({ content: "内容有改动,请保存后再下载。" });
-      //   }
-      location.href = route("commit-download-all-audio", {
-        commit: props.commit,
-      });
+      if (props.commit) {
+        location.href = route("commit-download-all-audio", {
+          commit: props.commit,
+        });
+      } else {
+        alert("还没有保存过");
+      }
     };
 
     const onDownloadCheckedAudio = async () => {
@@ -633,23 +625,6 @@ export default defineComponent({
       );
     };
 
-    // const onPack = () => {
-
-    //   if (!props.commit) {
-    //     alert("还未保存过，请先保存");
-    //   }
-    //   const loader = $loading.show({
-    //     // Optional parameters
-    //   });
-    //   Inertia.post(
-    //     route("commit-packs", { commit: props.commit })
-    //   );
-
-    //   setTimeout(() => {
-    //     loader.hide();
-    //   }, 5000);
-    // };
-
     return {
       xGrid,
       xDown,
@@ -663,7 +638,6 @@ export default defineComponent({
       saveForm,
       commitHasChanged,
       onSave,
-      //   onPack,
       onDownloadAllAudio,
       onDownloadCheckedAudio,
       saveModalFormSubmitEvent,

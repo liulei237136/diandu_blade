@@ -157,7 +157,7 @@ class Repository extends Model
 
         // $child->commits()->attach($this->commits);
         $newCommits = [];
-        $this->commits->each(function($commit) use($child){
+        $this->commits->each(function ($commit) use ($child) {
             $newCommits[] = [
                 'title' => $commit->title,
                 'description' => $commit->description,
@@ -183,4 +183,8 @@ class Repository extends Model
         $this->save();
     }
 
+    public function downloads()
+    {
+        return $this->hasMany(RepositoryDownload::class);
+    }
 }

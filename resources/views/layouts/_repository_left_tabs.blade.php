@@ -20,11 +20,17 @@
          <span>评论<span
                  class="tw-text-sm tw-font-thin tw-rounded-3xl tw-px-2 tw-bg-gray-200 tw-ml-2">{{ $repository->comment_count }}</span></span>
      </a>
-     <a href="#"
+     {{-- <a href="#"
          class="tw-hidden tw-no-underline  tw-px-4 tw-py-2 sm:tw-flex tw-items-center tw-text-black hover:tw-text-black  hover:tw-border-b hover:tw-border-b-gray-200">
          <x-icon name="pull" class="tw-hidden md:tw-block tw-w-4 tw-h-4 tw-mr-1" />
          <span>拉取<span class="tw-text-sm tw-font-thin tw-rounded-3xl tw-px-2 tw-bg-gray-200 tw-ml-2">0</span></span>
+     </a> --}}
+     <a href="{{ $repository->link('repository-downloads.index') }}"
+         class="{{ if_route('repository-downloads.index') ? 'tw-border-b tw-border-b-red-500' : '' }} tw-hidden tw-no-underline  tw-px-4 tw-py-2 sm:tw-flex tw-items-center tw-text-black hover:tw-text-black  hover:tw-border-b hover:tw-border-b-gray-200">
+         <x-icon name="download" class="tw-hidden md:tw-block tw-w-4 tw-h-4 tw-mr-1" />
+         <span>下载</span>
      </a>
+
      @can('update', $repository)
          <a href="{{ $repository->link('repository_setting.show') }}"
              class="{{ if_route('repository_setting.show') ? 'tw-border-b tw-border-b-red-500' : '' }} tw-hidden tw-no-underline  tw-px-4 tw-py-2 sm:tw-flex tw-items-center tw-text-black hover:tw-text-black  hover:tw-border-b hover:tw-border-b-gray-200">
@@ -33,6 +39,3 @@
          </a>
      @endcan
  </div>
-
-
-

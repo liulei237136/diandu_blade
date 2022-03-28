@@ -12,9 +12,11 @@ use App\Http\Controllers\CommitController;
 use App\Http\Controllers\DownloadCommitAudioController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RepositoriesController;
+use App\Http\Controllers\RepositoryDownloadController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StarController;
 use App\Http\Controllers\UsersController;
+use App\Models\RepositoryDownload;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -115,3 +117,6 @@ Route::post('repository-stars/{repository}', [StarController::class, 'store'])->
 Route::delete('repository-stars/{repository}', [StarController::class, 'destroy'])->name('repository-stars.destroy');
 
 Route::post('/repositories/{repository}/clones', [CloneRepositoreisController::class, 'store'])->name('clone-repositories.store');
+
+Route::get('/repository-downloads/repositories/{repository}', [RepositoryDownloadController::class, 'index'])->name('repository-downloads.index');
+Route::get('/repository-downloads-create/repositories/{repository}', [RepositoryDownloadController::class, 'create'])->name('repository-downloads.create');

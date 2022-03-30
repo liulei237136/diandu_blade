@@ -13,18 +13,41 @@ class StoreRepositoryDownloadRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
+        switch ($this->method()) {
+                // CREATE
+            case 'POST':
+                return [
+                    'name'       => 'required|min:3',
+                    'description'        => 'string|max:2048',
+                    'commit_id' => 'required|number|exists:commits,id',
+                    'file_path' => 'required|string|url|max:100',
+                ];
+                // UPDATE
+            case 'PUT':
+            case 'PATCH': {
+                    return [
+                        'name'       => 'required|min:3',
+                        'description'        => 'string|max:2048',
+                    ];
+                }
+            case 'GET':
+            case 'DELETE':
+            default: {
+                    return [];
+                };
+        }
+    }
+
+    public function messages()
+    {
         return [
-            //
+            'name.min' => '下载名称必须至少3个字符',
+            'descrption.max' => '下载描述不能超过2048个字符',
         ];
     }
 }

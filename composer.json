@@ -20,6 +20,8 @@
         "overtrue/laravel-lang": "~6.0",
         "overtrue/pinyin": "~4.0",
         "predis/predis": "~1.1",
+        "qcloud/cos-sdk-v5": "^2.5",
+        "qcloud_sts/qcloud-sts-sdk": "^3.0",
         "summerblue/laravel-active": "9.*",
         "tightenco/ziggy": "^1.4"
     },

@@ -13,6 +13,6 @@ class RepositoriesSeeder extends Seeder
 
     public function run()
     {
-        Repository::factory()->count(50)->create();
+        Repository::factory()->count(100)->create();
     }
 }

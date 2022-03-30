@@ -7,6 +7,7 @@ import RepositoryAffect from './components/RepositoryAffect.vue';
 import InitRepository from './pages/InitRepository.vue';
 import ShowAudio from "./components/ShowAudio";
 import EditAudio from "./components/EditAudio";
+import UploadDownload from "./components/UploadDownload";
 
 import 'xe-utils';
 import VXETable from 'vxe-table';
@@ -15,6 +16,10 @@ import './helper.js';
 
 import { ZiggyVue } from 'ziggy';
 import { Ziggy } from './ziggy';
+
+// import vSelect from 'vue-select';
+// import 'vue-select/dist/vue-select.css';
+
 
 VXETable.setup({
     icon: {
@@ -110,6 +115,8 @@ createApp({
         RepositoryAffect,
         ShowAudio,
         EditAudio,
+        UploadDownload,
+        // vSelect,
     }
 })
     .use(useTable)

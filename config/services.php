@@ -33,5 +33,10 @@ return [
         'appid' => env('BAIDU_TRANSLATE_APPID'),
         'key'   => env('BAIDU_TRANSLATE_KEY'),
     ],
-
+    'qcloud' => [
+        'secretId' => env('QCLOUD_SECRET_ID'),
+        'secretKey' => env('QCLOUD_SECRET_KEY'),
+        'bucket' => env('QCLOUD_BUCKET'),
+        'region' => env('QCLOUD_REGION'),
+    ]
 ];

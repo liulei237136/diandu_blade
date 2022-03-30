@@ -15,6 +15,7 @@ use App\Http\Controllers\RepositoriesController;
 use App\Http\Controllers\RepositoryDownloadController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StarController;
+use App\Http\Controllers\StsController;
 use App\Http\Controllers\UsersController;
 use App\Models\RepositoryDownload;
 use Illuminate\Support\Facades\Route;
@@ -99,6 +100,9 @@ Route::post('upload_image', [RepositoriesController::class,'uploadImage'])->name
 
 Route::post('upload_audio', [RepositoriesController::class,'uploadAudio'])->name('repositories.upload_audio');
 
+Route::post('upload_download', [RepositoriesController::class,'uploadDownload'])->name('repositories.upload_download');
+
+
 
 Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
 
@@ -119,4 +123,15 @@ Route::delete('repository-stars/{repository}', [StarController::class, 'destroy'
 Route::post('/repositories/{repository}/clones', [CloneRepositoreisController::class, 'store'])->name('clone-repositories.store');
 
 Route::get('/repository-downloads/repositories/{repository}', [RepositoryDownloadController::class, 'index'])->name('repository-downloads.index');
+
 Route::get('/repository-downloads-create/repositories/{repository}', [RepositoryDownloadController::class, 'create'])->name('repository-downloads.create');
+
+Route::post('/repository-downloads-store/repositories/{repository}', [RepositoryDownloadController::class, 'store'])->name('repository-downloads.store');
+
+Route::get('sts', [StsController::class, 'store'])->name('sts.store');
+
+Route::get('test-download',function(){
+    return view('repositories.downloads.test');
+});
+
+Route::get('test-download-url', [StsController::class, 'url'])->name('sts.url');

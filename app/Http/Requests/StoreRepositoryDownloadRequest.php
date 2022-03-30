@@ -23,8 +23,8 @@ class StoreRepositoryDownloadRequest extends FormRequest
             case 'POST':
                 return [
                     'name'       => 'required|min:3',
-                    'description'        => 'string|max:2048',
-                    'commit_id' => 'required|number|exists:commits,id',
+                    'description'        => 'max:2048',
+                    'commit_id' => 'required|integer|exists:commits,id',
                     'file_path' => 'required|string|url|max:100',
                 ];
                 // UPDATE

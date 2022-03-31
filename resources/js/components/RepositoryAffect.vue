@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-inline-flex tw-items-center tw-space-x-4">
+  <div class="tw-flex tw-items-center tw-space-x-4">
     <div class="tw-inline-flex tw-shadow-sm tw-rounded-md" role="group">
       <button
         @click="toggleStar"
@@ -12,7 +12,7 @@
         ></Icon>
         <span>{{ user && isStared ? "取消收藏" : "收藏" }}</span>
         <span
-          class="tw-rounded-lg tw-border tw-border-gray-200 tw-bg-gray-100 tw-text-sm tw-font-medium tw-px-1 tw-ml-2 tw-text-gray-900 focus:tw-z-10"
+          class="tw-rounded-lg  tw-bg-gray-100 tw-text-sm tw-font-medium tw-px-1 tw-ml-2 tw-text-gray-900 focus:tw-z-10"
         >
           {{ starCount }}
         </span>
@@ -22,19 +22,18 @@
     <div class="tw-inline-flex tw-shadow-sm tw-rounded-md" role="group">
       <button
         @click="onClone"
-        :class="{
-          buttonGroupLeftButton: !myRepository,
-          buttonGroupLeftButtonDisabled: myRepository,
-        }"
+        type="button"
+        class="tw-rounded-l-lg tw-border tw-border-gray-200 tw-bg-white tw-text-sm tw-font-medium tw-px-4 tw-py-1 tw-text-gray-900 hover:tw-bg-gray-100 focus:tw-z-10 tw-inline-flex tw-items-center"
         :title="myRepository ? '不能克隆自己的项目' : ''"
         :disabled="myRepository"
       >
         <Icon class="tw-w-4 tw-h-4 tw-mr-1" name="clone"></Icon>
         <span>克隆</span>
+        <span
+          class="tw-rounded-lg  tw-bg-gray-100 tw-text-sm tw-font-medium tw-px-1 tw-ml-2 tw-text-gray-900 focus:tw-z-10"
+          >{{ cloneCount }}</span
+        >
       </button>
-      <span class="buttonGroupRightSpan">
-        {{ cloneCount }}
-      </span>
     </div>
   </div>
 </template>
@@ -104,10 +103,7 @@ export default {
           .then(function (res) {
             console.log(res.data);
             if (res.data.success) {
-              window.location.href = route(
-                "repositories.show",
-                res.data.data,
-              );
+              window.location.href = route("repositories.show", res.data.data);
             }
           })
           .catch(function (e) {

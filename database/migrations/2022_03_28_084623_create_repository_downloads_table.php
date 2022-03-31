@@ -20,7 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('repository_id')->index();
             $table->unsignedBigInteger('commit_id')->index();
-            $table->string('file_path')->default('');
+            $table->string('file_path');
+            $table->string('file_name');
             $table->timestamps();
         });
     }

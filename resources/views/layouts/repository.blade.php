@@ -30,7 +30,9 @@
 
         @include('layouts._repository_header')
 
-        @yield('content')
+        <div class="p-2">
+            @yield('content')
+        </div>
 
         @include('layouts._footer')
 

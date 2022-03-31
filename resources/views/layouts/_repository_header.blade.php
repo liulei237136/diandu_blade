@@ -7,12 +7,15 @@
             <span class="tw-text-black">/</span>
             <a href="{{ $repository->link() }}" class="tw-no-underline hover:tw-underline">
                 {{ $repository->name }}
+            </a>
         </div>
-        </a>
         {{-- 收藏 --}}
-        <repository-affect :repository="{{ $repository->toJson() }}"
-            :user="{{ auth()->user()? auth()->user()->toJson(): null }}">
-        </repository-affect>
+        <div class="tw-min-h-[32px]">
+            <repository-affect :repository="{{ $repository->toJson() }}"
+                :user="{{ auth()->user()? auth()->user()->toJson(): null }}">
+            </repository-affect>
+
+        </div>
     </div>
 
     @if ($repository->parent)

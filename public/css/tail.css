@@ -460,6 +460,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-mb-4 {
   margin-bottom: 1rem;
 }
+.tw-mb-2 {
+  margin-bottom: 0.5rem;
+}
+.tw-mb-8 {
+  margin-bottom: 2rem;
+}
+.tw-mb-1 {
+  margin-bottom: 0.25rem;
+}
+.tw-block {
+  display: block;
+}
 .tw-flex {
   display: flex;
 }
@@ -478,11 +490,50 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-h-4 {
   height: 1rem;
 }
+.tw-h-8 {
+  height: 2rem;
+}
+.tw-min-h-full {
+  min-height: 100%;
+}
+.tw-min-h-\[12px\] {
+  min-height: 12px;
+}
+.tw-min-h-\[24px\] {
+  min-height: 24px;
+}
+.tw-min-h-\[26px\] {
+  min-height: 26px;
+}
+.tw-min-h-\[32px\] {
+  min-height: 32px;
+}
 .tw-w-4 {
   width: 1rem;
 }
 .tw-w-full {
   width: 100%;
+}
+.tw-w-3\/5 {
+  width: 60%;
+}
+.tw-w-4\/5 {
+  width: 80%;
+}
+.tw-w-5\/6 {
+  width: 83.333333%;
+}
+.tw-w-8 {
+  width: 2rem;
+}
+.tw-w-12 {
+  width: 3rem;
+}
+.tw-w-11\/12 {
+  width: 91.666667%;
+}
+.tw-w-20 {
+  width: 5rem;
 }
 .tw-max-w-7xl {
   max-width: 80rem;
@@ -508,6 +559,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-justify-between {
   justify-content: space-between;
 }
+.tw-gap-4 {
+  gap: 1rem;
+}
+.tw-gap-2 {
+  gap: 0.5rem;
+}
 .tw-space-x-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(1rem * var(--tw-space-x-reverse));
@@ -532,6 +589,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-rounded-3xl {
   border-radius: 1.5rem;
 }
+.tw-rounded {
+  border-radius: 0.25rem;
+}
 .tw-rounded-l-lg {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
@@ -550,6 +610,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-border-opacity: 1;
   border-bottom-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
+.tw-border-b-transparent {
+  border-bottom-color: transparent;
+}
 .tw-bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -561,6 +624,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+.tw-bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+.tw-bg-indigo-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
 }
 .tw-object-cover {
   -o-object-fit: cover;
@@ -619,6 +690,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
+.tw-text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.tw-text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
 .tw-font-medium {
   font-weight: 500;
 }
@@ -646,6 +725,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.tw-text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+.tw-text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+.tw-text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .tw-no-underline {
   -webkit-text-decoration-line: none;
@@ -770,14 +861,34 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-bottom-width: 1px;
 }
 
+.hover\:tw-border-red-200:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 202 202 / var(--tw-border-opacity));
+}
+
 .hover\:tw-border-b-gray-200:hover {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
+.hover\:tw-border-b-red-200:hover {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(254 202 202 / var(--tw-border-opacity));
+}
+
 .hover\:tw-bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
+.hover\:tw-bg-green-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+
+.hover\:tw-bg-indigo-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
 
 .hover\:tw-text-blue-500:hover {
@@ -797,6 +908,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .focus\:tw-z-10:focus {
   z-index: 10;
+}
+
+.disabled\:tw-bg-indigo-200:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(199 210 254 / var(--tw-bg-opacity));
+}
+
+.disabled\:tw-bg-indigo-300:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(165 180 252 / var(--tw-bg-opacity));
 }
 
 @media (min-width: 640px) {

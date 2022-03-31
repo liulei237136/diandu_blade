@@ -11,7 +11,7 @@
           ></vxe-input>
         </template>
         <template #dropdown>
-          <div class="my-dropdown" v-if="commit">
+          <div class="my-dropdown" v-if="demo.filteredCommitsList.length > 0">
             <div
               class="list-item"
               v-for="commit in demo.filteredCommitsList"

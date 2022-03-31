@@ -24,7 +24,7 @@
                         @include('shared._error')
 
                         <div class="mb-3">
-                            <upload-download></upload-download>
+                            <upload-download :user_id="{{auth()->id()}}" :repository_id="{{$repository->id}}"></upload-download>
                         </div>
 
                         <div class="mb-3">
@@ -74,6 +74,11 @@
     <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        // 防止误点链接
+        window.onbeforeunload = function(event) {
+            return confirm('really');
+        };
+
         $(document).ready(function() {
             //sim
             var editor = new Simditor({

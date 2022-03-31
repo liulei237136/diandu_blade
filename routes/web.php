@@ -126,6 +126,10 @@ Route::get('/repository-downloads/repositories/{repository}', [RepositoryDownloa
 
 Route::get('/repository-downloads-create/repositories/{repository}', [RepositoryDownloadController::class, 'create'])->name('repository-downloads.create');
 
+Route::get('/repository-downloads/{download}/get-temp-url', [RepositoryDownloadController::class, 'getTempUrl'])->name('repository-downloads.get-temp-url');
+
+Route::get('/repository-downloads/{download}', [RepositoryDownloadController::class, 'show'])->name('repository-downloads.show');
+
 Route::post('/repository-downloads-store/repositories/{repository}', [RepositoryDownloadController::class, 'store'])->name('repository-downloads.store');
 
 Route::get('sts', [StsController::class, 'store'])->name('sts.store');

@@ -25,7 +25,8 @@ class StoreRepositoryDownloadRequest extends FormRequest
                     'name'       => 'required|min:3',
                     'description'        => 'max:2048',
                     'commit_id' => 'required|integer|exists:commits,id',
-                    'file_path' => 'required|string|url|max:100',
+                    'file_path' => 'required|string|max:255',
+                    'file_name' => 'required|string|max:255',
                 ];
                 // UPDATE
             case 'PUT':

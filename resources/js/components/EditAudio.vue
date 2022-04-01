@@ -213,10 +213,14 @@
 <script>
 import { defineComponent, nextTick, onMounted, reactive, ref } from "vue";
 import { VXETable, VxeGridInstance, VxeGridProps } from "vxe-table";
-// import XEUtils from "xe-utils";
 import axios from "axios";
 import AudioRecorder from "./AudioRecorder.vue";
-import { getCommitAudio, filterStringMethod, nameSortBy } from "../helper.js";
+import {
+  getCommitAudio,
+  filterStringMethod,
+  nameSortBy,
+  uploadToCos,
+} from "../helper.js";
 
 export default defineComponent({
   props: {
@@ -288,6 +292,43 @@ export default defineComponent({
       demo.showSaveModal = true;
     };
 
+    // const uploadAudio = function (file) {
+    //   const date = new Date();
+    //   const year = date.getFullYear();
+    //   const month = date.getMonth() + 1;
+    //   const day = date.getDate();
+    //   const uid = uuidv4().substr(0, 4);
+
+    //   var key = `audio/${year}${month}/${day}/${this.user.id}_${Date.now()}_${uid}_${
+    //     file.name
+    //   }`;
+    //   let url = "";
+
+    //   return getAuthorization({
+    //     Method: "PUT",
+    //     Pathname: "/" + key,
+    //     route: route("sts_audio.store"),
+    //   })
+    //     .then((info) => {
+    //       const auth = info.Authorization;
+    //       const SecurityToken = info.SecurityToken;
+    //       url = prefix + camSafeUrlEncode(key).replace(/%2F/g, "/");
+    //       const headers = { Authorization: auth };
+    //       if (SecurityToken) {
+    //         headers["x-cos-security-token"] = SecurityToken;
+    //       }
+    //       return axios.put(url, file, {
+    //         headers: headers,
+    //       });
+    //     })
+    //     .then(function (response) {
+    //       return {
+    //         // ETag: response.headers["etag"],
+    //         url: url,
+    //       };
+    //     });
+    // };
+
     const saveModalFormSubmitEvent = async () => {
       // 先验证是否有错误
       const errMap = await saveForm.value.validate();
@@ -302,24 +343,29 @@ export default defineComponent({
         if (!record.recordFile && !record.localFile) continue;
         // 优先级 audioFile > localFile
         const file = record.recordFile ? record.recordFile : record.localFile;
-        // console.log(file);
-        const data = new FormData();
-        data.append("upload_file", file);
-        const result = await axios.post(route("repositories.upload_audio"), data, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        if (result.data.success) {
-          //这里不需要文件名
-          //   console.log("$filePath", result.data);
-          record.file_path = result.data.file_path;
-          //这里的repository audio 是当前用户
+
+        try {
+          const { url } = await uploadToCos(file,props.user.id, 'audio');
+          record.file_path = url;
           record.user_name = props.user.name;
           record.user_id = props.user.id;
           record.created_at = Date.now();
-        } else {
-          console.log("upload fail");
+        } catch (error) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+          }
         }
       }
       //3.拼装content
@@ -341,18 +387,6 @@ export default defineComponent({
       }
       console.log(content);
 
-      //   await window.axios.post(
-      //     route("commits.store",  props.repository.id ),
-      //     {
-      //       title: demo.saveFormData.title,
-      //       description: demo.saveFormData.description,
-      //       content: content,
-      //     },
-      //     {
-      //       replace: true,
-      //       preserveState: false,
-      //     }
-      //   );
       try {
         const result = await window.axios.post(
           route("commits.store", props.repository.id),

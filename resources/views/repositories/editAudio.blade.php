@@ -10,10 +10,3 @@
     </div>
 @stop
 
-@section('scripts')
-    <script type="text/javascript">
-        window.onbeforeunload = function(event) {
-            return confirm('really');
-        };
-    </script>
-@endsection

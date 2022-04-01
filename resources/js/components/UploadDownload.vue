@@ -10,7 +10,7 @@
     <div class="tw-max-w-7xl tw-mx-auto sm:tw-px-6 lg:tw-px-8">
       <div v-show="processing" class="tw-flex tw-justify-between">
         <progress :value="percent" class="tw-w-11/12" max="100">{{ percent }}%</progress>
-        <span class="tw-shrink-0 tw-w-20"> {{percent}}%</span>
+        <span class="tw-shrink-0 tw-w-20"> {{ percent }}%</span>
       </div>
       <div
         v-show="!processing"
@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import CosAuth from "./cos";
+// import CosAuth from "./cos";
+import {camSafeUrlEncode, getAuthorization} from '../helper';
 
 // 请求用到的参数
 const Bucket = "diandu-1307995562";
@@ -63,41 +64,6 @@ export default {
     };
   },
   methods: {
-    uploadAudio(file) {
-      const that = this;
-      //   var key = "download/" + file.name; // 这里指定上传目录和文件result名
-      var key = `download/${this.repository_id}/${this.user_id}/${Date.now()}/${
-        file.name
-      }`;
-      that.key = key;
-      that.fileName = file.name;
-
-      return this.getAuthorization({ Method: "PUT", Pathname: "/" + key })
-        .then(function (info) {
-          const auth = info.Authorization;
-          const SecurityToken = info.SecurityToken;
-          const url = prefix + that.camSafeUrlEncode(key).replace(/%2F/g, "/");
-          const headers = { Authorization: auth };
-          if (SecurityToken) {
-            headers["x-cos-security-token"] = SecurityToken;
-          }
-          return axios.put(url, file, {
-            headers: headers,
-            onUploadProgress: (e) => {
-              that.percent = Math.round((e.loaded / e.total) * 10000) / 100;
-            },
-          });
-        })
-        .then(function (response) {
-          if (/^2\d\d$/.test(response.status)) {
-            return {
-              ETag: response.headers["etag"],
-            };
-          } else {
-            throw new Error("文件 " + key + " 上传失败，状态码：" + response.status);
-          }
-        });
-    },
     onChange(e) {
       const that = this;
       const files = e.target.files;
@@ -117,35 +83,32 @@ export default {
         });
     },
 
-    // 对更多字符编码的 url encode 格式
-    camSafeUrlEncode(str) {
-      return encodeURIComponent(str)
-        .replace(/!/g, "%21")
-        .replace(/'/g, "%27")
-        .replace(/\(/g, "%28")
-        .replace(/\)/g, "%29")
-        .replace(/\*/g, "%2A");
+    uploadAudio(file) {
+      const that = this;
+      var key = `download/${this.repository_id}/${this.user_id}/${Date.now()}/${
+        file.name
+      }`;
+      that.key = key;
+      that.fileName = file.name;
+
+      return getAuthorization({ Method: "PUT", Pathname: "/" + key,route: route('sts.store') })
+        .then(function (info) {
+          const auth = info.Authorization;
+          const SecurityToken = info.SecurityToken;
+          const url = prefix + camSafeUrlEncode(key).replace(/%2F/g, "/");
+          const headers = { Authorization: auth };
+          if (SecurityToken) {
+            headers["x-cos-security-token"] = SecurityToken;
+          }
+          return axios.put(url, file, {
+            headers: headers,
+            onUploadProgress: (e) => {
+              that.percent = Math.round((e.loaded / e.total) * 10000) / 100;
+            },
+          });
+        })
     },
 
-    // 计算签名
-    getAuthorization(options) {
-      return axios.get(route("sts.store")).then(function (result) {
-        const credentials = result.data.credentials;
-        if (credentials) {
-          return {
-            SecurityToken: credentials.sessionToken,
-            Authorization: CosAuth({
-              SecretId: credentials.tmpSecretId,
-              SecretKey: credentials.tmpSecretKey,
-              Method: options.Method,
-              Pathname: options.Pathname,
-            }),
-          };
-        } else {
-          throw new Error("获取签名出错");
-        }
-      });
-    },
   },
 };
 </script>

@@ -42,7 +42,6 @@ class RepositoriesController extends Controller
         $repository->user_id = auth()->id();
         $repository->save();
 
-        // return redirect($repository->link())->with('success', '仓库创建成功！');
         return redirect(route('repositories.init', $repository->fresh()->id));
     }
 
@@ -53,10 +52,7 @@ class RepositoriesController extends Controller
             return redirect($repository->link(), 301);
         }
 
-        // $repository->loadCount('stars');
         appendRepository($repository);
-
-        //$isStared = $repository->isStaredBy(auth()->id());
 
         return view('repositories.show', compact('repository'));
     }
@@ -82,9 +78,9 @@ class RepositoriesController extends Controller
         }else{
             $commit = null;
         }
-        //$isStared = $repository->isStaredBy(auth()->id());
+
         appendRepository($repository);
-        // dd($repository);
+
         return view('repositories.showAudio ', compact('repository', 'commit'));
     }
 
@@ -98,7 +94,7 @@ class RepositoriesController extends Controller
         $this->authorize('update', $repository);
 
         $repository->load(['commits' => function($query){
-            $query->with('user')->latest();
+            $query->with('owner','creator')->latest();
         }, 'stars']);
 
         $commit_id = $request->commit;
@@ -110,7 +106,7 @@ class RepositoriesController extends Controller
         }else{
             $commit = null;
         }
-        //$isStared = $repository->isStaredBy(auth()->id());
+
         appendRepository($repository);
 
 
@@ -206,15 +202,13 @@ class RepositoriesController extends Controller
     {
         $this->authorize('update', $repository);
         // URL 矫正
-        // dump($repository->slug);
         if (!empty($repository->slug) && $repository->slug != $request->slug) {
             return redirect($repository->link('repositories.edit_description'), 301);
         }
 
-        //$isStared = $repository->isStaredBy(auth()->id());
-
         appendRepository($repository);
-        return view('repositories.edit_description', compact('repository', 'isStared'));
+
+        return view('repositories.edit_description', compact('repository'));
     }
 
     public function updateDescription(RepositoryRequest $request, Repository $repository)

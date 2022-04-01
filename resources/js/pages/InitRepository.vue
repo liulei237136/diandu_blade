@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import {uploadToCos} from "../helper";
+
 export default {
   props: {
     repository: Object,
@@ -86,37 +88,48 @@ export default {
       this.processing = true;
       for (let file of files) {
         count++;
-        const data = new FormData();
-        data.append("upload_file", file);
         try {
-          const result = await axios.post(route("repositories.upload_audio"), data, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-          if (result.data.success) {
-            content += file.name;
-            content += "," + result.data.file_path;
-            content += "," + ""; //comment empty
-            content += "," + this.user.name;
-            content += "," + this.user.id;
-            content += "," + Date.now();
-            content += "\n";
+          const { url } = await uploadToCos(file, this.user.id, 'audio');
+
+          content += file.name;
+          content += "," + url;
+          content += "," + ""; //comment empty
+          content += "," + this.user.name;
+          content += "," + this.user.id;
+          content += "," + Date.now();
+          content += "\n";
+        } catch (error) {
+            console.log(error);
+            alert(1);
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
           }
-        } catch (e) {
-          console.log(e);
         }
 
         //todo error handle
-        this.percent = Math.ceil((count / files.length) * 100);
+        this.percent = Math.ceil((count / files.length) * 100) + 1;
       }
 
       try {
-        const result = await window.axios.post(route("commits.store", this.repository.id), {
-          title: "初次保存",
-          content: content,
-        });
-        // console.log(result);
+        const result = await window.axios.post(
+          route("commits.store", this.repository.id),
+          {
+            title: "初次保存",
+            content: content,
+          }
+        );
         if (result.data.success) {
           window.location.href = route("repository_audio.edit", {
             repository: this.repository.id,
@@ -131,6 +144,42 @@ export default {
         alert(e.message);
       }
     },
+    // uploadAudio(file) {
+    //   const date = new Date();
+    //   const year = date.getFullYear();
+    //   const month = date.getMonth() + 1;
+    //   const day = date.getDate();
+    //   const uid = uuidv4().substr(0, 4);
+
+    //   var key = `audio/${year}${month}/${day}/${this.user.id}_${Date.now()}_${uid}_${
+    //     file.name
+    //   }`;
+    //   let url = "";
+
+    //   return getAuthorization({
+    //     Method: "PUT",
+    //     Pathname: "/" + key,
+    //     route: route("sts_audio.store"),
+    //   })
+    //     .then((info) => {
+    //       const auth = info.Authorization;
+    //       const SecurityToken = info.SecurityToken;
+    //       url = prefix + camSafeUrlEncode(key).replace(/%2F/g, "/");
+    //       const headers = { Authorization: auth };
+    //       if (SecurityToken) {
+    //         headers["x-cos-security-token"] = SecurityToken;
+    //       }
+    //       return axios.put(url, file, {
+    //         headers: headers,
+    //       });
+    //     })
+    //     .then(function (response) {
+    //       return {
+    //         // ETag: response.headers["etag"],
+    //         url: url,
+    //       };
+    //     });
+    // },
   },
 };
 </script>

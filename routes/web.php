@@ -15,6 +15,7 @@ use App\Http\Controllers\RepositoriesController;
 use App\Http\Controllers\RepositoryDownloadController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StarController;
+use App\Http\Controllers\StsAudioController;
 use App\Http\Controllers\StsController;
 use App\Http\Controllers\UsersController;
 use App\Models\RepositoryDownload;
@@ -133,6 +134,8 @@ Route::get('/repository-downloads/{download}', [RepositoryDownloadController::cl
 Route::post('/repository-downloads-store/repositories/{repository}', [RepositoryDownloadController::class, 'store'])->name('repository-downloads.store');
 
 Route::get('sts', [StsController::class, 'store'])->name('sts.store');
+
+Route::post('sts_audio', [StsAudioController::class, 'store'])->name('sts_audio.store');
 
 Route::get('test-download',function(){
     return view('repositories.downloads.test');

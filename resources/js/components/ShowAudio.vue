@@ -40,12 +40,13 @@
     </template>
 
     <template #source_audio="{ row }">
-      <audio
+      <!-- <audio
         v-if="row.file_path"
         :src="row.file_path"
         @play="onAudioPlayEvent($event, row)"
         controls
-      ></audio>
+      ></audio> -->
+      <play-button v-if="row.file_path" :row="row"></play-button>
     </template>
   </vxe-grid>
 </template>
@@ -75,6 +76,7 @@
 <script>
 import { defineComponent, reactive, ref } from "vue";
 import { getCommitAudio, filterStringMethod, nameSortBy } from "../helper.js";
+import PlayButton from "./PlayButton.vue";
 
 export default defineComponent({
   props: {
@@ -82,10 +84,8 @@ export default defineComponent({
     commit: Object,
     canEdit: Boolean,
   },
-  mounted() {
-    console.log("this.repository");
-    console.log(this.repository);
-    console.log('canEdit', this.canEdit);
+  components:{
+      PlayButton,
   },
   setup(props, context) {
     const xGrid = ref({});

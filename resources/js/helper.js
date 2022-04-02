@@ -93,8 +93,7 @@ export const uploadToCos = function (file, user_id, type) {
     const day = date.getDate();
     const uuid = uuidv4().substr(0, 4);
 
-    var key = `${type}/${year}${month}/${day}/${user_id}_${Date.now()}_${uuid}_${file.name
-        }`;
+    var key = `${type}/${year}${month}/${day}/${user_id}_${Date.now()}_${uuid}_${file.name}`;
     let url = "";
 
     return getAuthorization({
@@ -121,3 +120,46 @@ export const uploadToCos = function (file, user_id, type) {
             };
         });
 };
+
+export const getCosSignedUrl = (file, user_id, type) => {
+    const Bucket = "diandu-1307995562";
+    const Region = "ap-hongkong";
+    const protocol = location.protocol === "https:" ? "https:" : "http:";
+    const prefix = protocol + "//" + Bucket + ".cos." + Region + ".myqcloud.com/"; // prefix 用于拼接请求 url 的前缀，域名使用存储桶的默认域名
+
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const uuid = uuidv4().substr(0, 4);
+
+    var key = `${type}/${year}${month}/${day}/${user_id}_${Date.now()}_${uuid}_${file.name}`;
+
+    return getAuthorization({
+        Method: "PUT",
+        Pathname: "/" + key,
+        route: route(`sts_${type}.store`),
+    })
+        .then((info) => {
+            const auth = info.Authorization;
+            const SecurityToken = info.SecurityToken;
+            url = prefix + camSafeUrlEncode(key).replace(/%2F/g, "/");
+            const headers = { Authorization: auth };
+            if (SecurityToken) {
+                headers["x-cos-security-token"] = SecurityToken;
+            }
+            return {
+                headers,
+                url,
+            };
+        });
+}
+
+// export const onAudioPlayEvent = (e) => {
+//     const { audio } = window.playingAudio;
+//     if (audio && audio !== e.target) {
+//         audio.pause();
+//         // audio.fastSeek(0);
+//     }
+//     demo.playingAudio = { audio: e.target };
+// };

@@ -592,6 +592,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-rounded {
   border-radius: 0.25rem;
 }
+.tw-rounded-full {
+  border-radius: 9999px;
+}
 .tw-rounded-l-lg {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
@@ -605,6 +608,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 .tw-border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+.tw-border-gray-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
+}
+.tw-border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 .tw-border-b-red-500 {
   --tw-border-opacity: 1;
@@ -633,6 +644,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(99 102 241 / var(--tw-bg-opacity));
 }
+.tw-bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
+.tw-bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
 .tw-object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -642,6 +661,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .tw-p-6 {
   padding: 1.5rem;
+}
+.tw-p-2 {
+  padding: 0.5rem;
 }
 .tw-px-4 {
   padding-left: 1rem;

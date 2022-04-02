@@ -100,7 +100,7 @@ export default {
           content += "\n";
         } catch (error) {
             console.log(error);
-            alert(1);
+            // alert(1);
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -137,49 +137,13 @@ export default {
           });
         } else {
           console.log(result.data.message);
-          alert(result.data.message);
+        //   alert(result.data.message);
         }
       } catch (e) {
         console.log(e);
-        alert(e.message);
+        // alert(e.message);
       }
     },
-    // uploadAudio(file) {
-    //   const date = new Date();
-    //   const year = date.getFullYear();
-    //   const month = date.getMonth() + 1;
-    //   const day = date.getDate();
-    //   const uid = uuidv4().substr(0, 4);
-
-    //   var key = `audio/${year}${month}/${day}/${this.user.id}_${Date.now()}_${uid}_${
-    //     file.name
-    //   }`;
-    //   let url = "";
-
-    //   return getAuthorization({
-    //     Method: "PUT",
-    //     Pathname: "/" + key,
-    //     route: route("sts_audio.store"),
-    //   })
-    //     .then((info) => {
-    //       const auth = info.Authorization;
-    //       const SecurityToken = info.SecurityToken;
-    //       url = prefix + camSafeUrlEncode(key).replace(/%2F/g, "/");
-    //       const headers = { Authorization: auth };
-    //       if (SecurityToken) {
-    //         headers["x-cos-security-token"] = SecurityToken;
-    //       }
-    //       return axios.put(url, file, {
-    //         headers: headers,
-    //       });
-    //     })
-    //     .then(function (response) {
-    //       return {
-    //         // ETag: response.headers["etag"],
-    //         url: url,
-    //       };
-    //     });
-    // },
   },
 };
 </script>

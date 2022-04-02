@@ -78,7 +78,7 @@ class RepositoriesController extends Controller
         }else{
             $commit = null;
         }
-
+        // dd($commit);
         appendRepository($repository);
 
         return view('repositories.showAudio ', compact('repository', 'commit'));

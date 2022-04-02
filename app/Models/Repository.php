@@ -58,7 +58,7 @@ class Repository extends Model
 
     public function commits()
     {
-        return $this->hasMany(Commit::class, 'owner_id');
+        return $this->hasMany(Commit::class);
     }
 
     public function comments()

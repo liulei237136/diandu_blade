@@ -62,7 +62,7 @@ export const camSafeUrlEncode = (str) => {
 // 计算签名
 export const getAuthorization = (options) => {
     // return axios.post(route("sts_audio.store")).then(function (result) {
-    return axios.post(options.route).then(function (result) {
+    return axios.get(options.route).then(function (result) {
         const credentials = result.data.credentials;
         if (credentials) {
             return {
@@ -77,6 +77,9 @@ export const getAuthorization = (options) => {
         } else {
             throw new Error("获取签名出错");
         }
+    })
+    .catch((err)=>{
+        alert(err.message);
     });
 };
 

@@ -40,7 +40,7 @@
 
 <script>
 // import CosAuth from "./cos";
-import {camSafeUrlEncode, getAuthorization} from '../helper';
+import { camSafeUrlEncode, getAuthorization } from "../helper";
 
 // 请求用到的参数
 const Bucket = "diandu-1307995562";
@@ -91,24 +91,26 @@ export default {
       that.key = key;
       that.fileName = file.name;
 
-      return getAuthorization({ Method: "PUT", Pathname: "/" + key,route: route('sts.store') })
-        .then(function (info) {
-          const auth = info.Authorization;
-          const SecurityToken = info.SecurityToken;
-          const url = prefix + camSafeUrlEncode(key).replace(/%2F/g, "/");
-          const headers = { Authorization: auth };
-          if (SecurityToken) {
-            headers["x-cos-security-token"] = SecurityToken;
-          }
-          return axios.put(url, file, {
-            headers: headers,
-            onUploadProgress: (e) => {
-              that.percent = Math.round((e.loaded / e.total) * 10000) / 100;
-            },
-          });
-        })
+      return getAuthorization({
+        Method: "PUT",
+        Pathname: "/" + key,
+        route: route("sts.store"),
+      }).then(function (info) {
+        const auth = info.Authorization;
+        const SecurityToken = info.SecurityToken;
+        const url = prefix + camSafeUrlEncode(that.key).replace(/%2F/g, "/");
+        const headers = { Authorization: auth };
+        if (SecurityToken) {
+          headers["x-cos-security-token"] = SecurityToken;
+        }
+        return axios.put(url, file, {
+          headers: headers,
+          onUploadProgress: (e) => {
+            that.percent = Math.round((e.loaded / e.total) * 10000) / 100;
+          },
+        });
+      });
     },
-
   },
 };
 </script>

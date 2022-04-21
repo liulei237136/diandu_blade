@@ -79,6 +79,7 @@
               :key="commit.id"
             >
               <a
+                class="tw-text-black tw-no-underline tw-block"
                 :href="
                   route('repository_audio.show', {
                     repository: commit.repository_id,
@@ -144,10 +145,6 @@
           ></vxe-button>
         </template>
       </vxe-button>
-      <!-- <form action="/testform" method="POST">
-          <input type="hidden" name="_csrf" :value="csrf" />
-          <input type="hidden" name="content" :value="demo.audioToLoad" /> -->
-      <!-- </form> -->
     </template>
 
     <template #source_audio="{ row }">
@@ -157,7 +154,7 @@
         :src="row.file_path"
         @play="onAudioPlayEvent($event, row)"
         controls
-        preload="auto"
+        preload="metadata"
       ></audio>
     </template>
     <template #local_audio="{ row }">
@@ -167,6 +164,7 @@
         :src="row.localUrl"
         @play="onAudioPlayEvent($event, row)"
         controls
+        preload="metadata"
       ></audio>
     </template>
     <template #record_audio="{ row }">
@@ -181,6 +179,7 @@
             :src="row.recordUrl"
             @play="onAudioPlayEvent($event, row)"
             controls
+        preload="metadata"
           ></audio>
         </div>
       </div>
@@ -215,6 +214,7 @@ import { defineComponent, nextTick, onMounted, reactive, ref } from "vue";
 import { VXETable, VxeGridInstance, VxeGridProps } from "vxe-table";
 import axios from "axios";
 import AudioRecorder from "./AudioRecorder.vue";
+import PlayButton from "./PlayButton.vue";
 import {
   getCommitAudio,
   filterStringMethod,
@@ -345,7 +345,7 @@ export default defineComponent({
         const file = record.recordFile ? record.recordFile : record.localFile;
 
         try {
-          const { url } = await uploadToCos(file,props.user.id, 'audio');
+          const { url } = await uploadToCos(file, props.user.id, "audio");
           record.file_path = url;
           record.user_name = props.user.name;
           record.user_id = props.user.id;
@@ -456,9 +456,9 @@ export default defineComponent({
           field: "file_name",
           title: "音频文件名",
           width: 210,
-          sortable: true,
-          sortBy: nameSortBy,
-          titleHelp: { message: "注意要加上文件后缀" },
+        //   sortable: true,
+        //   sortBy: nameSortBy,
+        //   titleHelp: { message: "注意要加上文件后缀" },
           editRender: { name: "input", attrs: { placeholder: "请输入文件名" } },
           filters: [{ data: "" }],
           filterMethod: filterStringMethod,
@@ -492,7 +492,7 @@ export default defineComponent({
         {
           field: "comment",
           title: "备注",
-          titleHelp: { message: "用于过滤和查找" },
+        //   titleHelp: { message: "用于过滤和查找" },
           editRender: { name: "input", attrs: { placeholder: "请输入备注" } },
           filters: [{ data: "" }],
           filterMethod: filterStringMethod,

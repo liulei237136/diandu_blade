@@ -18,6 +18,7 @@
               :key="commit.id"
             >
               <a
+              class="tw-text-black tw-no-underline tw-block "
                 :href="
                   route('repository_audio.show', {
                     repository: commit.repository_id,
@@ -45,6 +46,7 @@
         :src="row.file_path"
         @play="onAudioPlayEvent($event, row)"
         controls
+        preload="metadata"
       ></audio> -->
       <play-button v-if="row.file_path" :row="row"></play-button>
     </template>

@@ -73,7 +73,7 @@ export default {
       this.uploadAudio(files[0])
         .then(function ({ ETag, url }) {
           that.filePath = that.key;
-          that.message = "上传成功";
+          that.message = `上传成功: ${files[0].name}`;
         })
         .catch((e) => {
           that.message = e.message;

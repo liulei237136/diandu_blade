@@ -5,7 +5,7 @@
     type="button"
     :disabled="processing"
   >
-    {{ processing ? "正在请求下载..." : "下载" }}
+    {{ processing ? "正在请求下载..." : "下载文件" }}
   </button>
   <a type="hidden" :href="tempUrl" ref="tempLink"></a>
 </template>

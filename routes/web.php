@@ -18,6 +18,7 @@ use App\Http\Controllers\StarController;
 use App\Http\Controllers\StsAudioController;
 use App\Http\Controllers\StsController;
 use App\Http\Controllers\StsImgController;
+use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\UsersController;
 use App\Models\RepositoryDownload;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('info', function(){
+    echo phpinfo();
+});
 Route::get('/test', function(){
     // dd(\Auth::user()->hasVerifiedEmail());
     return view('test');
@@ -145,3 +149,8 @@ Route::get('test-download',function(){
 });
 
 Route::get('test-download-url', [StsController::class, 'url'])->name('sts.url');
+
+Route::resource('tutorials', TutorialController::class,['only' => ['index', 'create']]);
+// Route::get('toturials', [TutorialController::class, 'index'])->name('tutorials.index');
+
+// Route::resource('repositories', RepositoriesController::class, ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);

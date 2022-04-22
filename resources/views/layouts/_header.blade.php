@@ -13,7 +13,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item "><a class="nav-link {{ active_class(if_route('repositories.index')) }}"
                         href="{{ route('repositories.index') }}">仓库</a></li>
-                <li class="nav-item"><a class="nav-link" href="">分享</a>
+                <li class="nav-item"><a class="nav-link" href="{{route('tutorials.index')}}">教程</a>
                 </li>
             </ul>
 

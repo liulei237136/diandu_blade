@@ -61,6 +61,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->id == $model->user_id;
     }
 
+
+
     public function commentNotify($instance)
     {
         // 如果要通知的人是当前用户，就不必通知了！
@@ -76,5 +78,9 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notification_count = 0;
         $this->save();
         $this->unreadNotifications->markAsRead();
+    }
+
+    public function isAdmin(){
+        return $this->email === 'liulei237136@163.com';
     }
 }

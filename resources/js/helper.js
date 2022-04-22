@@ -77,9 +77,6 @@ export const getAuthorization = (options) => {
         } else {
             throw new Error("获取签名出错");
         }
-    })
-    .catch((err)=>{
-        alert(err.message);
     });
 };
 

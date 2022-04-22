@@ -57,8 +57,8 @@ class RepositoryDownloadController extends Controller
         $download->user_id = auth()->id();
         $download->commit_id = $request->commit_id;
         $download->name = $request->name;
-        if (isset($request->description)) {
-            $request->description = $request->description;
+        if (!empty($request->description)) {
+            $download->description = $request->description;
         }
         $download->file_path = $request->file_path;
         $download->file_name = $request->file_name;

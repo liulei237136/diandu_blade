@@ -18,6 +18,7 @@ use App\Http\Controllers\StarController;
 use App\Http\Controllers\StsAudioController;
 use App\Http\Controllers\StsController;
 use App\Http\Controllers\StsImgController;
+use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\UsersController;
 use App\Models\RepositoryDownload;
@@ -77,6 +78,7 @@ Route::post('email/resend', [VerificationController::class,'resend'])->name('ver
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('users', UsersController::class, ['only' => ['show', 'update', 'edit']]);
+// Route::resource('users', UsersController::class);
 
 Route::resource('repositories', RepositoriesController::class, ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
 
@@ -150,7 +152,9 @@ Route::get('test-download',function(){
 
 Route::get('test-download-url', [StsController::class, 'url'])->name('sts.url');
 
-Route::resource('tutorials', TutorialController::class,['only' => ['index', 'create']]);
-// Route::get('toturials', [TutorialController::class, 'index'])->name('tutorials.index');
+Route::resource('tutorials', TutorialController::class,['only' => ['index', 'create', 'store','show','edit', 'update','destroy']]);
+Route::post('tutorials.upload_image', [TutorialController::class,'uploadImage'])->name('tutorials.upload_image');
 
-// Route::resource('repositories', RepositoriesController::class, ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('suggestions', SuggestionController::class,['only' => ['index', 'create', 'store','show','edit', 'update','destroy']]);
+
+Route::post('suggestions.upload_image', [SuggestionController::class,'uploadImage'])->name('suggestions.upload_image');

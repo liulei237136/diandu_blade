@@ -7,7 +7,6 @@
   >
     {{ processing ? "正在请求下载..." : "下载文件" }}
   </button>
-  <a type="hidden" :href="tempUrl" ref="tempLink"></a>
 </template>
 
 <script>
@@ -28,9 +27,6 @@ export default {
         .get(route("repository-downloads.get-temp-url", { download: this.download_id }))
         .then((res) => {
           if (res.data.success) {
-            // this.tempUrl = res.data.data;
-            // alert(this.tempUrl);
-            // this.$refs.tempLink.click();
             this.createDownloadLink(res.data.data);
           } else {
             throw new Error(res.data.message);

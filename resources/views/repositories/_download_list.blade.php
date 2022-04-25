@@ -1,4 +1,4 @@
-@if (count($downloads))
+@if (!empty($downloads) && count($downloads))
     <ul class="list-unstyled">
         @foreach ($downloads as $download)
             <li>

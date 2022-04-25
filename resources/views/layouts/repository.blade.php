@@ -39,7 +39,6 @@
     </div>
     <!-- Scripts -->
     @routes
-    {{-- <script src="https://unpkg.com/petite-vue" defer init></script> --}}
     <script src="{{ mix('js/app.js') }}"></script>
     @yield('scripts')
 </body>

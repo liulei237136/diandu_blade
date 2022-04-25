@@ -31,3 +31,6 @@ mix.postCss('resources/css/font.css', 'public/css')
     .postCss("resources/css/tail.css", "public/css", [
         require("tailwindcss"),
     ]);
+
+
+

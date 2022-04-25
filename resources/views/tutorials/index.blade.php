@@ -4,7 +4,7 @@
 @section('description', '网站教程')
 
 @section('content')
-    <div class="tw-bg-white tw-py-2 tw-max-w-3xl tw-mx-auto">
+    <div class=" tw-py-2 tw-max-w-3xl tw-mx-auto tw-mt-8">
         {{-- 用户回复列表 --}}
         @if (auth()->check() &&
     auth()->user()->isAdmin())
@@ -13,12 +13,11 @@
                     <i class="fas fa-pencil-alt mr-2"></i> 新建教程
                 </a>
             </div>
-        @endif
-    @endcan
-    <div class="repository-download mt-4">
-        <div class="">
-            @include('repositories._download_list')
+            <div class="repository-download mt-4">
+            @endif
+            <div class="tw-p-4 ">
+                @include('tutorials._tutorial_list')
+            </div>
         </div>
     </div>
-</div>
 @stop

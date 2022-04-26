@@ -1,11 +1,11 @@
 {
-    "/js/app.js": "/js/app.js?id=dd747defb46be8f6f959",
-    "/css/font.css": "/css/font.css?id=aa935ca8c7e55de835ed",
-    "/css/app.css": "/css/app.css?id=0fb483ccefa24fffcce0",
-    "/css/tail.css": "/css/tail.css?id=05b87261c7b001cdac64",
-    "/js/hotkeys.js": "/js/hotkeys.js?id=60b95061e721b635da02",
-    "/js/module.js": "/js/module.js?id=1f0206730b87684b7ad6",
-    "/js/simditor.js": "/js/simditor.js?id=e19ffe3d664de3d4228a",
-    "/js/uploader.js": "/js/uploader.js?id=0e7f04273d8e2a0a834c",
-    "/css/simditor.css": "/css/simditor.css?id=69eb7767d3b20549b33f"
+    "/js/app.js": "/js/app.js",
+    "/css/font.css": "/css/font.css",
+    "/css/app.css": "/css/app.css",
+    "/css/tail.css": "/css/tail.css",
+    "/js/hotkeys.js": "/js/hotkeys.js",
+    "/js/module.js": "/js/module.js",
+    "/js/simditor.js": "/js/simditor.js",
+    "/js/uploader.js": "/js/uploader.js",
+    "/css/simditor.css": "/css/simditor.css"
 }

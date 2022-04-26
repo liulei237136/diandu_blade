@@ -48,9 +48,15 @@
                     </svg>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">拉取<span
+                    {{-- <li><a class="dropdown-item" href="#">拉取<span
                                 class="tw-text-sm tw-font-thin tw-rounded-3xl tw-px-2 tw-bg-gray-200 tw-ml-2">0</span></a>
+                    </li> --}}
+                    <li>
+                        <a href="{{ $repository->link('repository-downloads.index') }}" class="dropdown-item">
+                            下载
+                        </a>
                     </li>
+
                     @can('update', $repository)
                         <li><a class="dropdown-item" href="{{ $repository->link('repository_setting.show') }}">设置</a>
                         </li>

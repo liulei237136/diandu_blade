@@ -240,8 +240,8 @@ class RepositoriesController extends Controller
             return redirect($repository->link('repository_setting.show'), 301);
         }
 
-
         appendRepository($repository);
+
         return view('repositories.setting', compact('repository'));
     }
 
@@ -249,7 +249,6 @@ class RepositoriesController extends Controller
     {
         $comments = $repository->comments()->with('user', 'repository')->latest()->paginate(7);
 
-        // $repository->loadCount('stars');
         appendRepository($repository);
 
         return view('repositories.comments', compact('repository', 'comments'));

@@ -154,12 +154,3 @@ export const getCosSignedUrl = (file, user_id, type) => {
             };
         });
 }
-
-// export const onAudioPlayEvent = (e) => {
-//     const { audio } = window.playingAudio;
-//     if (audio && audio !== e.target) {
-//         audio.pause();
-//         // audio.fastSeek(0);
-//     }
-//     demo.playingAudio = { audio: e.target };
-// };

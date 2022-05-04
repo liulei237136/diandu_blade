@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('repository_downloads', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->default('');
+            $table->text('description');
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('repository_id')->index();
             $table->unsignedBigInteger('commit_id')->index();

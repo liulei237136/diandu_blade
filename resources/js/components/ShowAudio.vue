@@ -11,13 +11,14 @@
           ></vxe-input>
         </template>
         <template #dropdown>
-          <div class="my-dropdown">
+          <div class="my-dropdown" v-if="demo.filteredCommitsList.length > 0">
             <div
               class="list-item"
               v-for="commit in demo.filteredCommitsList"
               :key="commit.id"
             >
               <a
+              class="tw-text-black tw-no-underline tw-block "
                 :href="
                   route('repository_audio.show', {
                     repository: commit.repository_id,
@@ -25,21 +26,29 @@
                   })
                 "
                 :title="commit.title"
-                >{{commit.title }}</a
+                >{{ commit.title }}</a
               >
             </div>
           </div>
         </template>
       </vxe-pulldown>
+      <!-- 编辑 -->
+      <!-- <vxe-button content="编辑" @click="onSave"></vxe-button> -->
+      <a
+        v-if="canEdit"
+        class="btn btn-primary btn-sm"
+        >编辑</a>
     </template>
 
     <template #source_audio="{ row }">
-      <audio
+      <!-- <audio
         v-if="row.file_path"
         :src="row.file_path"
         @play="onAudioPlayEvent($event, row)"
         controls
-      ></audio>
+        preload="metadata"
+      ></audio> -->
+      <play-button v-if="row.file_path" :row="row"></play-button>
     </template>
   </vxe-grid>
 </template>
@@ -69,11 +78,16 @@
 <script>
 import { defineComponent, reactive, ref } from "vue";
 import { getCommitAudio, filterStringMethod, nameSortBy } from "../helper.js";
+import PlayButton from "./PlayButton.vue";
 
 export default defineComponent({
   props: {
     repository: Object,
     commit: Object,
+    canEdit: Boolean,
+  },
+  components:{
+      PlayButton,
   },
   setup(props, context) {
     const xGrid = ref({});
@@ -104,13 +118,14 @@ export default defineComponent({
 
     const commitKeyupEvent = () => {
       demo.filteredCommitsList = demo.filterCommitTitle
-        ? props.repository.commits.filter(
+        ? props.commits.filter(
             (commit) => commit.title.indexOf(demo.filterCommitTitle) > -1
           )
-        : props.repository.commits;
+        : props.commits;
     };
 
     const gridOptions = reactive({
+      // loading:false,
       border: true,
       resizable: true,
       showHeaderOverflow: true,
@@ -173,7 +188,7 @@ export default defineComponent({
         ajax: {
           // 当点击工具栏查询按钮或者手动提交指令 query或reload 时会被触发
           query: async ({ page, sorts, filters, form }) => {
-            demo.audioList = await getCommitAudio(props.repository.commit);
+            demo.audioList = await getCommitAudio(props.commit);
             resetAll();
             return demo.audioList;
           },

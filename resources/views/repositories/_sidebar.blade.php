@@ -14,7 +14,7 @@
         @foreach ($active_users as $active_user)
           <a class="tw-flex tw-items-center tw-mt-2 tw-no-underline" href="{{ route('users.show', $active_user->id) }}">
             <div class="tw-shrink-0 tw-mr-2 tw-ml-1">
-              <img src="{{ $active_user->avatar }}" width="24px" height="24px" class="tw-object-cover">
+              <img src="{{ $active_user->avatar }}" width="24" height="24" class="tw-object-cover">
             </div>
             <div class="">
               <small class=" text-secondary">{{ $active_user->name }}</small>

@@ -19,12 +19,10 @@ class UserFactory extends Factory
     {
         // 用户的默认头像
         $avatars = [
-            'https://cdn.learnku.com/uploads/images/201710/14/1/s5ehp11z6s.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/Lhd1SHqu86.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/LOnMrqbHJn.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/xAuDMxteQy.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png',
-            'https://cdn.learnku.com/uploads/images/201710/14/1/NDnzMutoxX.png',
+            'http://localhost:8000/uploads/images/avatars/202203/08/1_1646723942_Py28mirbiQ.jpg',
+            'http://localhost:8000/uploads/images/avatars/202203/08/1_1646724592_ApPHvB9CAK.jpg',
+            'http://localhost:8000/uploads/images/avatars/202203/08/1_1646724948_fwzAxYmaAf.jpg',
+            'http://localhost:8000/uploads/images/avatars/202203/08/1_1646725513_dNl4W06ylf.jpg',
         ];
 
         return [

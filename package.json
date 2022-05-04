@@ -28,7 +28,10 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.0.0",
         "jquery": "^3.6.0",
+        "recorder-core": "^1.1.21080800",
         "simplemde": "^1.11.2",
+        "uuid": "^8.3.2",
+        "vue-select": "^3.18.3",
         "vxe-table": "^4.2.2-beta.0",
         "xe-utils": "^3.5.4"
     }

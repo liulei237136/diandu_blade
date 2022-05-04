@@ -6,18 +6,31 @@
 @section('content')
     <div class="tw-py-8">
         <div class="container ">
-            <form action="{{ route('repositories.update_description', $repository->id) }}" method="POST"
-                accept-charset="UTF-8">
-                @csrf
-                @method('put')
+            <div class="card ">
 
-                <textarea name="description" class="form-control " id="editor" rows="6" placeholder="请填入至少三个字符的描述。"
-                    required>{{ old('description', $repository->description) }}</textarea>
+                <div class="card-body">
+                    <h2 class="">
+                        <i class="far fa-edit"></i>
+                        编辑仓库描述
+                    </h2>
 
-                <button type="submit" class="btn btn-primary tw-mt-4"><i class="far fa-save mr-2" aria-hidden="true"></i>
-                    保存</button>
+                    <hr>
+                    <form action="{{ route('repositories.update_description', $repository->id) }}" method="POST"
+                        accept-charset="UTF-8">
+                        @csrf
+                        @method('put')
 
-            </form>
+                        <textarea name="description" class="form-control " id="editor" rows="6" placeholder="请填入至少三个字符的描述。"
+                            required>{{ old('description', $repository->description) }}</textarea>
+
+
+                        <button type="submit" class="btn btn-primary tw-mt-4"><i class="far fa-save mr-2"
+                                aria-hidden="true"></i>
+                            保存</button>
+
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @stop

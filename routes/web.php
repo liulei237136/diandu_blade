@@ -6,11 +6,21 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\CloneRepositoreisController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommitController;
+use App\Http\Controllers\DownloadCommitAudioController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RepositoriesController;
+use App\Http\Controllers\RepositoryDownloadController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\StarController;
+use App\Http\Controllers\StsAudioController;
+use App\Http\Controllers\StsController;
+use App\Http\Controllers\StsImgController;
+use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\UsersController;
+use App\Models\RepositoryDownload;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,8 +34,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('info', function(){
+    echo phpinfo();
+});
 Route::get('/test', function(){
-    dd(\Auth::user()->hasVerifiedEmail());
+    // dd(\Auth::user()->hasVerifiedEmail());
     return view('test');
 });
 
@@ -73,7 +86,9 @@ Route::get('repository_setting/{repository}/{slug?}',[RepositoriesController::cl
 
 Route::get('repository_comments/{repository}/{slug?}',[RepositoriesController::class, 'showComments'])->name('repository_comments.show');
 
-Route::get('repository_audio/{repository}/{slug?}/commits/{commit}',[RepositoriesController::class, 'showAudio'])->name('repository_audio.show');
+Route::get('show_audio/{repository}/{slug?}/',[RepositoriesController::class, 'showAudio'])->name('repository_audio.show');
+
+Route::get('edit_audio/{repository}/{slug?}',[RepositoriesController::class, 'editAudio'])->name('repository_audio.edit');
 
 Route::get('edit_description/{repository}/{slug?}', [RepositoriesController::class,'editDescription'])->name('repositories.edit_description');
 
@@ -91,6 +106,9 @@ Route::post('upload_image', [RepositoriesController::class,'uploadImage'])->name
 
 Route::post('upload_audio', [RepositoriesController::class,'uploadAudio'])->name('repositories.upload_audio');
 
+Route::post('upload_download', [RepositoriesController::class,'uploadDownload'])->name('repositories.upload_download');
+
+
 
 Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
 
@@ -99,3 +117,40 @@ Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name
 Route::resource('notifications', NotificationsController::class, ['only' => ['index']]);
 
 Route::post('repositories/{repository}/commits', [CommitController::class, 'store'])->name('commits.store');
+
+Route::get('commits/{commit}/download-all-audio', [DownloadCommitAudioController::class, 'all'])->name('commit-download-all-audio');
+
+Route::get('search', [SearchController::class, 'index'])->name('search');
+
+Route::post('repository-stars/{repository}', [StarController::class, 'store'])->name('repository-stars.store');
+
+Route::delete('repository-stars/{repository}', [StarController::class, 'destroy'])->name('repository-stars.destroy');
+
+Route::post('/repositories/{repository}/clones', [CloneRepositoreisController::class, 'store'])->name('clone-repositories.store');
+
+Route::get('/repository-downloads/repositories/{repository}', [RepositoryDownloadController::class, 'index'])->name('repository-downloads.index');
+
+Route::get('/repository-downloads-create/repositories/{repository}', [RepositoryDownloadController::class, 'create'])->name('repository-downloads.create');
+
+Route::get('/repository-downloads/{download}/get-temp-url', [RepositoryDownloadController::class, 'getTempUrl'])->name('repository-downloads.get-temp-url');
+
+Route::get('/repository-downloads/{download}', [RepositoryDownloadController::class, 'show'])->name('repository-downloads.show');
+
+Route::post('/repository-downloads-store/repositories/{repository}', [RepositoryDownloadController::class, 'store'])->name('repository-downloads.store');
+
+Route::get('sts', [StsController::class, 'store'])->name('sts.store');
+
+Route::post('sts_audio', [StsAudioController::class, 'store'])->name('sts_audio.store');
+
+Route::post('sts_img', [StsImgController::class, 'store'])->name('sts_img.store');
+
+Route::get('test-download',function(){
+    return view('repositories.downloads.test');
+});
+
+Route::get('test-download-url', [StsController::class, 'url'])->name('sts.url');
+
+Route::resource('tutorials', TutorialController::class,['only' => ['index', 'create']]);
+// Route::get('toturials', [TutorialController::class, 'index'])->name('tutorials.index');
+
+// Route::resource('repositories', RepositoriesController::class, ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);

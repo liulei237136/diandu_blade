@@ -10,8 +10,8 @@
             <div class="card ">
                 <div class="card-header bg-transparent">
                     <ul class="nav nav-pills">
-                        <li class="nav-item"><a class="nav-link {{active_class(if_query('order', 'default'))}}" href="{{request()->url()}}?order=default">最新发布</a></li>
-                        <li class="nav-item"><a class="nav-link {{active_class(if_query('order', 'favorite'))}}" href="{{request()->url()}}?order=favorite">最多收藏</a></li>
+                        <li class="nav-item"><a class="nav-link {{active_class(if_query('order', 'default') || if_query('order', null))}}" href="{{request()->url()}}?order=default">最新发布</a></li>
+                        <li class="nav-item"><a class="nav-link {{active_class(if_query('order', 'star'))}}" href="{{request()->url()}}?order=star">最多收藏</a></li>
                     </ul>
                 </div>
 

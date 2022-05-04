@@ -17,9 +17,15 @@ mix.js('resources/js/app.js', 'public/js')
     .version()
     .copyDirectory('resources/editor/js', 'public/js')
     .copyDirectory('resources/editor/css', 'public/css');
-mix.js('resources/js/showAudio.js', 'public/js')
-    .vue()
-    .version();
+
+
+// Mix v6
+const path = require('path');
+
+mix.alias({
+    ziggy: path.resolve('vendor/tightenco/ziggy/dist/vue'), // or 'vendor/tightenco/ziggy/dist/vue' if you're using the Vue plugin
+});
+
 
 mix.postCss('resources/css/font.css', 'public/css')
     .postCss("resources/css/tail.css", "public/css", [

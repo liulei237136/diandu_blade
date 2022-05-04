@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Handlers\AudioUploadHandler;
 use App\Handlers\ImageUploadHandler;
+use App\Handlers\DownloadUploadHandler;
 use App\Http\Requests\RepositoryDescriptionRequest;
 use App\Http\Requests\RepositoryRequest;
 use App\Models\Commit;
@@ -16,7 +17,7 @@ class RepositoriesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'showComments']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'showAudio', 'showComments']]);
     }
 
 
@@ -41,30 +42,79 @@ class RepositoriesController extends Controller
         $repository->user_id = auth()->id();
         $repository->save();
 
-        // return redirect($repository->link())->with('success', '仓库创建成功！');
         return redirect(route('repositories.init', $repository->fresh()->id));
     }
 
-    public function show(Repository $repository)
+    public function show(Repository $repository, Request $request)
     {
         // URL 矫正
         if (!empty($repository->slug) && $repository->slug != $request->slug) {
             return redirect($repository->link(), 301);
         }
 
+        appendRepository($repository);
+
         return view('repositories.show', compact('repository'));
     }
 
-    public function showAudio(Repository $repository, Commit $commit)
+    public function showAudio(Repository $repository, Request $request)
+    {
+        //todo commit->link()
+        // // URL 矫正
+        // if (!empty($repository->slug) && $repository->slug != $request->slug) {
+        //     return redirect($repository->link(), 301);
+
+        // }
+        $repository->load(['commits' => function($query){
+            $query->latest();
+        }, 'stars']);
+
+        $commit_id = $request->commit;
+
+        if ($commit_id) {
+            $commit = Commit::findOrFail($commit_id);
+        } else if ($repository->commits->isNotEmpty()) {
+            $commit = $repository->commits->first();
+        }else{
+            $commit = null;
+        }
+        // dd($commit);
+        appendRepository($repository);
+
+        return view('repositories.showAudio ', compact('repository', 'commit'));
+    }
+
+    public function editAudio(Repository $repository, Request $request)
     {
         //todo commit->link()
         // // URL 矫正
         // if (!empty($repository->slug) && $repository->slug != $request->slug) {
         //     return redirect($repository->link(), 301);
         // }
+        $this->authorize('update', $repository);
 
-        return view('repositories.showAudio ', compact('repository','commit'));
+        $repository->load(['commits' => function($query){
+            $query->with('owner','creator')->latest();
+        }, 'stars']);
+
+        $commit_id = $request->commit;
+
+        if ($commit_id) {
+            $commit = Commit::findOrFail($commit_id);
+        } else if ($repository->commits->isNotEmpty()) {
+            $commit = $repository->commits->first();
+        }else{
+            $commit = null;
+        }
+
+        appendRepository($repository);
+
+
+        return view('repositories.editAudio ', compact('repository', 'commit'));
     }
+
+
+
 
     public function destroy(Repository $repository)
     {
@@ -86,7 +136,7 @@ class RepositoriesController extends Controller
         // 判断是否有上传文件，并赋值给 $file
         if ($file = $request->upload_file) {
             // 保存图片到本地
-            $result = $uploader->save($file, 'repositories', auth()->id(), 1024);
+            $result = $uploader->save($file, 'repositories', auth()->id());
             // 图片保存成功的话
             if ($result) {
                 $data['file_path'] = $result['path'];
@@ -121,14 +171,42 @@ class RepositoriesController extends Controller
         return $data;
     }
 
+    public function uploadDownload(Request $request, DownloadUploadHandler $uploader)
+    {
+        // 初始化返回数据，默认是失败的
+        $data = [
+            'success'   => false,
+            'msg'       => '上传失败!',
+            'file_path' => '',
+        ];
+        // 判断是否有上传文件，并赋值给 $file
+        if ($file = $request->upload_file) {
+            // 保存图片到本地
+            $result = $uploader->save($file, auth()->id());
+            // $result = $uploader->save($file, 'repositories', auth()->id(), 1024);
+            // 图片保存成功的话
+            if ($result['success']) {
+                $data['file_path'] = $result['path'];
+                $data['msg']       = "上传成功!";
+                $data['success']   = true;
+            }else{
+                $data['success'] = false;
+                $data['msg'] = $result['message'];
+            }
+        }
+        return $data;
+    }
+
+
     public function editDescription(Repository $repository, Request $request)
     {
         $this->authorize('update', $repository);
         // URL 矫正
-        // dump($repository->slug);
         if (!empty($repository->slug) && $repository->slug != $request->slug) {
             return redirect($repository->link('repositories.edit_description'), 301);
         }
+
+        appendRepository($repository);
 
         return view('repositories.edit_description', compact('repository'));
     }
@@ -156,20 +234,25 @@ class RepositoriesController extends Controller
     {
         $this->authorize('update', $repository);
 
+        // $repository->loadCount('stars');
         // URL 矫正
         if (!empty($repository->slug) && $repository->slug != $request->slug) {
             return redirect($repository->link('repository_setting.show'), 301);
         }
 
 
+        appendRepository($repository);
         return view('repositories.setting', compact('repository'));
     }
 
     public function showComments(Repository $repository)
     {
-        $comments = $repository->comments()->with('user','repository')->latest()->paginate(7);
+        $comments = $repository->comments()->with('user', 'repository')->latest()->paginate(7);
 
-        return view('repositories.comments', compact('repository','comments'));
+        // $repository->loadCount('stars');
+        appendRepository($repository);
+
+        return view('repositories.comments', compact('repository', 'comments'));
     }
 
     // protected function loadCommon(Repository $repository){
@@ -182,11 +265,10 @@ class RepositoriesController extends Controller
         $this->authorize('update', $repository);
 
         //如果已经有commit了，就返回其页面
-        if($repository->commits->count() > 0) {
+        if ($repository->commits->count() > 0) {
             return redirect($repository->link());
         }
 
-        return view('repositories.init',compact('repository'));
+        return view('repositories.init', compact('repository'));
     }
-
 }

@@ -10,14 +10,18 @@ class RepositoryPolicy
 {
     use HandlesAuthorization;
 
-    public function update(User $user, repository $repository)
+    public function update(User $user, Repository $repository)
     {
         return $user->isAuthorOf($repository);
     }
 
-    public function delete(User $user, repository $repository)
+    public function delete(User $user, Repository $repository)
     {
         return $user->isAuthorOf($repository);
     }
 
+    public function clone(User $user, Repository $repository)
+    {
+        return !$repository->clonedBy($user);
+    }
 }

@@ -1,0 +1,38 @@
+import:
+  - recipe/laravel.php
+  - contrib/php-fpm.php
+  - contrib/npm.php
+
+config:
+  repository: 'https://github.com/liulei237136/diandu_blade.git'
+  ssh_multiplexing: false
+  php_fpm_version: '8.0'
+
+hosts:
+  prdoction:
+    remote_user: root
+    hostname: diandu.tool365.cn
+    deploy_path: '/www/wwwroot/{{hostname}}'
+
+tasks:
+  # deploy:
+  #   - deploy:prepare
+  #   - deploy:vendors
+  #   - artisan:storage:link
+  #   - artisan:view:cache
+  #   - artisan:config:cache
+  #   - artisan:down
+  #   - artisan:migrate
+  #   - artisan:up
+  #   - npm:install
+  #   - npm:run:prod
+  #   - deploy:publish
+  #   - php-fpm:reload
+  # build:
+  #   - cd: '{{release_path}}'
+  #   - run: 'npm run build'
+  npm:run:prod:
+   - run: 'cd {{release_path}} && npm run prod'
+
+after:
+  deploy:failed: deploy:unlock

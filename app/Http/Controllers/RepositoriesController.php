@@ -36,13 +36,18 @@ class RepositoriesController extends Controller
         return view('repositories.create', compact('repository'));
     }
 
-    public function store(RepositoryRequest $request, Repository $repository)
+    public function store(RepositoryRequest $request)
     {
+        $repository  = new Repository();
         $repository->fill($request->all());
+        $repository->name = $request->name;
+        if(!empty($request->description)){
+            $repository->description = $request->description;
+        }
         $repository->user_id = auth()->id();
         $repository->save();
 
-        return redirect(route('repositories.init', $repository->fresh()->id));
+        return redirect(route('repositories.init', $repository->id));
     }
 
     public function show(Repository $repository, Request $request)

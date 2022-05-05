@@ -13,7 +13,8 @@
 
                     <hr>
 
-                    <form action="{{ route('repositories.store') }}" method="POST" accept-charset="UTF-8">
+                    {{-- <form action="{{ route('repositories.store') }}" method="POST" accept-charset="UTF-8"> --}}
+                    <form action="/repositories" method="post" accept-charset="UTF-8">
 
                         @csrf
 

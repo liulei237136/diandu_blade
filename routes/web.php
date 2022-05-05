@@ -35,13 +35,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('info', function(){
-    echo phpinfo();
-});
-Route::get('/test', function(){
-    // dd(\Auth::user()->hasVerifiedEmail());
-    return view('test');
-});
+// Route::get('info', function(){
+//     echo phpinfo();
+// });
+// Route::get('/test', function(){
+//     // dd(\Auth::user()->hasVerifiedEmail());
+//     return view('test');
+// });
 
 Route::get('/', function () {
     return redirect()->to(route('repositories.index',['order' => 'default']));
@@ -80,7 +80,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('users', UsersController::class, ['only' => ['show', 'update', 'edit']]);
 // Route::resource('users', UsersController::class);
 
-Route::resource('repositories', RepositoriesController::class, ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::post('repositories', [RepositoriesController::class,'store'])->name('repositories.store');
+Route::resource('repositories', RepositoriesController::class, ['only' => ['index', 'create',  'update', 'edit', 'destroy']]);
 
 Route::get('repositories/{repository}/{slug?}',[ RepositoriesController::class,'show'])->name('repositories.show');
 

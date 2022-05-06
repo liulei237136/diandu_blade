@@ -78,10 +78,8 @@ Route::post('email/resend', [VerificationController::class,'resend'])->name('ver
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('users', UsersController::class, ['only' => ['show', 'update', 'edit']]);
-// Route::resource('users', UsersController::class);
 
-Route::post('repositories', [RepositoriesController::class,'store'])->name('repositories.store');
-Route::resource('repositories', RepositoriesController::class, ['only' => ['index', 'create',  'update', 'edit', 'destroy']]);
+Route::resource('repositories', RepositoriesController::class, ['only' => ['index', 'create',  'update', 'edit', 'store', 'destroy']]);
 
 Route::get('repositories/{repository}/{slug?}',[ RepositoriesController::class,'show'])->name('repositories.show');
 

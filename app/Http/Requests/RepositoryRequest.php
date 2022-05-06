@@ -22,7 +22,7 @@ class RepositoryRequest extends FormRequest
                 // CREATE
             case 'POST':
                 return [
-                    'name'       => 'required|min:2',
+                    'name'       => 'required|min:3',
                     'description'        => 'required|min:3',
                     // 'category_id' => 'required|numeric',
                 ];
@@ -30,7 +30,7 @@ class RepositoryRequest extends FormRequest
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'name'       => 'min:2',
+                        'name'       => 'min:3',
                         'description'        => 'min:3',
                         // 'category_id' => 'required|numeric',
                     ];

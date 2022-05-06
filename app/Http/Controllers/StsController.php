@@ -37,10 +37,8 @@ class StsController extends Controller
                 'name/cos:CompleteMultipartUpload'
             )
         );
-
         // 获取临时密钥，计算签名
         $tempKeys = $sts->getTempKeys($config);
-        $a = 1;
         return $tempKeys;
     }
 

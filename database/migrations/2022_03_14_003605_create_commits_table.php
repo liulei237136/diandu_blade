@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('commits', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->unsignedBigInteger('creator_id')->index();
             $table->unsignedBigInteger('owner_id')->index();
             $table->unsignedBigInteger('repository_id')->index();

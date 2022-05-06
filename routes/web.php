@@ -35,9 +35,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('info', function(){
-//     echo phpinfo();
-// });
+Route::get('info', function(){
+    echo phpinfo();
+});
 // Route::get('/test', function(){
 //     // dd(\Auth::user()->hasVerifiedEmail());
 //     return view('test');
@@ -141,11 +141,11 @@ Route::get('/repository-downloads/{download}', [RepositoryDownloadController::cl
 
 Route::post('/repository-downloads-store/repositories/{repository}', [RepositoryDownloadController::class, 'store'])->name('repository-downloads.store');
 
-Route::get('sts', [StsController::class, 'store'])->name('sts.store');
+Route::post('sts/{type}', [StsController::class, 'store'])->name('sts.store');
 
-Route::post('sts_audio', [StsAudioController::class, 'store'])->name('sts_audio.store');
+// Route::post('sts_audio', [StsAudioController::class, 'store'])->name('sts_audio.store');
 
-Route::post('sts_img', [StsImgController::class, 'store'])->name('sts_img.store');
+// Route::post('sts_img', [StsImgController::class, 'store'])->name('sts_img.store');
 
 Route::get('test-download',function(){
     return view('repositories.downloads.test');

@@ -292,43 +292,6 @@ export default defineComponent({
       demo.showSaveModal = true;
     };
 
-    // const uploadAudio = function (file) {
-    //   const date = new Date();
-    //   const year = date.getFullYear();
-    //   const month = date.getMonth() + 1;
-    //   const day = date.getDate();
-    //   const uid = uuidv4().substr(0, 4);
-
-    //   var key = `audio/${year}${month}/${day}/${this.user.id}_${Date.now()}_${uid}_${
-    //     file.name
-    //   }`;
-    //   let url = "";
-
-    //   return getAuthorization({
-    //     Method: "PUT",
-    //     Pathname: "/" + key,
-    //     route: route("sts_audio.store"),
-    //   })
-    //     .then((info) => {
-    //       const auth = info.Authorization;
-    //       const SecurityToken = info.SecurityToken;
-    //       url = prefix + camSafeUrlEncode(key).replace(/%2F/g, "/");
-    //       const headers = { Authorization: auth };
-    //       if (SecurityToken) {
-    //         headers["x-cos-security-token"] = SecurityToken;
-    //       }
-    //       return axios.put(url, file, {
-    //         headers: headers,
-    //       });
-    //     })
-    //     .then(function (response) {
-    //       return {
-    //         // ETag: response.headers["etag"],
-    //         url: url,
-    //       };
-    //     });
-    // };
-
     const saveModalFormSubmitEvent = async () => {
       // 先验证是否有错误
       const errMap = await saveForm.value.validate();

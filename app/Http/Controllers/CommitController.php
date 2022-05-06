@@ -27,7 +27,7 @@ class CommitController extends Controller
         }
 
         $commit->title = $request->title;
-        if ($request->description) {
+        if (!empty($request->description)) {
             $commit->description = $request->description;
         }
         $commit->repository_id = $repository->id;

@@ -18,9 +18,6 @@ import './helper.js';
 import { ZiggyVue } from 'ziggy';
 import { Ziggy } from './ziggy';
 
-import vSelect from 'vue-select';
-import 'vue-select/dist/vue-select.css';
-
 
 VXETable.setup({
     icon: {

@@ -89,6 +89,7 @@ export default {
       for (let file of files) {
         count++;
         try {
+            alert('before');
           const { url } = await uploadToCos(file, this.user.id, 'audio');
 
           content += file.name;
@@ -100,6 +101,7 @@ export default {
           content += "\n";
         } catch (error) {
             console.log(error);
+            alert('error');
             // alert(1);
           if (error.response) {
             // The request was made and the server responded with a status code
@@ -119,7 +121,7 @@ export default {
         }
 
         //todo error handle
-        this.percent = Math.ceil((count / files.length) * 100) + 1;
+        this.percent = Math.ceil((count / files.length) * 100);
       }
 
       try {

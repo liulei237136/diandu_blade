@@ -1,9 +1,10 @@
 @extends('layouts.repository')
 
-@section('title', $repository->name)
+{{-- @section('title', $repository->name) --}}
+@section('title', 'test')
 @section('description', $repository->excerpt)
 
-@section('content')
+@section('repository_content')
     <div class="tw-bg-white tw-py-4">
         <div class="container ">
             <div class="operate">

@@ -1,4 +1,4 @@
-@include('shared._error')
+{{-- @include('shared._error') --}}
 
 <div class="comment-box">
   <form action="{{ route('comments.store') }}" method="POST" accept-charset="UTF-8">

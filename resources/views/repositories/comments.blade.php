@@ -3,7 +3,7 @@
 @section('title', $repository->name)
 @section('description', $repository->excerpt)
 
-@section('content')
+@section('repository_content')
     <div class="tw-bg-white tw-py-2 tw-max-w-3xl tw-mx-auto">
         {{-- 用户回复列表 --}}
         <div class="card repository-comment mt-4">

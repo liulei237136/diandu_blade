@@ -26,22 +26,16 @@
     <div id="app" class="{{ route_class() }}-page">
         @include('layouts._header')
 
-        <div class="container" >
-            @include('shared._messages')
-
-            @yield('content')
-
-        </div>
-
+        @yield('content')
 
         @include('layouts._footer')
 
     </div>
     <!-- Scripts -->
     @routes
-    {{-- <script src="https://unpkg.com/petite-vue" defer init></script> --}}
     <script src="{{ mix('js/app.js') }}"></script>
     @yield('scripts')
+    @flasher_render
 </body>
 
 </html>

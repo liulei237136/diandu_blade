@@ -13,16 +13,14 @@
 
                     <hr>
 
-                    {{-- <form action="{{ route('repositories.store') }}" method="POST" accept-charset="UTF-8"> --}}
-                    <form action="/repositories" method="post" accept-charset="UTF-8">
-
+                    <form action="{{ route('repositories.store') }}" method="POST" accept-charset="UTF-8">
                         @csrf
 
                         @include('shared._error')
 
                         <div class="mb-3">
                             <input class="form-control" type="text" name="name"
-                                value="{{ old('name', $repository->name) }}" placeholder="请填写仓库名" required />
+                                value="{{ old('name', $repository->name) }}" placeholder="请填写仓库名,最少3个字,最多60个字" required />
                         </div>
 
                         {{-- <div class="mb-3">
@@ -36,7 +34,7 @@
 
                         <div class="mb-3">
                             <textarea name="description" class="form-control " id="editor" rows="6"
-                                placeholder="请填入至少三个字符的描述。"
+                                placeholder="请填写仓库描述,至少3个字"
                                 required>{{ old('description', $repository->description) }}</textarea>
                         </div>
 

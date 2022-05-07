@@ -105,7 +105,7 @@ Route::get('init/{repository}/{slug?}',[RepositoriesController::class, 'init'])-
 
 Route::post('upload_image', [RepositoriesController::class,'uploadImage'])->name('repositories.upload_image');
 
-Route::post('upload_audio', [RepositoriesController::class,'uploadAudio'])->name('repositories.upload_audio');
+// Route::post('upload_audio', [RepositoriesController::class,'uploadAudio'])->name('repositories.upload_audio');
 
 Route::post('upload_download', [RepositoriesController::class,'uploadDownload'])->name('repositories.upload_download');
 
@@ -139,7 +139,7 @@ Route::get('/repository-downloads/{download}', [RepositoryDownloadController::cl
 
 Route::post('/repository-downloads-store/repositories/{repository}', [RepositoryDownloadController::class, 'store'])->name('repository-downloads.store');
 
-Route::post('sts/{type}', [StsController::class, 'store'])->name('sts.store');
+Route::post('/sts', [StsController::class, 'store'])->name('sts.store');
 
 // Route::post('sts_audio', [StsAudioController::class, 'store'])->name('sts_audio.store');
 

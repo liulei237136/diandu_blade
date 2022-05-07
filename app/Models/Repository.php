@@ -21,7 +21,9 @@ class Repository extends Model
             case 'star':
                 $query->star();
                 break;
-
+            case 'recent':
+                $query->recent();
+                break;
             default:
                 $query->recent();
                 break;
@@ -43,7 +45,7 @@ class Repository extends Model
     public function scopeRecent($query)
     {
         // 按照创建时间排序
-        return $query->orderBy('id', 'desc');
+        return $query->orderBy('created_at', 'desc');
     }
 
     public function link($route = 'repositories.show', $params = [])

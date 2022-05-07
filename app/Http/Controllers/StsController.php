@@ -2,16 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StsRequest;
 use Illuminate\Http\Request;
 use QCloud\COSSTS\Sts;
+use Illuminate\Support\Str;
 
 class StsController extends Controller
 {
-    public function store($type = null)
+    public function __construct()
     {
-        // $type = $request->type;
-        if(empty($type) || !in_array($type, ['download', 'audio'])){
-            return response()->json([], 400);
+        $this->middleware('auth');
+    }
+
+    public function store(StsRequest $request)
+    {
+
+        //request->method
+        //request->type 'audio' 'upload' etc
+        //request->filename
+        switch($request->type){
+            case 'audio':
+                // uploads/images/$folder/" . date("Ym/d", time());
+                $allowPrefix = "uploads/audio/" . date("Ym/d", time()) . '/' . auth()->id() . '-' . now() . '-' . Str::rand(4) . '-' . $request->filename;
+                break;
+            case 'upload':
+                $allowPrefix = "uploads/downloads/" . date("Ym/d", time()) . '/' . auth()->id() . '-' . now() . '-' . Str::rand(4) . '-' . $request->filename;
+                break;
         }
         $sts = new Sts();
         $config = array(
@@ -23,7 +39,7 @@ class StsController extends Controller
             'bucket' => config('services.qcloud.bucket'),
             'region' => config('services.qcloud.region'),
             'durationSeconds' => 1800, // 密钥有效期
-            'allowPrefix' => "$type/*", // 这里改成允许的路径前缀，可以根据自己网站的用户登录态判断允许上传的具体路径，例子： a.jpg 或者 a/* 或者 * (使用通配符*存在重大安全风险, 请谨慎评估使用)
+            'allowPrefix' => $allowPrefix, // 这里改成允许的路径前缀，可以根据自己网站的用户登录态判断允许上传的具体路径，例子： a.jpg 或者 a/* 或者 * (使用通配符*存在重大安全风险, 请谨慎评估使用)
             // 密钥的权限列表。简单上传和分片需要以下的权限，其他权限列表请看 https://cloud.tencent.com/document/product/436/31923
             'allowActions' => array(
                 // 简单上传
@@ -39,7 +55,11 @@ class StsController extends Controller
         );
         // 获取临时密钥，计算签名
         $tempKeys = $sts->getTempKeys($config);
-        return $tempKeys;
+        // return $tempKeys;
+        return [
+            'tempKeys' => $tempKeys,
+            'allowPrefix' => $allowPrefix,
+        ];
     }
 
 

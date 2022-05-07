@@ -7,7 +7,7 @@ use App\Models\Repository;
 use App\Models\Star;
 use App\Observers\CommentObserver;
 use App\Observers\RepositoryObserver;
-use App\Observers\StarObserver;
+// use App\Observers\StarObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

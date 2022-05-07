@@ -19,6 +19,7 @@
         "mews/purifier": "~3.3",
         "overtrue/laravel-lang": "~6.0",
         "overtrue/pinyin": "~4.0",
+        "php-flasher/flasher-toastr-laravel": "^0.9.8",
         "predis/predis": "~1.1",
         "qcloud/cos-sdk-v5": "^2.5",
         "qcloud_sts/qcloud-sts-sdk": "^3.0",

@@ -60,19 +60,21 @@ export const camSafeUrlEncode = (str) => {
 
 
 // 计算签名
-export const getAuthorization = (options) => {
+export const getAuthorization = (params) => {
     // return axios.post(route("sts_audio.store")).then(function (result) {
-    return axios.post(options.route).then(function (result) {
-        const credentials = result.data.credentials;
+    return axios.post(route('sts.store'), params).then(function (result) {
+        const credentials = result.data.tempKeys.credentials;
+        const allowPrefix = result.data.allowPrefix;
         if (credentials) {
             return {
                 SecurityToken: credentials.sessionToken,
                 Authorization: CosAuth({
                     SecretId: credentials.tmpSecretId,
                     SecretKey: credentials.tmpSecretKey,
-                    Method: options.Method,
-                    Pathname: options.Pathname,
+                    Method: params.method,
+                    Pathname: allowPrefix,
                 }),
+                allowPrefix
             };
         } else {
             throw new Error("获取签名出错");
@@ -81,30 +83,21 @@ export const getAuthorization = (options) => {
 };
 
 //type = audio, download, commit .etc
-export const uploadToCos = function (file, user_id, type) {
+export const uploadToCos = function (type, filename) {
     const Bucket = "diandu-1307995562";
     const Region = "ap-hongkong";
     const protocol = location.protocol === "https:" ? "https:" : "http:";
     const prefix = protocol + "//" + Bucket + ".cos." + Region + ".myqcloud.com/"; // prefix 用于拼接请求 url 的前缀，域名使用存储桶的默认域名
 
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const uuid = uuidv4().substr(0, 4);
-
-    var key = `${type}/${year}${month}/${day}/${user_id}_${Date.now()}_${uuid}_${file.name}`;
-    let url = "";
-
     return getAuthorization({
-        Method: "PUT",
-        Pathname: "/" + key,
-        route: route('sts.store', {type}),
+        method: "PUT",
+        type,
+        filename,
     })
         .then((info) => {
             const auth = info.Authorization;
             const SecurityToken = info.SecurityToken;
-            url = prefix + camSafeUrlEncode(key).replace(/%2F/g, "/");
+            url = prefix + camSafeUrlEncode(info.allowPrefix).replace(/%2F/g, "/");
             const headers = { Authorization: auth };
             if (SecurityToken) {
                 headers["x-cos-security-token"] = SecurityToken;
@@ -121,36 +114,4 @@ export const uploadToCos = function (file, user_id, type) {
         });
 };
 
-export const getCosSignedUrl = (file, user_id, type) => {
-    const Bucket = "diandu-1307995562";
-    const Region = "ap-hongkong";
-    const protocol = location.protocol === "https:" ? "https:" : "http:";
-    const prefix = protocol + "//" + Bucket + ".cos." + Region + ".myqcloud.com/"; // prefix 用于拼接请求 url 的前缀，域名使用存储桶的默认域名
 
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const uuid = uuidv4().substr(0, 4);
-
-    var key = `${type}/${year}${month}/${day}/${user_id}_${Date.now()}_${uuid}_${file.name}`;
-
-    return getAuthorization({
-        Method: "PUT",
-        Pathname: "/" + key,
-        route: route('sts.store',{type}),
-    })
-        .then((info) => {
-            const auth = info.Authorization;
-            const SecurityToken = info.SecurityToken;
-            url = prefix + camSafeUrlEncode(key).replace(/%2F/g, "/");
-            const headers = { Authorization: auth };
-            if (SecurityToken) {
-                headers["x-cos-security-token"] = SecurityToken;
-            }
-            return {
-                headers,
-                url,
-            };
-        });
-}

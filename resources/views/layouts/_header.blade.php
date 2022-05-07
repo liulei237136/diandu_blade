@@ -12,7 +12,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item "><a class="nav-link {{ active_class(if_route('repositories.index')) }}"
-                        href="{{ route('repositories.index') }}">仓库</a></li>
+                        href="{{ route('repositories.index', ['order' => 'recent']) }}">仓库</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{route('tutorials.index')}}">教程</a>
                 <li class="nav-item"><a class="nav-link" href="{{route('suggestions.index')}}">建议</a>
                 </li>

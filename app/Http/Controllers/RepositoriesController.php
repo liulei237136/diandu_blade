@@ -10,7 +10,10 @@ use App\Http\Requests\RepositoryRequest;
 use App\Models\Commit;
 use App\Models\Repository;
 use App\Models\User;
+use Encore\Admin\Actions\Toastr;
 use Illuminate\Http\Request;
+// use Flasher\Prime\FlasherInterface;
+use Flasher\Toastr\Prime\ToastrFactory;
 
 class RepositoriesController extends Controller
 {
@@ -23,6 +26,10 @@ class RepositoriesController extends Controller
 
     public function index(Request $request, User $user)
     {
+        $order = $request->order;
+        if(empty($order) || !in_array($order, ['recent', 'star'])){
+            return redirect()->to('/repositories?order=recent');
+        }
         $repositories = Repository::withOrder($request->order)
             ->with('user')  // 预加载防止 N+1 问题
             ->paginate(20);
@@ -39,11 +46,8 @@ class RepositoriesController extends Controller
     public function store(RepositoryRequest $request)
     {
         $repository  = new Repository();
-        $repository->fill($request->all());
         $repository->name = $request->name;
-        if(!empty($request->description)){
-            $repository->description = $request->description;
-        }
+        $repository->description = $request->description;
         $repository->user_id = auth()->id();
         $repository->save();
 
@@ -216,22 +220,28 @@ class RepositoriesController extends Controller
         return view('repositories.edit_description', compact('repository'));
     }
 
-    public function updateDescription(RepositoryRequest $request, Repository $repository)
+    public function updateDescription(RepositoryRequest $request, Repository $repository, ToastrFactory $flasher)
     {
         $this->authorize('update', $repository);
 
-        $repository->update($request->all());
+        $repository->description = $request->description;
+        $repository->save();
 
-        return redirect()->to($repository->link())->with('success', '更新成功！');
+        $flasher->addSuccess('仓库描述更新成功');
+
+        return redirect()->to($repository->link());
     }
 
-    public function updateName(RepositoryRequest $request, Repository $repository)
+    public function updateName(RepositoryRequest $request, Repository $repository,ToastrFactory $flasher)
     {
         $this->authorize('update', $repository);
 
-        $repository->update($request->all());
+        $repository->name = $request->name;
+        $repository->save();
 
-        return back()->with('success', '仓库名更新成功！');
+        $flasher->addSuccess('仓库名更新成功');
+
+        return back();
     }
 
 

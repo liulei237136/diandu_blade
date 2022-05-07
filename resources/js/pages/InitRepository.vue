@@ -89,8 +89,9 @@ export default {
       for (let file of files) {
         count++;
         try {
-            alert('before');
-          const { url } = await uploadToCos(file, this.user.id, 'audio');
+        //   const { url } = await uploadToCos(file, this.user.id, 'audio');
+        //uploadToCos(type, filename)
+          const { url } = await uploadToCos('audio', file.name);
 
           content += file.name;
           content += "," + url;
@@ -101,8 +102,6 @@ export default {
           content += "\n";
         } catch (error) {
             console.log(error);
-            alert('error');
-            // alert(1);
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx

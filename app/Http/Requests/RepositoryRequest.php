@@ -22,16 +22,16 @@ class RepositoryRequest extends FormRequest
                 // CREATE
             case 'POST':
                 return [
-                    'name'       => 'required|min:3',
-                    'description'        => 'required|min:3',
+                    'name'       => 'required|min:3|max:60',
+                    'description'        => 'required|min:14|max:30720', //30*1024 //<p>xxx<br></p>
                     // 'category_id' => 'required|numeric',
                 ];
                 // UPDATE
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'name'       => 'min:3',
-                        'description'        => 'min:3',
+                        'name'       => 'min:3|max:60',
+                        'description'        => 'min:14|max:30720',
                         // 'category_id' => 'required|numeric',
                     ];
                 }
@@ -46,8 +46,10 @@ class RepositoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.min' => '仓库名称必须至少两个字符',
-            'descrption.min' => '仓库描述必须至少三个字符',
+            'name.min' => '仓库名称最少3个字',
+            'name.max' => '仓库名称最多60个字',
+            'description.min' => '仓库描述最少3个字',
+            'description.max' => '仓库描述最多30720个字',
         ];
     }
 }

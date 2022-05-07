@@ -7,15 +7,18 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class CreateRepositoriesTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_guest_may_not_create_repository()
     {
         $this->withExceptionHandling();
 
         $this->post(route('repositories.store'), [])
-        ->assertRedirect('/login');
+            ->assertRedirect('/login');
     }
 
     public function test_an_authenticated_user_can_create_new_repository()
@@ -41,14 +44,16 @@ class CreateRepositoriesTest extends TestCase
         $response->assertSessionHasErrors('name');
     }
 
-    public function test_name_length_must_greater_or_equal_than_three_letters()
+    public function test_name_length_between_3_and_60()
     {
         $this->signIn()->withExceptionHandling();
 
-        $response = $this->post(route('repositories.store'), ['name' => 'xx']);
-
-        $response->assertRedirect();
-        $response->assertSessionHasErrors('name');
+        $this->post(route('repositories.store'), ['name'=> Str::random(2),'description' => Str::random(20)])
+            ->assertSessionHasErrors('name');
+        $this->post(route('repositories.store'), ['name'=> Str::random(3),'name' => Str::random(20)])
+            ->assertSessionDoesntHaveErrors('name');
+        $this->post(route('repositories.store'), ['name'=> Str::random(61),'description' => Str::random(20)])
+            ->assertSessionHasErrors('name');
     }
 
     public function test_description_is_required()
@@ -61,14 +66,18 @@ class CreateRepositoriesTest extends TestCase
         $response->assertSessionHasErrors('description');
     }
 
-    public function test_description_length_must_greater_or_equal_than_three_letters()
+    //<p>xxx<br></p>
+    public function test_description_length_between_14_and_30k()
     {
         $this->signIn()->withExceptionHandling();
 
-        $response = $this->post(route('repositories.store'), ['description' => 'xx']);
+        $this->post(route('repositories.store'), ['name'=> 'test','description' => Str::random(13)])
+            ->assertSessionHasErrors('description');
+        $this->post(route('repositories.store'), ['name' => 'test', 'description' => Str::random(14)])
+            ->assertSessionDoesntHaveErrors('description');
+        $this->post(route('repositories.store'), ['name'=> 'test','description' => Str::random(30*1024 + 1)])
+            ->assertSessionHasErrors('description');
 
-        $response->assertRedirect();
-        $response->assertSessionHasErrors('description');
     }
 
     public function test_authenticated_users_must_confirm_email_address_before_creating_repositories()
@@ -92,18 +101,5 @@ class CreateRepositoriesTest extends TestCase
         $storedRepository = Repository::first();
 
         $this->assertEquals('english-english', $storedRepository->slug);
-    }
-
-    public function test_get_slug_when_update_a_repository_name()
-    {
-        $this->signIn();
-
-        $repository = create(Repository::class, ['name' => '英语 英语']);
-
-        $this->put(route('repositories.update', $repository), ['name' => '中文 中文']);
-
-        $storedRepository = Repository::first();
-
-        $this->assertEquals('chinese-chinese', $storedRepository->slug);
     }
 }

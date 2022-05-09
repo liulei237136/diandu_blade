@@ -22983,7 +22983,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var saveModalFormSubmitEvent = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var errMap, _xGrid$value$getTable, fullData, _iterator, _step, record, file, _yield$uploadToCos, url, content, _iterator2, _step2, _record, result;
+        var errMap, _xGrid$value$getTable, fullData, _iterator, _step, record, file, _yield$uploadToCos, _url, content, _iterator2, _step2, _record, _uploadCotentToCos, url, result;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
@@ -23013,7 +23013,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 10:
                 if ((_step = _iterator.n()).done) {
-                  _context2.next = 31;
+                  _context2.next = 33;
                   break;
                 }
 
@@ -23024,28 +23024,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
 
-                return _context2.abrupt("continue", 29);
+                return _context2.abrupt("continue", 31);
 
               case 14:
                 // 优先级 audioFile > localFile
                 file = record.recordFile ? record.recordFile : record.localFile;
                 _context2.prev = 15;
                 _context2.next = 18;
-                return (0,_helper_js__WEBPACK_IMPORTED_MODULE_6__.uploadToCos)(file, props.user.id, "audio");
+                return (0,_helper_js__WEBPACK_IMPORTED_MODULE_6__.uploadToCos)('audio', file);
 
               case 18:
                 _yield$uploadToCos = _context2.sent;
-                url = _yield$uploadToCos.url;
-                record.file_path = url;
+                _url = _yield$uploadToCos.url;
+                record.file_path = _url;
                 record.user_name = props.user.name;
                 record.user_id = props.user.id;
                 record.created_at = Date.now();
-                _context2.next = 29;
+                _context2.next = 31;
                 break;
 
               case 26:
                 _context2.prev = 26;
                 _context2.t0 = _context2["catch"](15);
+                console.log(_context2.t0);
+                alert('after uploadtocos and error');
 
                 if (_context2.t0.response) {
                   // The request was made and the server responded with a status code
@@ -23063,28 +23065,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log("Error", _context2.t0.message);
                 }
 
-              case 29:
+              case 31:
                 _context2.next = 10;
                 break;
 
-              case 31:
-                _context2.next = 36;
+              case 33:
+                _context2.next = 38;
                 break;
 
-              case 33:
-                _context2.prev = 33;
+              case 35:
+                _context2.prev = 35;
                 _context2.t1 = _context2["catch"](8);
 
                 _iterator.e(_context2.t1);
 
-              case 36:
-                _context2.prev = 36;
+              case 38:
+                _context2.prev = 38;
 
                 _iterator.f();
 
-                return _context2.finish(36);
+                return _context2.finish(38);
 
-              case 39:
+              case 41:
                 //3.拼装content
                 content = "file_name,file_path,comment,user_name,user_id,created_at\n";
                 _iterator2 = _createForOfIteratorHelper(fullData);
@@ -23112,18 +23114,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 console.log(content);
-                _context2.prev = 43;
-                _context2.next = 46;
+                _context2.prev = 45;
+                // const result = await window.axios.post(
+                //   route("commits.store", props.repository.id),
+                //   {
+                //     title: demo.saveFormData.title,
+                //     description: demo.saveFormData.description,
+                //     content: content,
+                //   }
+                // );
+                // console.log(result);
+                _uploadCotentToCos = uploadCotentToCos('commit', content), url = _uploadCotentToCos.url;
+                console.log(url);
+                alert('uplaodtocos commit success');
+                _context2.next = 51;
                 return window.axios.post(route("commits.store", props.repository.id), {
                   title: demo.saveFormData.title,
                   description: demo.saveFormData.description,
-                  content: content
+                  url: url
                 });
 
-              case 46:
+              case 51:
                 result = _context2.sent;
+                console.log(result);
 
-                // console.log(result);
                 if (result.data.success) {
                   window.location.href = route("repository_audio.edit", {
                     repository: props.repository.id,
@@ -23134,20 +23148,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   alert(result.data.message);
                 }
 
-                _context2.next = 53;
+                _context2.next = 60;
                 break;
 
-              case 50:
-                _context2.prev = 50;
-                _context2.t2 = _context2["catch"](43);
+              case 56:
+                _context2.prev = 56;
+                _context2.t2 = _context2["catch"](45);
                 console.log(_context2.t2);
+                alert(_context2.t2.message);
 
-              case 53:
+              case 60:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[8, 33, 36, 39], [15, 26], [43, 50]]);
+        }, _callee2, null, [[8, 35, 38, 41], [15, 26], [45, 56]]);
       }));
 
       return function saveModalFormSubmitEvent() {
@@ -24318,7 +24333,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 9:
                 if ((_step = _iterator.n()).done) {
-                  _context.next = 35;
+                  _context.next = 36;
                   break;
                 }
 
@@ -24326,7 +24341,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 count++;
                 _context.prev = 12;
                 _context.next = 15;
-                return (0,_helper__WEBPACK_IMPORTED_MODULE_1__.uploadToCos)('audio', file.name);
+                return (0,_helper__WEBPACK_IMPORTED_MODULE_1__.uploadToCos)('audio', file);
 
               case 15:
                 _yield$uploadToCos = _context.sent;
@@ -24341,13 +24356,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 content += "," + _this.user.id;
                 content += "," + Date.now();
                 content += "\n";
-                _context.next = 32;
+                _context.next = 33;
                 break;
 
               case 28:
                 _context.prev = 28;
                 _context.t0 = _context["catch"](12);
                 console.log(_context.t0);
+                alert(_context.t0);
 
                 if (_context.t0.response) {
                   // The request was made and the server responded with a status code
@@ -24365,40 +24381,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log("Error", _context.t0.message);
                 }
 
-              case 32:
+              case 33:
                 //todo error handle
                 _this.percent = Math.ceil(count / files.length * 100);
 
-              case 33:
+              case 34:
                 _context.next = 9;
                 break;
 
-              case 35:
-                _context.next = 40;
+              case 36:
+                _context.next = 41;
                 break;
 
-              case 37:
-                _context.prev = 37;
+              case 38:
+                _context.prev = 38;
                 _context.t1 = _context["catch"](7);
 
                 _iterator.e(_context.t1);
 
-              case 40:
-                _context.prev = 40;
+              case 41:
+                _context.prev = 41;
 
                 _iterator.f();
 
-                return _context.finish(40);
+                return _context.finish(41);
 
-              case 43:
-                _context.prev = 43;
-                _context.next = 46;
+              case 44:
+                _context.prev = 44;
+                _context.next = 47;
                 return window.axios.post(route("commits.store", _this.repository.id), {
                   title: "初次保存",
                   content: content
                 });
 
-              case 46:
+              case 47:
                 result = _context.sent;
 
                 if (result.data.success) {
@@ -24410,20 +24426,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(result.data.message); //   alert(result.data.message);
                 }
 
-                _context.next = 53;
+                _context.next = 54;
                 break;
 
-              case 50:
-                _context.prev = 50;
-                _context.t2 = _context["catch"](43);
+              case 51:
+                _context.prev = 51;
+                _context.t2 = _context["catch"](44);
                 console.log(_context.t2); // alert(e.message);
 
-              case 53:
+              case 54:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[7, 37, 40, 43], [12, 28], [43, 50]]);
+        }, _callee, null, [[7, 38, 41, 44], [12, 28], [44, 51]]);
       }))();
     }
   }
@@ -25348,7 +25364,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     source_audio: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (_ref) {
       var row = _ref.row;
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <audio\n        v-if=\"row.file_path\"\n        :src=\"row.file_path\"\n        @play=\"onAudioPlayEvent($event, row)\"\n        controls\n        preload=\"metadata\"\n      ></audio> "), row.file_path ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_play_button, {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <audio\r\n        v-if=\"row.file_path\"\r\n        :src=\"row.file_path\"\r\n        @play=\"onAudioPlayEvent($event, row)\"\r\n        controls\r\n        preload=\"metadata\"\r\n      ></audio> "), row.file_path ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_play_button, {
         key: 0,
         row: row
       }, null, 8
@@ -25784,6 +25800,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getAuthorization": () => (/* binding */ getAuthorization),
 /* harmony export */   "getCommitAudio": () => (/* binding */ getCommitAudio),
 /* harmony export */   "nameSortBy": () => (/* binding */ nameSortBy),
+/* harmony export */   "uploadContentToCos": () => (/* binding */ uploadContentToCos),
 /* harmony export */   "uploadToCos": () => (/* binding */ uploadToCos)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -25927,22 +25944,23 @@ var getAuthorization = function getAuthorization(params) {
   });
 }; //type = audio, download, commit .etc
 
-var uploadToCos = function uploadToCos(type, filename) {
+var uploadToCos = function uploadToCos(type, file) {
   var Bucket = "diandu-1307995562";
   var Region = "ap-hongkong";
   var protocol = location.protocol === "https:" ? "https:" : "http:";
   var prefix = protocol + "//" + Bucket + ".cos." + Region + ".myqcloud.com/"; // prefix 用于拼接请求 url 的前缀，域名使用存储桶的默认域名
 
+  var url;
   return getAuthorization({
     method: "PUT",
     type: type,
-    filename: filename
+    filename: file.name
   }).then(function (info) {
     console.log(info);
-    alert(info);
+    alert('after sts');
     var auth = info.Authorization;
     var SecurityToken = info.SecurityToken;
-    url = prefix + camSafeUrlEncode(info.allowPrefix).replace(/%2F/g, "/");
+    url = prefix + camSafeUrlEncode(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
     var headers = {
       Authorization: auth
     };
@@ -25951,12 +25969,57 @@ var uploadToCos = function uploadToCos(type, filename) {
       headers["x-cos-security-token"] = SecurityToken;
     }
 
+    console.log('url ', url);
+    console.log('file', file);
+    alert('before put to cos');
     return axios.put(url, file, {
       headers: headers
     });
   }).then(function (response) {
+    alert('success put to cos');
     console.log(response);
-    alert(2);
+    return {
+      ETag: response.headers["etag"],
+      url: url
+    };
+  });
+}; //type = comimit
+//content String
+
+var uploadContentToCos = function uploadContentToCos(type, content) {
+  var Bucket = "diandu-1307995562";
+  var Region = "ap-hongkong";
+  var protocol = location.protocol === "https:" ? "https:" : "http:";
+  var prefix = protocol + "//" + Bucket + ".cos." + Region + ".myqcloud.com/"; // prefix 用于拼接请求 url 的前缀，域名使用存储桶的默认域名
+
+  var url;
+  return getAuthorization({
+    method: "PUT",
+    type: type,
+    filename: file.name
+  }).then(function (info) {
+    console.log(info);
+    alert('after sts');
+    var auth = info.Authorization;
+    var SecurityToken = info.SecurityToken;
+    url = prefix + camSafeUrlEncode(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
+    var headers = {
+      Authorization: auth
+    };
+
+    if (SecurityToken) {
+      headers["x-cos-security-token"] = SecurityToken;
+    }
+
+    console.log('url ', url);
+    console.log('file', file);
+    alert('before put to cos');
+    return axios.put(url, file, {
+      headers: headers
+    });
+  }).then(function (response) {
+    alert('success put to cos');
+    console.log(response);
     return {
       ETag: response.headers["etag"],
       url: url
@@ -26352,8 +26415,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Ziggy": () => (/* binding */ Ziggy)
 /* harmony export */ });
 var Ziggy = {
-  "url": "http:\/\/localhost:8000",
-  "port": 8000,
+  "url": "http:\/\/localhost:8002",
+  "port": 8002,
   "defaults": {},
   "routes": {
     "debugbar.openhandler": {
@@ -26605,6 +26668,10 @@ var Ziggy = {
         "user": "id"
       }
     },
+    "repositories.store": {
+      "uri": "repositories",
+      "methods": ["POST"]
+    },
     "repositories.index": {
       "uri": "repositories",
       "methods": ["GET", "HEAD"]
@@ -26612,10 +26679,6 @@ var Ziggy = {
     "repositories.create": {
       "uri": "repositories\/create",
       "methods": ["GET", "HEAD"]
-    },
-    "repositories.store": {
-      "uri": "repositories",
-      "methods": ["POST"]
     },
     "repositories.edit": {
       "uri": "repositories\/{repository}\/edit",
@@ -26697,10 +26760,6 @@ var Ziggy = {
     },
     "repositories.upload_image": {
       "uri": "upload_image",
-      "methods": ["POST"]
-    },
-    "repositories.upload_audio": {
-      "uri": "upload_audio",
       "methods": ["POST"]
     },
     "repositories.upload_download": {
@@ -26797,7 +26856,7 @@ var Ziggy = {
       }
     },
     "sts.store": {
-      "uri": "sts\/{type}",
+      "uri": "sts",
       "methods": ["POST"]
     },
     "sts.url": {
@@ -32715,7 +32774,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.my-dropdown[data-v-12b8bc7e] {\n  padding: 4px;\n  height: auto;\n  max-height: 300px;\n  min-width: 300px;\n  max-width: 600px;\n  overflow-y: auto;\n  border-radius: 4px;\n  border: 1px solid #dcdfe6;\n  background-color: #fff;\n}\n.list-item[data-v-12b8bc7e] {\n  padding: 2px;\n  line-height: 22px;\n  font-size: 16px;\n}\n.list-item[data-v-12b8bc7e]:hover {\n  background-color: #f5f7fa;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.my-dropdown[data-v-12b8bc7e] {\r\n  padding: 4px;\r\n  height: auto;\r\n  max-height: 300px;\r\n  min-width: 300px;\r\n  max-width: 600px;\r\n  overflow-y: auto;\r\n  border-radius: 4px;\r\n  border: 1px solid #dcdfe6;\r\n  background-color: #fff;\n}\n.list-item[data-v-12b8bc7e] {\r\n  padding: 2px;\r\n  line-height: 22px;\r\n  font-size: 16px;\n}\n.list-item[data-v-12b8bc7e]:hover {\r\n  background-color: #f5f7fa;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -58563,14 +58622,15 @@ https://github.com/xiangyuecn/Recorder
 }(function(window){
 "use strict";
 
-//兼容环境
-var LM="2022-03-05 11:53:19";
 var NOOP=function(){};
-//end 兼容环境 ****从以下开始copy源码*****
 
 var Recorder=function(set){
 	return new initFn(set);
 };
+Recorder.LM="2022-05-04 20:10";
+var RecTxt="Recorder";
+
+
 //是否已经打开了全局的麦克风录音，所有工作都已经准备好了，就等接收音频数据了
 Recorder.IsOpen=function(){
 	var stream=Recorder.Stream;
@@ -58592,7 +58652,7 @@ Recorder.IsOpen=function(){
 Recorder.BufferSize=4096;
 //销毁已持有的所有全局资源，当要彻底移除Recorder时需要显式的调用此方法
 Recorder.Destroy=function(){
-	CLog("Recorder Destroy");
+	CLog(RecTxt+" Destroy");
 	Disconnect();//断开可能存在的全局Stream、资源
 	
 	for(var k in DestroyList){
@@ -58681,8 +58741,7 @@ var Connect=function(streamStore){
 	
 	var scriptProcessor="ScriptProcessor";//一堆字符串名字，有利于压缩js
 	var audioWorklet="audioWorklet";
-	var recTxt="Recorder";
-	var recAudioWorklet=recTxt+" "+audioWorklet;
+	var recAudioWorklet=RecTxt+" "+audioWorklet;
 	var RecProc="RecProc";
 	
 	//古董级别的 ScriptProcessor 处理，目前所有浏览器均兼容，虽然是过时的方法，但更稳健，移动端性能比AudioWorklet强
@@ -58691,7 +58750,7 @@ var Connect=function(streamStore){
 	var oldScript=function(){
 		isWorklet=stream.isWorklet=false;
 		_Disconn_n(stream);
-		CLog("Connect采用老的"+scriptProcessor+"，"+(Recorder[ConnectEnableWorklet]?"但已":"可")+"设置"+recTxt+"."+ConnectEnableWorklet+"=true尝试启用"+audioWorklet+oldIsBest,3);
+		CLog("Connect采用老的"+scriptProcessor+"，"+(Recorder[ConnectEnableWorklet]?"但已":"可")+"设置"+RecTxt+"."+ConnectEnableWorklet+"=true尝试启用"+audioWorklet+oldIsBest,3);
 		
 		var process=stream._p=oldFn.call(ctx,bufferSize,1,1);//单声道，省的数据处理复杂
 		
@@ -58787,7 +58846,7 @@ var Connect=function(streamStore){
 			};
 			exec(0,e.data.val);
 		};
-		CLog("Connect采用"+audioWorklet+"方式，设置"+recTxt+"."+ConnectEnableWorklet+"=false可恢复老式"+scriptProcessor+oldIsBest,3);
+		CLog("Connect采用"+audioWorklet+"方式，设置"+RecTxt+"."+ConnectEnableWorklet+"=false可恢复老式"+scriptProcessor+oldIsBest,3);
 	};
 	
 	//如果start时的resume和下面的构造node同时进行，将会导致部分浏览器崩溃，源码assets中 ztest_chrome_bug_AudioWorkletNode.html 可测试。所以，将所有代码套到resume里面（不管catch），避免出现这个问题
@@ -58888,8 +58947,12 @@ Recorder.SampleData=function(pcmDatas,pcmSampleRate,newSampleRate,prevChunkInfo,
 		frameSize=option.frameType=="mp3"?1152:1;
 	};
 	
+	var nLen=pcmDatas.length;
+	if(index>nLen+1){
+		CLog("SampleData似乎传入了未重置chunk "+index+">"+nLen,3);
+	};
 	var size=0;
-	for(var i=index;i<pcmDatas.length;i++){
+	for(var i=index;i<nLen;i++){
 		size+=pcmDatas[i].length;
 	};
 	size=Math.max(0,size-Math.floor(offset));
@@ -58912,7 +58975,7 @@ Recorder.SampleData=function(pcmDatas,pcmSampleRate,newSampleRate,prevChunkInfo,
 		idx++;
 	};
 	//处理数据
-	for (var nl=pcmDatas.length;index<nl;index++) {
+	for (;index<nLen;index++) {
 		var o=pcmDatas[index];
 		var i=offset,il=o.length;
 		while(i<il){
@@ -58990,7 +59053,7 @@ var CLog=function(msg,err){
 		+":"+("0"+now.getSeconds()).substr(-2)
 		+"."+("00"+now.getMilliseconds()).substr(-3);
 	var recID=this&&this.envIn&&this.envCheck&&this.id;
-	var arr=["["+t+" Recorder"+(recID?":"+recID:"")+"]"+msg];
+	var arr=["["+t+" "+RecTxt+(recID?":"+recID:"")+"]"+msg];
 	var a=arguments,console=window.console||{};
 	var i=2,fn=console.log;
 	if(typeof(err)=="number"){
@@ -59018,7 +59081,7 @@ function initFn(set){
 	this.id=++ID;
 	
 	//如果开启了流量统计，这里将发送一个图片请求
-	Recorder.Traffic&&Recorder.Traffic();
+	Traffic();
 	
 	
 	var o={
@@ -59154,7 +59217,7 @@ Recorder.prototype=initFn.prototype={
 			if(/Permission|Allow/i.test(code)){
 				failCall("用户拒绝了录音权限",true);
 			}else if(window.isSecureContext===false){
-				failCall("无权录音(需https)");
+				failCall("浏览器禁止不安全页面录音，可开启https解决");
 			}else if(/Found/i.test(code)){//可能是非安全环境导致的没有设备
 				failCall(msg+"，无可用麦克风");
 			}else{
@@ -59245,13 +59308,21 @@ Recorder.prototype=initFn.prototype={
 		//envInfo={envName:"H5",canProcess:true}
 		var errMsg,This=this,set=This.set;
 		
+		//检测CPU的数字字节序，TypedArray字节序是个迷，直接拒绝罕见的大端模式，因为找不到这种CPU进行测试
+		var tag="CPU_BE";
+		if(!errMsg && !Recorder[tag] && !new Int8Array(new Int32Array([1]).buffer)[0]){
+			Traffic(tag); //如果开启了流量统计，这里将发送一个图片请求
+			errMsg="不支持"+tag+"架构";
+		};
+		
 		//编码器检查环境下配置是否可用
 		if(!errMsg){
-			if(This[set.type+"_envCheck"]){//编码器已实现环境检查
-				errMsg=This[set.type+"_envCheck"](envInfo,set);
+			var type=set.type;
+			if(This[type+"_envCheck"]){//编码器已实现环境检查
+				errMsg=This[type+"_envCheck"](envInfo,set);
 			}else{//未实现检查的手动检查配置是否有效
 				if(set.takeoffEncodeChunk){
-					errMsg=set.type+"类型不支持设置takeoffEncodeChunk";
+					errMsg=type+"类型"+(This[type]?"":"(未加载编码器)")+"不支持设置takeoffEncodeChunk";
 				};
 			};
 		};
@@ -59412,7 +59483,18 @@ Recorder.prototype=initFn.prototype={
 			};
 		};
 		//实时回调处理数据，允许修改或替换上次回调以来新增的数据 ，但是不允许修改已处理过的，不允许增删第一维数组 ，允许将第二维数组任意修改替换成空数组也可以
-		var asyncBegin=set.onProcess(buffers,powerLevel,duration,bufferSampleRate,bufferFirstIdx,asyncEnd);
+		var asyncBegin=0,procTxt="rec.set.onProcess";
+		try{
+			asyncBegin=set.onProcess(buffers,powerLevel,duration,bufferSampleRate,bufferFirstIdx,asyncEnd);
+		}catch(e){
+			//此错误显示不要用CLog，这样控制台内相同内容不会重复打印
+			console.error(procTxt+"回调出错是不允许的，需保证不会抛异常",e);
+		};
+		
+		var slowT=Date.now()-now;
+		if(slowT>30){
+			This.CLog(procTxt+"低性能，耗时"+slowT+"ms",3);
+		};
 		
 		if(asyncBegin===true){
 			//开启了异步模式，onProcess已接管buffers新数据，立即清空，避免出现未处理的数据
@@ -59632,21 +59714,24 @@ Recorder.prototype=initFn.prototype={
 
 };
 
-if(window.Recorder){
-	window.Recorder.Destroy();
+if(window[RecTxt]){
+	CLog("重复引入"+RecTxt,3);
+	window[RecTxt].Destroy();
 };
-window.Recorder=Recorder;
+window[RecTxt]=Recorder;
 
-//end ****copy源码结束*****
-Recorder.LM=LM;
+
 
 //流量统计用1像素图片地址，设置为空将不参与统计
 Recorder.TrafficImgUrl="//ia.51.la/go1?id=20469973&pvFlag=1";
-Recorder.Traffic=function(){
+var Traffic=Recorder.Traffic=function(report){
+	report=report?"/"+RecTxt+"/Report/"+report:"";
 	var imgUrl=Recorder.TrafficImgUrl;
 	if(imgUrl){
 		var data=Recorder.Traffic;
-		var idf=location.href.replace(/#.*/,"");
+		var m=/^(https?:..[^\/#]*\/?)[^#]*/i.exec(location.href)||[];
+		var host=(m[1]||"http://file/");
+		var idf=(m[0]||host)+report;
 		
 		if(imgUrl.indexOf("//")==0){
 			//给url加上http前缀，如果是file协议下，不加前缀没法用
@@ -59656,13 +59741,16 @@ Recorder.Traffic=function(){
 				imgUrl="http:"+imgUrl;
 			};
 		};
+		if(report){
+			imgUrl=imgUrl+"&cu="+encodeURIComponent(host+report);
+		};
 		
 		if(!data[idf]){
 			data[idf]=1;
 			
 			var img=new Image();
 			img.src=imgUrl;
-			CLog("Traffic Analysis Image: Recorder.TrafficImgUrl="+Recorder.TrafficImgUrl);
+			CLog("Traffic Analysis Image: "+(report||RecTxt+".TrafficImgUrl="+Recorder.TrafficImgUrl));
 		};
 	};
 };
@@ -60839,13 +60927,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _AudioRecorder_vue_vue_type_template_id_57601459__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AudioRecorder.vue?vue&type=template&id=57601459 */ "./resources/js/components/AudioRecorder.vue?vue&type=template&id=57601459");
 /* harmony import */ var _AudioRecorder_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AudioRecorder.vue?vue&type=script&lang=js */ "./resources/js/components/AudioRecorder.vue?vue&type=script&lang=js");
-/* harmony import */ var _www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_AudioRecorder_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AudioRecorder_vue_vue_type_template_id_57601459__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/AudioRecorder.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_AudioRecorder_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AudioRecorder_vue_vue_type_template_id_57601459__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/AudioRecorder.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -60867,13 +60955,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DownloadButton_vue_vue_type_template_id_96dd77f6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DownloadButton.vue?vue&type=template&id=96dd77f6 */ "./resources/js/components/DownloadButton.vue?vue&type=template&id=96dd77f6");
 /* harmony import */ var _DownloadButton_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DownloadButton.vue?vue&type=script&lang=js */ "./resources/js/components/DownloadButton.vue?vue&type=script&lang=js");
-/* harmony import */ var _www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DownloadButton_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DownloadButton_vue_vue_type_template_id_96dd77f6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/DownloadButton.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DownloadButton_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DownloadButton_vue_vue_type_template_id_96dd77f6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/DownloadButton.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -60896,7 +60984,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _EditAudio_vue_vue_type_template_id_e2e16fde_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditAudio.vue?vue&type=template&id=e2e16fde&scoped=true */ "./resources/js/components/EditAudio.vue?vue&type=template&id=e2e16fde&scoped=true");
 /* harmony import */ var _EditAudio_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditAudio.vue?vue&type=script&lang=js */ "./resources/js/components/EditAudio.vue?vue&type=script&lang=js");
 /* harmony import */ var _EditAudio_vue_vue_type_style_index_0_id_e2e16fde_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EditAudio.vue?vue&type=style&index=0&id=e2e16fde&scoped=true&lang=css */ "./resources/js/components/EditAudio.vue?vue&type=style&index=0&id=e2e16fde&scoped=true&lang=css");
-/* harmony import */ var _www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -60904,7 +60992,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_EditAudio_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EditAudio_vue_vue_type_template_id_e2e16fde_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-e2e16fde"],['__file',"resources/js/components/EditAudio.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_EditAudio_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EditAudio_vue_vue_type_template_id_e2e16fde_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-e2e16fde"],['__file',"resources/js/components/EditAudio.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -60926,13 +61014,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Icon_vue_vue_type_template_id_77a3cee4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Icon.vue?vue&type=template&id=77a3cee4 */ "./resources/js/components/Icon.vue?vue&type=template&id=77a3cee4");
 /* harmony import */ var _Icon_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Icon.vue?vue&type=script&lang=js */ "./resources/js/components/Icon.vue?vue&type=script&lang=js");
-/* harmony import */ var _www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Icon_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Icon_vue_vue_type_template_id_77a3cee4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/Icon.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Icon_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Icon_vue_vue_type_template_id_77a3cee4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/Icon.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -60954,13 +61042,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PlayButton_vue_vue_type_template_id_5aec3d9e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PlayButton.vue?vue&type=template&id=5aec3d9e */ "./resources/js/components/PlayButton.vue?vue&type=template&id=5aec3d9e");
 /* harmony import */ var _PlayButton_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlayButton.vue?vue&type=script&lang=js */ "./resources/js/components/PlayButton.vue?vue&type=script&lang=js");
-/* harmony import */ var _www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PlayButton_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PlayButton_vue_vue_type_template_id_5aec3d9e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/PlayButton.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PlayButton_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PlayButton_vue_vue_type_template_id_5aec3d9e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/PlayButton.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -60982,13 +61070,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RepositoryAffect_vue_vue_type_template_id_50d2f9ea__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RepositoryAffect.vue?vue&type=template&id=50d2f9ea */ "./resources/js/components/RepositoryAffect.vue?vue&type=template&id=50d2f9ea");
 /* harmony import */ var _RepositoryAffect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RepositoryAffect.vue?vue&type=script&lang=js */ "./resources/js/components/RepositoryAffect.vue?vue&type=script&lang=js");
-/* harmony import */ var _www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RepositoryAffect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RepositoryAffect_vue_vue_type_template_id_50d2f9ea__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/RepositoryAffect.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RepositoryAffect_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RepositoryAffect_vue_vue_type_template_id_50d2f9ea__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/RepositoryAffect.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -61011,7 +61099,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ShowAudio_vue_vue_type_template_id_12b8bc7e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShowAudio.vue?vue&type=template&id=12b8bc7e&scoped=true */ "./resources/js/components/ShowAudio.vue?vue&type=template&id=12b8bc7e&scoped=true");
 /* harmony import */ var _ShowAudio_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShowAudio.vue?vue&type=script&lang=js */ "./resources/js/components/ShowAudio.vue?vue&type=script&lang=js");
 /* harmony import */ var _ShowAudio_vue_vue_type_style_index_0_id_12b8bc7e_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShowAudio.vue?vue&type=style&index=0&id=12b8bc7e&scoped=true&lang=css */ "./resources/js/components/ShowAudio.vue?vue&type=style&index=0&id=12b8bc7e&scoped=true&lang=css");
-/* harmony import */ var _www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -61019,7 +61107,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_ShowAudio_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShowAudio_vue_vue_type_template_id_12b8bc7e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-12b8bc7e"],['__file',"resources/js/components/ShowAudio.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_ShowAudio_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShowAudio_vue_vue_type_template_id_12b8bc7e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-12b8bc7e"],['__file',"resources/js/components/ShowAudio.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -61041,13 +61129,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UploadDownload_vue_vue_type_template_id_73691854__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UploadDownload.vue?vue&type=template&id=73691854 */ "./resources/js/components/UploadDownload.vue?vue&type=template&id=73691854");
 /* harmony import */ var _UploadDownload_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UploadDownload.vue?vue&type=script&lang=js */ "./resources/js/components/UploadDownload.vue?vue&type=script&lang=js");
-/* harmony import */ var _www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UploadDownload_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UploadDownload_vue_vue_type_template_id_73691854__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/UploadDownload.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UploadDownload_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UploadDownload_vue_vue_type_template_id_73691854__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/UploadDownload.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -61069,13 +61157,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _InitRepository_vue_vue_type_template_id_742acd43__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InitRepository.vue?vue&type=template&id=742acd43 */ "./resources/js/pages/InitRepository.vue?vue&type=template&id=742acd43");
 /* harmony import */ var _InitRepository_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InitRepository.vue?vue&type=script&lang=js */ "./resources/js/pages/InitRepository.vue?vue&type=script&lang=js");
-/* harmony import */ var _www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_www_wwwroot_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_InitRepository_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_InitRepository_vue_vue_type_template_id_742acd43__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/pages/InitRepository.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_Users_liulei_test_diandu_blade_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_InitRepository_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_InitRepository_vue_vue_type_template_id_742acd43__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/pages/InitRepository.vue"]])
 /* hot reload */
 if (false) {}
 

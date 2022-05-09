@@ -83,34 +83,79 @@ export const getAuthorization = (params) => {
 };
 
 //type = audio, download, commit .etc
-export const uploadToCos = function (type, filename) {
+export const uploadToCos = function (type, file) {
     const Bucket = "diandu-1307995562";
     const Region = "ap-hongkong";
     const protocol = location.protocol === "https:" ? "https:" : "http:";
     const prefix = protocol + "//" + Bucket + ".cos." + Region + ".myqcloud.com/"; // prefix 用于拼接请求 url 的前缀，域名使用存储桶的默认域名
+    let url;
 
     return getAuthorization({
         method: "PUT",
         type,
-        filename,
+        filename:file.name,
     })
         .then((info) => {
             console.log(info);
-            alert(info);
+            alert('after sts');
             const auth = info.Authorization;
             const SecurityToken = info.SecurityToken;
-            url = prefix + camSafeUrlEncode(info.allowPrefix).replace(/%2F/g, "/");
+            url = prefix + camSafeUrlEncode(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
             const headers = { Authorization: auth };
             if (SecurityToken) {
                 headers["x-cos-security-token"] = SecurityToken;
             }
+            console.log('url ',  url);
+            console.log('file', file);
+            alert('before put to cos');
             return axios.put(url, file, {
                 headers: headers,
             });
         })
         .then(function (response) {
+            alert('success put to cos');
             console.log(response);
-            alert(2);
+            return {
+                ETag: response.headers["etag"],
+                url: url,
+            };
+        });
+};
+
+//type = comimit
+//content String
+export const uploadContentToCos = function (type, content) {
+    const Bucket = "diandu-1307995562";
+    const Region = "ap-hongkong";
+    const protocol = location.protocol === "https:" ? "https:" : "http:";
+    const prefix = protocol + "//" + Bucket + ".cos." + Region + ".myqcloud.com/"; // prefix 用于拼接请求 url 的前缀，域名使用存储桶的默认域名
+    let url;
+
+    return getAuthorization({
+        method: "PUT",
+        type,
+        filename:file.name,
+    })
+        .then((info) => {
+            console.log(info);
+            alert('after sts');
+            const auth = info.Authorization;
+            const SecurityToken = info.SecurityToken;
+            url = prefix + camSafeUrlEncode(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
+            const headers = { Authorization: auth };
+            if (SecurityToken) {
+                headers["x-cos-security-token"] = SecurityToken;
+            }
+            console.log('url ',  url);
+            console.log('file', file);
+            alert('before put to cos');
+            return axios.put(url, file, {
+                headers: headers,
+            });
+        })
+        .then(function (response) {
+            alert('success put to cos');
+            console.log(response);
             return {
                 ETag: response.headers["etag"],
                 url: url,

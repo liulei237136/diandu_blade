@@ -23,10 +23,13 @@ class StsController extends Controller
         switch($request->type){
             case 'audio':
                 // uploads/images/$folder/" . date("Ym/d", time());
-                $allowPrefix = "uploads/audio/" . date("Ym/d", time()) . '/' . auth()->id() . '-' . now() . '-' . Str::rand(4) . '-' . $request->filename;
+                 $allowPrefix = "/uploads/audio/" . date("Ym/d", time()) . '/' . auth()->id() . '_' . (now())->getTimestamp() . '_' . Str::random(4) . '/' . $request->filename;
+                 break;
+             case 'download':
+                 $allowPrefix = "/uploads/downloads/" . date("Ym/d", time()) . '/' . auth()->id() . '_' . (now())->getTimestamp() . '_' . Str::random(4) . '/' . $request->filename;
                 break;
-            case 'upload':
-                $allowPrefix = "uploads/downloads/" . date("Ym/d", time()) . '/' . auth()->id() . '-' . now() . '-' . Str::rand(4) . '-' . $request->filename;
+             case 'commit':
+                 $allowPrefix = "/uploads/commits/" . date("Ym/d", time()) . '/' . auth()->id() . '_' . (now())->getTimestamp() . '_' . Str::random(4) . '/' . $request->filename;
                 break;
         }
         $sts = new Sts();

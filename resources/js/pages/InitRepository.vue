@@ -91,7 +91,7 @@ export default {
         try {
         //   const { url } = await uploadToCos(file, this.user.id, 'audio');
         //uploadToCos(type, filename)
-          const { url } = await uploadToCos('audio', file.name);
+          const { url } = await uploadToCos('audio', file);
           console.log(url);
           alert(url);
 
@@ -104,6 +104,7 @@ export default {
           content += "\n";
         } catch (error) {
             console.log(error);
+            alert(error);
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx

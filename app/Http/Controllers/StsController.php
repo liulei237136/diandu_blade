@@ -56,16 +56,11 @@ class StsController extends Controller
 
         // 获取临时密钥，计算签名
         $tempKeys = $sts->getTempKeys($config);
-<<<<<<< HEAD
         // return $tempKeys;
         return [
             'tempKeys' => $tempKeys,
             'allowPrefix' => $allowPrefix,
         ];
-=======
-        $a = 1;
-        return $tempKeys;
->>>>>>> parent of 3901d7a... 1
     }
 
 

@@ -1,6 +1,6 @@
 @extends('layouts.repository')
 
-@section('repository_content')
+@section('conetent')
     <div class="container mt-4" id="downloadShow">
         <div class="col-md-10 offset-md-1">
             <div class="card ">

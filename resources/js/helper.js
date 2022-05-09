@@ -95,6 +95,8 @@ export const uploadToCos = function (type, filename) {
         filename,
     })
         .then((info) => {
+            console.log(info);
+            alert(info);
             const auth = info.Authorization;
             const SecurityToken = info.SecurityToken;
             url = prefix + camSafeUrlEncode(info.allowPrefix).replace(/%2F/g, "/");
@@ -107,6 +109,8 @@ export const uploadToCos = function (type, filename) {
             });
         })
         .then(function (response) {
+            console.log(response);
+            alert(2);
             return {
                 ETag: response.headers["etag"],
                 url: url,

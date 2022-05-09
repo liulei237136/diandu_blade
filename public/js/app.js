@@ -24318,7 +24318,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 9:
                 if ((_step = _iterator.n()).done) {
-                  _context.next = 33;
+                  _context.next = 35;
                   break;
                 }
 
@@ -24331,6 +24331,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 15:
                 _yield$uploadToCos = _context.sent;
                 url = _yield$uploadToCos.url;
+                console.log(url);
+                alert(url);
                 content += file.name;
                 content += "," + url;
                 content += "," + ""; //comment empty
@@ -24339,11 +24341,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 content += "," + _this.user.id;
                 content += "," + Date.now();
                 content += "\n";
-                _context.next = 30;
+                _context.next = 32;
                 break;
 
-              case 26:
-                _context.prev = 26;
+              case 28:
+                _context.prev = 28;
                 _context.t0 = _context["catch"](12);
                 console.log(_context.t0);
 
@@ -24363,40 +24365,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log("Error", _context.t0.message);
                 }
 
-              case 30:
+              case 32:
                 //todo error handle
                 _this.percent = Math.ceil(count / files.length * 100);
 
-              case 31:
+              case 33:
                 _context.next = 9;
                 break;
 
-              case 33:
-                _context.next = 38;
+              case 35:
+                _context.next = 40;
                 break;
 
-              case 35:
-                _context.prev = 35;
+              case 37:
+                _context.prev = 37;
                 _context.t1 = _context["catch"](7);
 
                 _iterator.e(_context.t1);
 
-              case 38:
-                _context.prev = 38;
+              case 40:
+                _context.prev = 40;
 
                 _iterator.f();
 
-                return _context.finish(38);
+                return _context.finish(40);
 
-              case 41:
-                _context.prev = 41;
-                _context.next = 44;
+              case 43:
+                _context.prev = 43;
+                _context.next = 46;
                 return window.axios.post(route("commits.store", _this.repository.id), {
                   title: "初次保存",
                   content: content
                 });
 
-              case 44:
+              case 46:
                 result = _context.sent;
 
                 if (result.data.success) {
@@ -24408,20 +24410,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(result.data.message); //   alert(result.data.message);
                 }
 
-                _context.next = 51;
+                _context.next = 53;
                 break;
 
-              case 48:
-                _context.prev = 48;
-                _context.t2 = _context["catch"](41);
+              case 50:
+                _context.prev = 50;
+                _context.t2 = _context["catch"](43);
                 console.log(_context.t2); // alert(e.message);
 
-              case 51:
+              case 53:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[7, 35, 38, 41], [12, 26], [41, 48]]);
+        }, _callee, null, [[7, 37, 40, 43], [12, 28], [43, 50]]);
       }))();
     }
   }
@@ -25936,6 +25938,8 @@ var uploadToCos = function uploadToCos(type, filename) {
     type: type,
     filename: filename
   }).then(function (info) {
+    console.log(info);
+    alert(info);
     var auth = info.Authorization;
     var SecurityToken = info.SecurityToken;
     url = prefix + camSafeUrlEncode(info.allowPrefix).replace(/%2F/g, "/");
@@ -25951,6 +25955,8 @@ var uploadToCos = function uploadToCos(type, filename) {
       headers: headers
     });
   }).then(function (response) {
+    console.log(response);
+    alert(2);
     return {
       ETag: response.headers["etag"],
       url: url

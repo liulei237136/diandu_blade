@@ -22,26 +22,16 @@ class RepositoryRequest extends FormRequest
                 // CREATE
             case 'POST':
                 return [
-<<<<<<< HEAD
                     'name'       => 'required|min:3|max:60',
                     'description'        => 'required|min:14|max:30720', //30*1024 //<p>xxx<br></p>
-=======
-                    'name'       => 'required|min:2',
-                    'description'        => 'required|min:3',
->>>>>>> parent of 3901d7a... 1
                     // 'category_id' => 'required|numeric',
                 ];
                 // UPDATE
             case 'PUT':
             case 'PATCH': {
                     return [
-<<<<<<< HEAD
                         'name'       => 'min:3|max:60',
                         'description'        => 'min:14|max:30720',
-=======
-                        'name'       => 'min:2',
-                        'description'        => 'min:3',
->>>>>>> parent of 3901d7a... 1
                         // 'category_id' => 'required|numeric',
                     ];
                 }

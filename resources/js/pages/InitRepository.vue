@@ -92,6 +92,8 @@ export default {
         //   const { url } = await uploadToCos(file, this.user.id, 'audio');
         //uploadToCos(type, filename)
           const { url } = await uploadToCos('audio', file.name);
+          console.log(url);
+          alert(url);
 
           content += file.name;
           content += "," + url;

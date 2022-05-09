@@ -4,7 +4,7 @@
 @section('title', 'test')
 @section('description', $repository->excerpt)
 
-@section('repository_content')
+@section('content')
     <div class="tw-bg-white tw-py-4">
         <div class="container ">
             <div class="operate">

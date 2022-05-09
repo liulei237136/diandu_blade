@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-    <title>@section('title', config('app.name')) @show</title>
+    <title>@section('title', config('app.name'))</title>
 
 
     <!-- Fonts -->

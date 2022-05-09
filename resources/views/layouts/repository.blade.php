@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', @yield('title'))
+@section('title', "@section('title')") @endsection
 
 @section('content')
     @include('layouts._repository_header')

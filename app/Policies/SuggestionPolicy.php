@@ -14,7 +14,7 @@ class SuggestionPolicy
 
     public function update(User $user, Suggestion $suggestion)
     {
-        return $user->id === $suggestion->user_id;
+        return $user->id == $suggestion->user_id;
     }
 
     public function delete(User $user, Suggestion $suggestion)

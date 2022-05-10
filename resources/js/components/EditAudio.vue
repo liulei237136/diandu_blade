@@ -179,7 +179,7 @@
             :src="row.recordUrl"
             @play="onAudioPlayEvent($event, row)"
             controls
-        preload="metadata"
+            preload="metadata"
           ></audio>
         </div>
       </div>
@@ -308,14 +308,14 @@ export default defineComponent({
         const file = record.recordFile ? record.recordFile : record.localFile;
 
         try {
-          const { url } = await uploadToCos('audio', file);
+          const { url } = await uploadToCos("audio", file);
           record.file_path = url;
           record.user_name = props.user.name;
           record.user_id = props.user.id;
           record.created_at = Date.now();
         } catch (error) {
-            console.log(error);
-            alert('after uploadtocos and error');
+          console.log(error);
+          alert("after uploadtocos and error");
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -353,28 +353,29 @@ export default defineComponent({
       console.log(content);
 
       try {
-        // const result = await window.axios.post(
-        //   route("commits.store", props.repository.id),
-        //   {
-        //     title: demo.saveFormData.title,
-        //     description: demo.saveFormData.description,
-        //     content: content,
-        //   }
-        // );
-        // console.log(result);
-        const {url} = uploadCotentToCos('commit', content);
-        console.log(url);
-        alert('uplaodtocos commit success');
         const result = await window.axios.post(
           route("commits.store", props.repository.id),
           {
             title: demo.saveFormData.title,
             description: demo.saveFormData.description,
-            url: url,
+            content: content,
           }
         );
         console.log(result);
 
+        // const { url } = uploadCotentToCos("commit", content);
+        // console.log(url);
+        // alert("uplaodtocos commit success");
+        // const result = await window.axios.post(
+        //   route("commits.store", props.repository.id),
+        //   {
+        //     title: demo.saveFormData.title,
+        //     description: demo.saveFormData.description,
+        //     // url: url,
+        //     content: content
+        //   }
+        // );
+        // console.log(result);
 
         if (result.data.success) {
           window.location.href = route("repository_audio.edit", {
@@ -436,9 +437,9 @@ export default defineComponent({
           field: "file_name",
           title: "音频文件名",
           width: 210,
-        //   sortable: true,
-        //   sortBy: nameSortBy,
-        //   titleHelp: { message: "注意要加上文件后缀" },
+          //   sortable: true,
+          //   sortBy: nameSortBy,
+          //   titleHelp: { message: "注意要加上文件后缀" },
           editRender: { name: "input", attrs: { placeholder: "请输入文件名" } },
           filters: [{ data: "" }],
           filterMethod: filterStringMethod,
@@ -472,7 +473,7 @@ export default defineComponent({
         {
           field: "comment",
           title: "备注",
-        //   titleHelp: { message: "用于过滤和查找" },
+          //   titleHelp: { message: "用于过滤和查找" },
           editRender: { name: "input", attrs: { placeholder: "请输入备注" } },
           filters: [{ data: "" }],
           filterMethod: filterStringMethod,

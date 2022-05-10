@@ -31,6 +31,7 @@ class RepositoryDownloadController extends Controller
 
     public function show(RepositoryDownload $download)
     {
+        // return 'show';
         $download->load('user', 'repository', 'commit');
 
         $repository = $download->repository;

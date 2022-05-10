@@ -23,8 +23,7 @@ class StoreRepositoryDownloadRequest extends FormRequest
             case 'POST':
                 return [
                     'name'       => 'required|min:3',
-                    // 'description'        => 'max:2048',
-                    'description'        => 'nullable',
+                    'description'        => 'max:30720',
                     'commit_id' => 'required|integer|exists:commits,id',
                     'file_path' => 'required|string|max:255',
                     'file_name' => 'required|string|max:255',
@@ -33,8 +32,10 @@ class StoreRepositoryDownloadRequest extends FormRequest
             case 'PUT':
             case 'PATCH': {
                     return [
-                        'name'       => 'required|min:3',
-                        'description'        => 'string|max:2048',
+                        'name'       => 'min:3',
+                        'description'        => 'max:30720',
+                        'file_path' => 'string|max:255',
+                        'file_name' => 'string|max:255',
                     ];
                 }
             case 'GET':
@@ -49,7 +50,7 @@ class StoreRepositoryDownloadRequest extends FormRequest
     {
         return [
             'name.min' => '下载名称必须至少3个字符',
-            'descrption.max' => '下载描述不能超过2048个字符',
+            'descrption.max' => '下载描述不能超过30720个字符',
         ];
     }
 }

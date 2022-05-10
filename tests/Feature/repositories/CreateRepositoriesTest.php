@@ -17,7 +17,7 @@ class CreateRepositoriesTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $this->post(route('repositories.store'), [])
+        $this->post(route('suggestions.store'), [])
             ->assertRedirect('/login');
     }
 
@@ -29,38 +29,38 @@ class CreateRepositoriesTest extends TestCase
 
         $this->assertCount(0, Repository::all());
 
-        $this->post(route('repositories.store'), $repository->toArray());
+        $this->post(route('suggestions.store'), $repository->toArray());
 
         $this->assertCount(1, Repository::all());
     }
 
-    public function test_name_is_required()
+    public function test_title_is_required()
     {
         $this->signIn()->withExceptionHandling();
 
-        $response = $this->post(route('repositories.store'), ['name' => null]);
+        $response = $this->post(route('suggestions.store'), ['title' => null]);
 
         $response->assertRedirect();
-        $response->assertSessionHasErrors('name');
+        $response->assertSessionHasErrors('title');
     }
 
-    public function test_name_length_between_3_and_60()
+    public function test_title_length_between_3_and_60()
     {
         $this->signIn()->withExceptionHandling();
 
-        $this->post(route('repositories.store'), ['name'=> Str::random(2),'description' => Str::random(20)])
-            ->assertSessionHasErrors('name');
-        $this->post(route('repositories.store'), ['name'=> Str::random(3),'name' => Str::random(20)])
-            ->assertSessionDoesntHaveErrors('name');
-        $this->post(route('repositories.store'), ['name'=> Str::random(61),'description' => Str::random(20)])
-            ->assertSessionHasErrors('name');
+        $this->post(route('suggestions.store'), ['title'=> Str::random(2),'description' => Str::random(20)])
+            ->assertSessionHasErrors('title');
+        $this->post(route('suggestions.store'), ['title'=> Str::random(3),'title' => Str::random(20)])
+            ->assertSessionDoesntHaveErrors('title');
+        $this->post(route('suggestions.store'), ['title'=> Str::random(61),'description' => Str::random(20)])
+            ->assertSessionHasErrors('title');
     }
 
     public function test_description_is_required()
     {
         $this->signIn()->withExceptionHandling();
 
-        $response = $this->post(route('repositories.store'), ['description' => null]);
+        $response = $this->post(route('suggestions.store'), ['description' => null]);
 
         $response->assertRedirect();
         $response->assertSessionHasErrors('description');
@@ -71,22 +71,22 @@ class CreateRepositoriesTest extends TestCase
     {
         $this->signIn()->withExceptionHandling();
 
-        $this->post(route('repositories.store'), ['name'=> 'test','description' => Str::random(13)])
+        $this->post(route('suggestions.store'), ['title'=> 'test','description' => Str::random(13)])
             ->assertSessionHasErrors('description');
-        $this->post(route('repositories.store'), ['name' => 'test', 'description' => Str::random(14)])
+        $this->post(route('suggestions.store'), ['title' => 'test', 'description' => Str::random(14)])
             ->assertSessionDoesntHaveErrors('description');
-        $this->post(route('repositories.store'), ['name'=> 'test','description' => Str::random(30*1024 + 1)])
+        $this->post(route('suggestions.store'), ['title'=> 'test','description' => Str::random(30*1024 + 1)])
             ->assertSessionHasErrors('description');
 
     }
 
-    public function test_authenticated_users_must_confirm_email_address_before_creating_repositories()
+    public function test_authenticated_users_must_confirm_email_address_before_creating_suggestions()
     {
         $this->signIn(create(User::class, ['email_verified_at' => null]));
 
         $repository = make(Repository::class);
 
-        $this->post(route('repositories.store'), $repository->toArray())
+        $this->post(route('suggestions.store'), $repository->toArray())
             ->assertRedirect(route('verification.notice'));
     }
 
@@ -94,9 +94,9 @@ class CreateRepositoriesTest extends TestCase
     {
         $this->signIn();
 
-        $repository = make(Repository::class, ['name' => '英语 英语']);
+        $repository = make(Repository::class, ['title' => '英语 英语']);
 
-        $this->post(route('repositories.store'), $repository->toArray());
+        $this->post(route('suggestions.store'), $repository->toArray());
 
         $storedRepository = Repository::first();
 

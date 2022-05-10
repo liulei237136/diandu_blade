@@ -94,20 +94,6 @@ class UpdateRepositoriesTest extends TestCase
             ->assertSessionHasErrors('name');
     }
 
-
-    // public function test_description_must_lengther_than_3()
-    // {
-    //     $this->signIn()->withExceptionHandling();
-
-    //     $repository = create(Repository::class, ['user_id' => auth()->id()]);
-
-    //     $this->put(route('repositories.update_description', $repository), ['description' => 'xx'])
-    //         ->assertInvalid('description');
-
-    //     $this->put(route('repositories.update_name', $repository), ['name' => 'xxx'])
-    //         ->assertValid('description');
-    // }
-
     //<p>xxx<br></p>
     public function test_description_length_between_14_and_30k()
     {

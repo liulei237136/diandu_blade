@@ -22983,7 +22983,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var saveModalFormSubmitEvent = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var errMap, _xGrid$value$getTable, fullData, _iterator, _step, record, file, _yield$uploadToCos, _url, content, _iterator2, _step2, _record, _uploadCotentToCos, url, result;
+        var errMap, _xGrid$value$getTable, fullData, _iterator, _step, record, file, _yield$uploadToCos, url, content, _iterator2, _step2, _record, result;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
@@ -23031,12 +23031,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 file = record.recordFile ? record.recordFile : record.localFile;
                 _context2.prev = 15;
                 _context2.next = 18;
-                return (0,_helper_js__WEBPACK_IMPORTED_MODULE_6__.uploadToCos)('audio', file);
+                return (0,_helper_js__WEBPACK_IMPORTED_MODULE_6__.uploadToCos)("audio", file);
 
               case 18:
                 _yield$uploadToCos = _context2.sent;
-                _url = _yield$uploadToCos.url;
-                record.file_path = _url;
+                url = _yield$uploadToCos.url;
+                record.file_path = url;
                 record.user_name = props.user.name;
                 record.user_id = props.user.id;
                 record.created_at = Date.now();
@@ -23047,7 +23047,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.prev = 26;
                 _context2.t0 = _context2["catch"](15);
                 console.log(_context2.t0);
-                alert('after uploadtocos and error');
+                alert("after uploadtocos and error");
 
                 if (_context2.t0.response) {
                   // The request was made and the server responded with a status code
@@ -23115,28 +23115,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 console.log(content);
                 _context2.prev = 45;
+                _context2.next = 48;
+                return window.axios.post(route("commits.store", props.repository.id), {
+                  title: demo.saveFormData.title,
+                  description: demo.saveFormData.description,
+                  content: content
+                });
+
+              case 48:
+                result = _context2.sent;
+                console.log(result); // const { url } = uploadCotentToCos("commit", content);
+                // console.log(url);
+                // alert("uplaodtocos commit success");
                 // const result = await window.axios.post(
                 //   route("commits.store", props.repository.id),
                 //   {
                 //     title: demo.saveFormData.title,
                 //     description: demo.saveFormData.description,
-                //     content: content,
+                //     // url: url,
+                //     content: content
                 //   }
                 // );
                 // console.log(result);
-                _uploadCotentToCos = uploadCotentToCos('commit', content), url = _uploadCotentToCos.url;
-                console.log(url);
-                alert('uplaodtocos commit success');
-                _context2.next = 51;
-                return window.axios.post(route("commits.store", props.repository.id), {
-                  title: demo.saveFormData.title,
-                  description: demo.saveFormData.description,
-                  url: url
-                });
-
-              case 51:
-                result = _context2.sent;
-                console.log(result);
 
                 if (result.data.success) {
                   window.location.href = route("repository_audio.edit", {
@@ -23148,21 +23148,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   alert(result.data.message);
                 }
 
-                _context2.next = 60;
+                _context2.next = 57;
                 break;
 
-              case 56:
-                _context2.prev = 56;
+              case 53:
+                _context2.prev = 53;
                 _context2.t2 = _context2["catch"](45);
                 console.log(_context2.t2);
                 alert(_context2.t2.message);
 
-              case 60:
+              case 57:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[8, 35, 38, 41], [15, 26], [45, 56]]);
+        }, _callee2, null, [[8, 35, 38, 41], [15, 26], [45, 53]]);
       }));
 
       return function saveModalFormSubmitEvent() {
@@ -24190,7 +24190,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper */ "./resources/js/helper.js");
-// import CosAuth from "./cos";
  // 请求用到的参数
 
 var Bucket = "diandu-1307995562";
@@ -24210,39 +24209,40 @@ var prefix = protocol + "//" + Bucket + ".cos." + Region + ".myqcloud.com/"; // 
       filePath: "",
       fileName: "",
       message: "",
-      key: null
+      url: ""
     };
   },
   methods: {
     onChange: function onChange(e) {
-      var that = this;
+      var _this = this;
+
       var files = e.target.files;
       if (!files.length) return;
       this.processing = true;
-      this.uploadAudio(files[0]).then(function (_ref) {
-        var ETag = _ref.ETag,
-            url = _ref.url;
-        that.filePath = that.key;
-        that.message = "\u4E0A\u4F20\u6210\u529F: ".concat(files[0].name);
+      this.uploadAudio(files[0]).then(function (result) {
+        //   this.filePath =  this.url;
+        _this.fileName = files[0].name;
+        _this.message = "\u4E0A\u4F20\u6210\u529F: ".concat(files[0].name);
       })["catch"](function (e) {
-        that.message = e.message;
+        _this.message = e.message;
+        alert(e.message);
       })["finally"](function () {
-        that.processing = false;
+        _this.processing = false;
       });
     },
     uploadAudio: function uploadAudio(file) {
-      var that = this;
-      var key = "download/".concat(this.repository_id, "/").concat(this.user_id, "/").concat(Date.now(), "/").concat(file.name);
-      that.key = key;
-      that.fileName = file.name;
+      var _this2 = this;
+
       return (0,_helper__WEBPACK_IMPORTED_MODULE_0__.getAuthorization)({
-        Method: "PUT",
-        Pathname: "/" + key,
-        route: route("sts.store")
+        method: "PUT",
+        type: "download",
+        filename: file.name
       }).then(function (info) {
+        alert("after download info");
         var auth = info.Authorization;
         var SecurityToken = info.SecurityToken;
-        var url = prefix + (0,_helper__WEBPACK_IMPORTED_MODULE_0__.camSafeUrlEncode)(that.key).replace(/%2F/g, "/");
+        _this2.filePath = info.allowPrefix;
+        _this2.url = prefix + (0,_helper__WEBPACK_IMPORTED_MODULE_0__.camSafeUrlEncode)(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
         var headers = {
           Authorization: auth
         };
@@ -24251,10 +24251,10 @@ var prefix = protocol + "//" + Bucket + ".cos." + Region + ".myqcloud.com/"; // 
           headers["x-cos-security-token"] = SecurityToken;
         }
 
-        return axios.put(url, file, {
+        return axios.put(_this2.url, file, {
           headers: headers,
           onUploadProgress: function onUploadProgress(e) {
-            that.percent = Math.round(e.loaded / e.total * 10000) / 100;
+            _this2.percent = Math.round(e.loaded / e.total * 10000) / 100;
           }
         });
       });
@@ -25451,7 +25451,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.$refs.input.click();
     })
-  }, [_hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.file_path ? "重新上传" : "请上传用于下载的文件"), 1
+  }, [_hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.filePath ? "重新上传" : "请上传用于下载的文件"), 1
   /* TEXT */
   )]), $data.message ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.message), 1
   /* TEXT */
@@ -25473,7 +25473,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.file_path]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "tw-hidden",
     type: "text",
-    required: "",
     name: "file_path",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.filePath = $event;
@@ -25483,7 +25482,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.filePath]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "tw-hidden",
     type: "text",
-    required: "",
     name: "file_name",
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $data.fileName = $event;

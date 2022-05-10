@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Handlers\ImageUploadHandler;
 use App\Models\Suggestion;
 use App\Http\Requests\StoreSuggestionRequest;
+use App\Http\Requests\SuggestionRequest;
 use App\Http\Requests\UpdateSuggestionRequest;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,7 @@ class SuggestionController extends Controller
         return view('suggestions.create', compact('suggestion'));
     }
 
-    public function store(StoreSuggestionRequest $request, Suggestion $suggestion)
+    public function store(SuggestionRequest $request, Suggestion $suggestion)
     {
 
         $suggestion->title = $request->title;
@@ -49,7 +50,7 @@ class SuggestionController extends Controller
         return view('suggestions.edit', compact('suggestion'));
     }
 
-    public function update(UpdateSuggestionRequest $request, Suggestion $suggestion)
+    public function update(SuggestionRequest $request, Suggestion $suggestion)
     {
         $this->authorize('update', $suggestion);
 

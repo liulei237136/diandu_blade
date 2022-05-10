@@ -147,11 +147,11 @@ Route::post('/sts', [StsController::class, 'store'])->name('sts.store');
 
 // Route::post('sts_img', [StsImgController::class, 'store'])->name('sts_img.store');
 
-Route::get('test-download',function(){
-    return view('repositories.downloads.test');
-});
+// Route::get('test-download',function(){
+//     return view('repositories.downloads.test');
+// });
 
-Route::get('test-download-url', [StsController::class, 'url'])->name('sts.url');
+// Route::get('test-download-url', [StsController::class, 'url'])->name('sts.url');
 
 Route::resource('tutorials', TutorialController::class,['only' => ['index', 'create', 'store','show','edit', 'update','destroy']]);
 Route::post('tutorials.upload_image', [TutorialController::class,'uploadImage'])->name('tutorials.upload_image');

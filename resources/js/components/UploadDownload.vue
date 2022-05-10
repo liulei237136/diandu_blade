@@ -22,7 +22,7 @@
           v-on:click="$refs.input.click()"
         >
           <i class="fa fa-upload"></i>&nbsp;<span>{{
-            this.file_path ? "重新上传" : "请上传用于下载的文件"
+            filePath ? "重新上传" : "请上传用于下载的文件"
           }}</span>
         </button>
         <span v-if="message">{{ message }}</span>
@@ -33,13 +33,12 @@
     <div v-show="file_path" class="tw-mt-4 tw-py-2 tw-flex">
       <span>已上传文件:</span><span>{{ file_name }}</span>
     </div>
-    <input class="tw-hidden" type="text" required name="file_path" v-model="filePath" />
-    <input class="tw-hidden" type="text" required name="file_name" v-model="fileName" />
+    <input class="tw-hidden" type="text" name="file_path" v-model="filePath" />
+    <input class="tw-hidden" type="text" name="file_name" v-model="fileName" />
   </div>
 </template>
 
 <script>
-// import CosAuth from "./cos";
 import { camSafeUrlEncode, getAuthorization } from "../helper";
 
 // 请求用到的参数
@@ -60,53 +59,50 @@ export default {
       filePath: "",
       fileName: "",
       message: "",
-      key: null,
+      url:"",
     };
   },
   methods: {
     onChange(e) {
-      const that = this;
       const files = e.target.files;
       if (!files.length) return;
 
       this.processing = true;
       this.uploadAudio(files[0])
-        .then(function ({ ETag, url }) {
-          that.filePath = that.key;
-          that.message = `上传成功: ${files[0].name}`;
+        .then((result) => {
+        //   this.filePath =  this.url;
+          this.fileName = files[0].name;
+          this.message = `上传成功: ${files[0].name}`;
         })
         .catch((e) => {
-          that.message = e.message;
+          this.message = e.message;
+          alert(e.message);
         })
         .finally(() => {
-          that.processing = false;
+          this.processing = false;
         });
     },
 
     uploadAudio(file) {
-      const that = this;
-      var key = `download/${this.repository_id}/${this.user_id}/${Date.now()}/${
-        file.name
-      }`;
-      that.key = key;
-      that.fileName = file.name;
-
       return getAuthorization({
-        Method: "PUT",
-        Pathname: "/" + key,
-        route: route("sts.store"),
-      }).then(function (info) {
+        method: "PUT",
+        type: "download",
+        filename: file.name,
+      }).then((info)=> {
+        alert("after download info");
         const auth = info.Authorization;
         const SecurityToken = info.SecurityToken;
-        const url = prefix + camSafeUrlEncode(that.key).replace(/%2F/g, "/");
+        this.filePath = info.allowPrefix;
+        this.url =
+          prefix + camSafeUrlEncode(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
         const headers = { Authorization: auth };
         if (SecurityToken) {
           headers["x-cos-security-token"] = SecurityToken;
         }
-        return axios.put(url, file, {
+        return axios.put(this.url, file, {
           headers: headers,
           onUploadProgress: (e) => {
-            that.percent = Math.round((e.loaded / e.total) * 10000) / 100;
+            this.percent = Math.round((e.loaded / e.total) * 10000) / 100;
           },
         });
       });

@@ -46,13 +46,38 @@ class UpdateSuggestionsTest extends TestCase
         $this->assertDatabaseHas('suggestions', ['title' => $title]);
     }
 
+    public function test_title_is_required()
+    {
+        $this->signIn()->withExceptionHandling();
+
+        $suggestion = create(Suggestion::class, ['user_id' => auth()->id()]);
+
+        $this->put(route('suggestions.update', $suggestion), ['title' => null, 'content' => Str::random(20)])
+        ->assertStatus(302)
+        ->assertSessionHasErrors('title')
+        ->assertSessionDoesntHaveErrors('content');
+    }
+
+    public function test_content_is_required()
+    {
+        $this->signIn()->withExceptionHandling();
+
+        $suggestion = create(Suggestion::class, ['user_id' => auth()->id()]);
+
+        $this->put(route('suggestions.update', $suggestion), ['title' => Str::random(20), 'content' => null])
+        ->assertStatus(302)
+        ->assertSessionHasErrors('content')
+        ->assertSessionDoesntHaveErrors('title');
+    }
+
     public function test_title_length_between_3_and_60()
     {
         $this->signIn()->withExceptionHandling();
 
         $suggestion = create(Suggestion::class, ['user_id' => auth()->id()]);
 
-        $this->put(route('suggestions.update', $suggestion), ['title' => Str::random(2)])
+        $this->put(route('suggestions.update', $suggestion), ['title' => Str::random(2) ])
+            ->assertStatus(302)
             ->assertSessionHasErrors('title');
         $this->put(route('suggestions.update', $suggestion), ['title' => Str::random(3)])
             ->assertStatus(302)
@@ -61,6 +86,7 @@ class UpdateSuggestionsTest extends TestCase
             ->assertStatus(302)
             ->assertSessionDoesntHaveErrors('title');
         $this->put(route('suggestions.update', $suggestion), ['title' => Str::random(61)])
+            ->assertStatus(302)
             ->assertSessionHasErrors('title');
     }
 
@@ -71,29 +97,15 @@ class UpdateSuggestionsTest extends TestCase
 
         $suggestion = create(Suggestion::class, ['user_id' => auth()->id()]);
 
-        $this->put(route('suggestions.update', $suggestion), ['content' => Str::random(3)])
-            // ->assertValid('content');
+        $this->put(route('suggestions.update', $suggestion), ['content' => Str::random(2)])
+            ->assertStatus(302)
             ->assertSessionHasErrors('content');
         $this->put(route('suggestions.update', $suggestion), ['content' => Str::random(14)])
+            ->assertStatus(302)
             ->assertSessionDoesntHaveErrors('content');
         $this->put(route('suggestions.update', $suggestion), ['content' => Str::random(30 * 1024 + 1)])
+            ->assertStatus(302)
             ->assertSessionHasErrors('content');
     }
 
-
-    /**
-     * @group online
-     */
-    public function test_get_slug_when_update_a_repository_name()
-    {
-        $this->signIn();
-
-        $suggestion = create(Suggestion::class, ['name' => '英语 英语', 'user_id' => auth()->id()]);
-
-        $this->put(route('suggestions.update_name', $suggestion), ['name' => '中文 中文']);
-
-        $storedRepository = Suggestion::first();
-
-        $this->assertEquals('chinese-chinese', $storedRepository->slug);
-    }
 }

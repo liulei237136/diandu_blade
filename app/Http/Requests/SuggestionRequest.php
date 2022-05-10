@@ -22,12 +22,12 @@ class SuggestionRequest extends FormRequest
                 ];
                 // UPDATE
             case 'PUT':
-            case 'PATCH': {
-                    return [
-                        'title'       => 'min:3|max:60',
-                        'content'        => 'min:14|max:30720',
-                    ];
-                }
+            case 'PATCH':
+                return [
+                    'title'       => 'required|min:3|max:60',
+                    'content'        => 'required|min:14|max:30720',
+                ];
+
             case 'GET':
             case 'DELETE':
             default: {

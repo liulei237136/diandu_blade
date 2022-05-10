@@ -141,21 +141,13 @@ Route::get('/repository-downloads/{download}', [RepositoryDownloadController::cl
 
 Route::post('/repository-downloads-store/repositories/{repository}', [RepositoryDownloadController::class, 'store'])->name('repository-downloads.store');
 
+
 Route::post('/sts', [StsController::class, 'store'])->name('sts.store');
 
-// Route::post('sts_audio', [StsAudioController::class, 'store'])->name('sts_audio.store');
-
-// Route::post('sts_img', [StsImgController::class, 'store'])->name('sts_img.store');
-
-// Route::get('test-download',function(){
-//     return view('repositories.downloads.test');
-// });
-
-// Route::get('test-download-url', [StsController::class, 'url'])->name('sts.url');
 
 Route::resource('tutorials', TutorialController::class,['only' => ['index', 'create', 'store','show','edit', 'update','destroy']]);
 Route::post('tutorials.upload_image', [TutorialController::class,'uploadImage'])->name('tutorials.upload_image');
 
-Route::resource('suggestions', SuggestionController::class,['only' => ['index', 'create', 'store','show','edit', 'update','destroy']]);
 
+Route::resource('suggestions', SuggestionController::class,['only' => ['index', 'create', 'store','show','edit', 'update','destroy']]);
 Route::post('suggestions.upload_image', [SuggestionController::class,'uploadImage'])->name('suggestions.upload_image');

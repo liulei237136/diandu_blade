@@ -48,6 +48,9 @@ export const nameSortBy = ({ row, column }) => {
     }
 };
 
+
+
+
 // 对更多字符编码的 url encode 格式
 export const camSafeUrlEncode = (str) => {
     return encodeURIComponent(str)
@@ -96,8 +99,7 @@ export const uploadToCos = function (type, file) {
         filename:file.name,
     })
         .then((info) => {
-            console.log(info);
-            alert('after sts');
+            // alert('after sts');
             const auth = info.Authorization;
             const SecurityToken = info.SecurityToken;
             url = prefix + camSafeUrlEncode(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
@@ -105,16 +107,13 @@ export const uploadToCos = function (type, file) {
             if (SecurityToken) {
                 headers["x-cos-security-token"] = SecurityToken;
             }
-            console.log('url ',  url);
-            console.log('file', file);
-            alert('before put to cos');
+            // alert('before put to cos');
             return axios.put(url, file, {
                 headers: headers,
             });
         })
         .then(function (response) {
-            alert('success put to cos');
-            console.log(response);
+            // alert('success put to cos');
             return {
                 ETag: response.headers["etag"],
                 url: url,
@@ -138,7 +137,7 @@ export const uploadContentToCos = function (type, content) {
     })
         .then((info) => {
             console.log(info);
-            alert('after sts');
+            // alert('after sts');
             const auth = info.Authorization;
             const SecurityToken = info.SecurityToken;
             url = prefix + camSafeUrlEncode(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
@@ -148,13 +147,13 @@ export const uploadContentToCos = function (type, content) {
             }
             console.log('url ',  url);
             console.log('file', file);
-            alert('before put to cos');
+            // alert('before put to cos');
             return axios.put(url, file, {
                 headers: headers,
             });
         })
         .then(function (response) {
-            alert('success put to cos');
+            // alert('success put to cos');
             console.log(response);
             return {
                 ETag: response.headers["etag"],
@@ -162,5 +161,4 @@ export const uploadContentToCos = function (type, content) {
             };
         });
 };
-
 

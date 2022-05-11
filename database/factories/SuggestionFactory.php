@@ -17,11 +17,6 @@ class SuggestionFactory extends Factory
      */
     public function definition()
     {
-        // $table->string('title');
-        // $table->text('content');
-        // $table->foreignId('user_id');
-        // $table->timestamps();
-
         return [
             'title' => $this->faker->sentence(),
             'content' => $this->faker->text(),

@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.0.0",
+        "@octokit/core": "^3.6.0",
         "jquery": "^3.6.0",
         "recorder-core": "^1.1.21080800",
         "simplemde": "^1.11.2",

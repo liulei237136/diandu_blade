@@ -10,8 +10,6 @@ class SuggestionPolicy
 {
     use HandlesAuthorization;
 
-
-
     public function update(User $user, Suggestion $suggestion)
     {
         return $user->id == $suggestion->user_id;
@@ -19,7 +17,7 @@ class SuggestionPolicy
 
     public function delete(User $user, Suggestion $suggestion)
     {
-        return $user->id === $suggestion->user_id;
+        return $user->id == $suggestion->user_id;
     }
 
 

@@ -25954,8 +25954,7 @@ var uploadToCos = function uploadToCos(type, file) {
     type: type,
     filename: file.name
   }).then(function (info) {
-    console.log(info);
-    alert('after sts');
+    // alert('after sts');
     var auth = info.Authorization;
     var SecurityToken = info.SecurityToken;
     url = prefix + camSafeUrlEncode(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
@@ -25965,17 +25964,14 @@ var uploadToCos = function uploadToCos(type, file) {
 
     if (SecurityToken) {
       headers["x-cos-security-token"] = SecurityToken;
-    }
+    } // alert('before put to cos');
 
-    console.log('url ', url);
-    console.log('file', file);
-    alert('before put to cos');
+
     return axios.put(url, file, {
       headers: headers
     });
   }).then(function (response) {
-    alert('success put to cos');
-    console.log(response);
+    // alert('success put to cos');
     return {
       ETag: response.headers["etag"],
       url: url
@@ -25996,8 +25992,8 @@ var uploadContentToCos = function uploadContentToCos(type, content) {
     type: type,
     filename: file.name
   }).then(function (info) {
-    console.log(info);
-    alert('after sts');
+    console.log(info); // alert('after sts');
+
     var auth = info.Authorization;
     var SecurityToken = info.SecurityToken;
     url = prefix + camSafeUrlEncode(info.allowPrefix.substr(1)).replace(/%2F/g, "/");
@@ -26010,13 +26006,13 @@ var uploadContentToCos = function uploadContentToCos(type, content) {
     }
 
     console.log('url ', url);
-    console.log('file', file);
-    alert('before put to cos');
+    console.log('file', file); // alert('before put to cos');
+
     return axios.put(url, file, {
       headers: headers
     });
   }).then(function (response) {
-    alert('success put to cos');
+    // alert('success put to cos');
     console.log(response);
     return {
       ETag: response.headers["etag"],

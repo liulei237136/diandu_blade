@@ -20,6 +20,7 @@
 
             <form class="d-flex" action="/search" method="GET">
                 <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
+                <input type="hidden" name="order" value="match">
               </form>
 
             <!-- Right Side Of Navbar -->

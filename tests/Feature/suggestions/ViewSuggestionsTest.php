@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\suggestions;
 
+use App\Models\Suggestion;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -10,21 +11,23 @@ class ViewSuggestionsTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_can_view_suggestions()
+    public function test_guest_can_view_suggestions_list()
     {
-        $response = $this->get(route('repositories.index', ['order' => 'recent']));
+        $suggestion = create(Suggestion::class);
 
-        $response->assertStatus(200);
+        $this->get(route('suggestions.index'))
+            ->assertStatus(200)
+            ->assertSee($suggestion->title)
+            ->assertSee($suggestion->user->name);
     }
 
-    public function test_user_can_view_audio_tab_page_when_repository_created()
+    public function test_guest_can_view_a_suggestion()
     {
+        $suggestion = create(Suggestion::class);
 
-        $repository = create(Repository::class);
-
-        $response = $this->get(route('repository_audio.show', $repository));
-
-        $response->assertStatus(200);
+        $this->get(route('suggestions.show', 1))
+            ->assertStatus(200)
+            ->assertSee($suggestion->title)
+            ->assertSee($suggestion->user->name);
     }
-
 }

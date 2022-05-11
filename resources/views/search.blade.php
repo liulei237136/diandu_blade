@@ -3,8 +3,7 @@
 @section('title', '搜索结果')
 
 @section('content')
-
-    <div class="row mb-5 mt-4">
+    <div class="container row mb-5 mt-4" style="margin-left:auto; margin-right:auto;">
         <div class="col-lg-9 col-md-9 repository-list">
             <div class="card ">
                 <div class="card-header bg-transparent">

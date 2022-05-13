@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://unpkg.com/vue@3"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sha.js@2.4.11/sha.js"></script> --}}
 </head>
 
 <body>
@@ -17,6 +18,10 @@
         import {
             Octokit
         } from "https://cdn.skypack.dev/@octokit/core";
+        //sha
+        // import Sha from "https://cdn.jsdelivr.net/npm/sha.js@2.4.11/sha.js";
+
+        //end sha
         const getOctokit = () => {
             return new Octokit({
                 auth: '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'
@@ -33,13 +38,18 @@
         // }
 
         function getBase64(audioFile) {
+            // return new Promise((resolve, reject) => {
+            //     resolve(audioFile);
+            // });
             return new Promise((resolve, reject) => {
                 var reader = new FileReader();
                 reader.readAsDataURL(audioFile);
                 reader.onload = function(event) {
-                    var data = event.target.result.split(','),
-                        decodedImageData = btoa(data[
-                            1]); // the actual conversion of data from binary to base64 format
+                    // var data = event.target.result.split(','),
+                        // decodedImageData = btoa(data[
+                            // 1]); // the actual conversion of data from binary to base64 format
+                    // const decodedImageData = btoa(event.target.result);
+                    const decodedImageData = event.target.result.split(',')[1];
                     resolve(decodedImageData);
                 };
                 reader.onerror = error => reject(error);
@@ -50,13 +60,15 @@
         const addFile = (repo, path, base64_content) => {
             return getOctokit().request('PUT /repos/{owner}/{repo}/contents/{path}', {
                 // 'content-type': 'application/vnd.github.VERSION.object'
-                // accept: 'application/vnd.github.v3+json',
+                accept: 'application/vnd.github.v3+json',
+                // 'content-type': 'audio/mpeg',
                 owner: 'liuleisqc',
                 repo: repo,
                 path: path,
                 message: 'my commit message',
-                // content: base64_content,
                 content: base64_content,
+                // sha: shajs('sha256').update(base64_content).digest('hex'),
+                // content: audioFile,
             })
         }
 

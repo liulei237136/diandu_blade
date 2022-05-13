@@ -1,0 +1,6 @@
+https://ghproxy.com/  速度快
+https://jsdelivr.com  速度慢
+ http://raw.githubusercontent.com 替换为 http://raw.staticdn.net 即可加速。 速度哦快
+ https://github.91chi.fun 自己建代理，便宜，不自建的话相当于jsdelivr/
+ https://github.com/hunshcn/gh-proxy   自己建代理，便宜，不自建的话相当于jsdelivr
+ https://www.7ed.net/

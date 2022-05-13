@@ -64,7 +64,8 @@
 </template>
 
 <script>
-import {uploadToCos} from "../helper";
+import { uploadToCos } from "../helper";
+import {createRepo, addFile} from "../github";
 
 export default {
   props: {
@@ -89,9 +90,9 @@ export default {
       for (let file of files) {
         count++;
         try {
-        //   const { url } = await uploadToCos(file, this.user.id, 'audio');
-        //uploadToCos(type, filename)
-          const { url } = await uploadToCos('audio', file);
+          //   const { url } = await uploadToCos(file, this.user.id, 'audio');
+          //uploadToCos(type, filename)
+        //   const { url } = await uploadToCos("audio", file);
           console.log(url);
           alert(url);
 
@@ -103,8 +104,8 @@ export default {
           content += "," + Date.now();
           content += "\n";
         } catch (error) {
-            console.log(error);
-            alert(error);
+          console.log(error);
+          alert(error);
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -141,7 +142,7 @@ export default {
           });
         } else {
           console.log(result.data.message);
-        //   alert(result.data.message);
+          //   alert(result.data.message);
         }
       } catch (e) {
         console.log(e);
